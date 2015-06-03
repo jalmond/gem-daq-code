@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<node id="top">
+  <node id="BOARD_ID"  address="0x0"  permission="r"
+	module="${BUILD_HOME}/data/four_char_id.xml"
+	description="GLIB board ID code">
+  </node> <!--end board_id -->
+  
+  <node id="SYSTEM_ID"  address="0x1"  permission="r"
+	module="${BUILD_HOME}/data/four_char_id.xml"
+	description="GLIB system ID code">
+  </node> <!--end system_id -->
+  
+  <node id="FIRMWARE"  address="0x2"  permission="r" 
+	description="GLIB firmware date (dd.mm.yy) and version number (x.y.z)">
+    <node id="MAJOR"  mask="0xf0000000"/>
+    <node id="MINOR"  mask="0x0f000000"/>
+    <node id="BUILD"  mask="0x00ff0000"/>
+    <node id="YY"     mask="0x0000fe00"/>
+    <node id="MM"     mask="0x000001e0"/>
+    <node id="DD"     mask="0x0000001f"/>
+  </node> <!--end firmware_id -->
+  
+  <node id="TEST"  address="0x3"    mask="0xffffffff"  permission="rw"
+	description="Register for testing purposes only"/>
+
+  <node id="CLK_CTRL"  address="0x4"  permission="rw"
+	module="${BUILD_HOME}/data/glib_clk_ctrl.xml"
+	description="Controls the external clocking circuitry">
+  </node> <!--end ctrl-->
+
+  <node id="FLASH_CTRL"  address="0x5"  permission="rw"
+	description="Flash control register">
+    <node id="ICAP_PAGE"   mask="0x00000003"/>
+    <node id="ICAP_TRIGG"  mask="0x00000010"/>
+  </node> <!--end ctrl_2-->
+  
+  <node id="STATUS"  address="0x6"  permission="r"
+	module="${BUILD_HOME}/data/glib_status_register.xml"
+	description="Status from various external components"/>
+
+  <node id="STATUS_2"   address="0x7"  mask="0xffffffff"  permission="r"
+	description="Currently unused"/>
+
+  <node id="SRAM" address="0x00000008"  permission="rw"
+	module="${BUILD_HOME}/data/glib_sram_registers.xml"
+	description="SRAM interface control register"/>
+  
+  <node id="SPI"  address="0x0000000a"  permission="rw"
+	module="${BUILD_HOME}/data/glib_spi_registers.xml"
+	description="SPI interface: data from FPGA to clock synthesizer"/>
+  
+  <node id="I2C"  address="0x0000000d"  permission="rw"
+	module="${BUILD_HOME}/data/glib_i2c_registers.xml"
+	description="I2C interface"/>
+
+  <node id="SFP_PHASE_MON">
+    <node id="CTRL"  address="0x00000010"  permission="rw"
+	  description="">
+      <node id="LOWER"  mask="0x000000ff"/>
+      <node id="UPPER"  mask="0x0000ff00"/>
+    </node> <!--end sfp_phase_mon_ctrl-->
+    
+    <node id="STATS"  address="0x00000011"  mask="0xffffffff"  permission="r"
+	  description=""/>
+  </node> <!--end sfp_phase_mon-->
+  
+  <node id="FMC1_PHASE_MON">
+    <node id="CTRL"  address="0x00000012"  permission="rw"
+	  description="">
+      <node id="LOWER"  mask="0x000000ff"/>
+      <node id="UPPER"  mask="0x0000ff00"/>
+    </node> <!--end fmc1_phase_mon_ctrl-->
+
+    <node id="STATS"  address="0x00000013"  mask="0xffffffff"  permission="r"
+	  description=""/>	
+  </node> <!--end fmc1_phase_mon-->
+  
+  <node id="MAC"  address="0x0000001c"  permission="r"
+	description="firmware version 5.3 and above has different values, as in the description">
+    <node id="IP_SOURCE"  address="0x0"  mask="0x0fff0000"
+	  description=""/>
+    <node id="UPPER"      address="0x0"  mask="0x0000ffff"
+	  description="5.3 and up this is B1"/>
+    <node id="B5"         address="0x0"  mask="0x0000ff00"
+	  description="5.3 and up this is B1"/>
+    <node id="B4"         address="0x0"  mask="0x000000ff"
+	  description="5.3 and up this is B2"/>
+    <node id="LOWER"      address="0x1"  mask="0xffffffff"
+	  description="5.3 and up this is B1"/>
+    <node id="B3"         address="0x1"  mask="0xff000000"
+	  description="5.3 and up this is B3"/>
+    <node id="B2"         address="0x1"  mask="0x00ff0000"
+	  description="5.3 and up this is B4"/>
+    <node id="B1"         address="0x1"  mask="0x0000ff00"
+	  description="5.3 and up this is B5"/>
+    <node id="B0"         address="0x1"  mask="0x000000ff"
+	  description="5.3 and up this is B6"/>
+  </node> <!--end mac_info2-->
+
+  <node id="IP_INFO"  address="0x0000001e"  permission="r"
+	description="only in firmware versions < 5.3">
+    <node id="B3"   mask="0xff000000" />
+    <node id="B2"   mask="0x00ff0000" />
+    <node id="B1"   mask="0x0000ff00" />
+    <node id="B0"   mask="0x000000ff" />
+  </node> <!--end ip_info-->
+
+  <!--
+  <node id="HW_ID"  address="0x0000001e"  permission="r"
+	description="only in firmware versions 5.3 and up">
+    <node id="B1"   address="0x0"  mask="0x0000ff00" />
+    <node id="B2"   address="0x0"  mask="0x000000ff" />
+    <node id="B3"   address="0x0"  mask="0xff000000" />
+    <node id="B4"   address="0x0"  mask="0x00ff0000" />
+    <node id="B5"   address="0x1"  mask="0x0000ff00" />
+    <node id="B6"   address="0x1"  mask="0x000000ff" />
+  </node--> <!--end ip_info-->
+</node>

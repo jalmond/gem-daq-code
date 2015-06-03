@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GEMSystem>
+<uTCACrate CrateId="Crate01">
+	<MCH MCHId="MCH01">
+	</MCH>
+	<AMC AMCId="AMC01">
+	</AMC>
+	<GLIB GLIBId="GLIB01">
+		<OH OHId="OH01">
+			<VFATSettings VFATId="VFAT9">
+				<CalMode>Normal</CalMode>
+				<CalPolarity>Negative</CalPolarity>
+				<MSPolarity>Negative</MSPolarity>
+				<TriggerMode>GEMMode</TriggerMode>
+				<RunMode>Run</RunMode>
+				<ReHitCT>Cycle0</ReHitCT>
+				<LVDSPowerSave>EnableAll</LVDSPowerSave>
+				<ProbeMode>Off</ProbeMode>
+				<DACSel>Normal</DACSel>
+				<DigInSel>Digital</DigInSel>
+				<MSPulseLength>Clock3</MSPulseLength>
+				<HitCountSel>FastOR128</HitCountSel>
+				<DFTest>Idle</DFTest>
+				<PbBG>Unconnected</PbBG>
+				<TrimDACRange>Default</TrimDACRange>
+				<IPreampIn>13</IPreampIn>
+				<IPreampFeed>35</IPreampFeed>
+			    <IPreampOut>65</IPreampOut>
+			    <IShaper>10</IShaper>
+			    <IShaperFeed>97</IShaperFeed>
+			    <IComp>12</IComp>
+		    	<Latency>128</Latency>
+				<VCal>10</VCal>
+				<VThreshold1>19</VThreshold1>
+				<VThreshold2>0</VThreshold2>
+				<CalPhase>23</CalPhase>
+			</VFATSettings>
+		</OH>
+	</GLIB>
+</uTCACrate>
+<uTCACrate CrateId="Crate02">
+	<MCH MCHId="MCH02">
+	</MCH>
+	<AMC AMCId="AMC02">
+	</AMC>
+	<GLIB GLIBId="GLIB02">
+		<OH OHId="OH02">
+			<VFATSettings VFATId="VFAT10">
+				<CalMode>Normal</CalMode>
+				<CalPolarity>Negative</CalPolarity>
+				<MSPolarity>Negative</MSPolarity>
+				<TriggerMode>GEMMode</TriggerMode>
+				<RunMode>Run</RunMode>
+				<ReHitCT>Cycle0</ReHitCT>
+				<LVDSPowerSave>EnableAll</LVDSPowerSave>
+				<ProbeMode>Off</ProbeMode>
+				<DACSel>Normal</DACSel>
+				<DigInSel>Digital</DigInSel>
+				<MSPulseLength>Clock3</MSPulseLength>
+				<HitCountSel>FastOR128</HitCountSel>
+				<DFTest>Idle</DFTest>
+				<PbBG>Unconnected</PbBG>
+				<TrimDACRange>Default</TrimDACRange>
+				<IPreampIn>13</IPreampIn>
+				<IPreampFeed>35</IPreampFeed>
+			    <IPreampOut>65</IPreampOut>
+			    <IShaper>10</IShaper>
+			    <IShaperFeed>97</IShaperFeed>
+			    <IComp>12</IComp>
+		    	<Latency>128</Latency>
+				<VCal>10</VCal>
+				<VThreshold1>19</VThreshold1>
+				<VThreshold2>0</VThreshold2>
+				<CalPhase>23</CalPhase>
+			</VFATSettings>
+		</OH>
+	</GLIB>
+	<GLIB GLIBId="GLIB03">
+		<OH OHId="OH03">
+			<VFATSettings VFATId="VFAT11">
+				<CalMode>Normal</CalMode>
+				<CalPolarity>Negative</CalPolarity>
+				<MSPolarity>Negative</MSPolarity>
+				<TriggerMode>GEMMode</TriggerMode>
+				<RunMode>Run</RunMode>
+				<ReHitCT>Cycle0</ReHitCT>
+				<LVDSPowerSave>EnableAll</LVDSPowerSave>
+				<ProbeMode>Off</ProbeMode>
+				<DACSel>Normal</DACSel>
+				<DigInSel>Digital</DigInSel>
+				<MSPulseLength>Clock3</MSPulseLength>
+				<HitCountSel>FastOR128</HitCountSel>
+				<DFTest>Idle</DFTest>
+				<PbBG>Unconnected</PbBG>
+				<TrimDACRange>Default</TrimDACRange>
+				<IPreampIn>13</IPreampIn>
+				<IPreampFeed>35</IPreampFeed>
+			    <IPreampOut>65</IPreampOut>
+			    <IShaper>10</IShaper>
+			    <IShaperFeed>97</IShaperFeed>
+			    <IComp>12</IComp>
+		    	<Latency>128</Latency>
+				<VCal>10</VCal>
+				<VThreshold1>19</VThreshold1>
+				<VThreshold2>0</VThreshold2>
+				<CalPhase>23</CalPhase>
+			</VFATSettings>
+		</OH>
+	</GLIB>
+
+</uTCACrate>
+<!--
+<uTCACrate CrateID="Crate02">
+</uTCACrate>
+<uTCACrate CrateID="Crate03">
+</uTCACrate>
+-->
+</GEMSystem>

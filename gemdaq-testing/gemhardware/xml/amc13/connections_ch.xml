@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<connections>
+  <connection id="gem.amc13-sn7.T1" uri="chtcp-2.0://localhost:10203?target=192.168.1.240:50001"
+	      address_table="file://AMC13XG_T1.xml" />
+  <connection id="gem.amc13-sn7.T2" uri="chtcp-2.0://localhost:10203?target=192.168.1.241:50001"
+	      address_table="file://AMC13XG_T2.xml" />
+
+  <connection id="gem.amc13-sn170.T1" uri="chtcp-2.0://localhost:10203?target=192.168.2.170:50001"
+	      address_table="file://AMC13XG_T1.xml" />
+  <connection id="gem.amc13-sn170.T2" uri="chtcp-2.0://localhost:10203?target=192.168.2.171:50001"
+	      address_table="file://AMC13XG_T2.xml" />
+
+  <connection id="gem.gem904daq01.amc13.T1" uri="chtcp-2.0://localhost:10203?target=192.168.2.170:50001"
+	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T1.xml" />
+  <connection id="gem.gem904daq01.amc13.T2" uri="chtcp-2.0://localhost:10203?target=192.168.2.171:50001"
+	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T2.xml" />
+
+  <connection id="gem.gem904daq01.glib01" uri="chtcp-2.0://localhost:10203?target=192.168.0.161:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib02" uri="chtcp-2.0://localhost:10203?target=192.168.0.162:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib03" uri="chtcp-2.0://localhost:10203?target=192.168.0.163:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib04" uri="chtcp-2.0://localhost:10203?target=192.168.0.164:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib05" uri="chtcp-2.0://localhost:10203?target=192.168.0.165:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib06" uri="chtcp-2.0://localhost:10203?target=192.168.0.166:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib07" uri="chtcp-2.0://localhost:10203?target=192.168.0.167:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib08" uri="chtcp-2.0://localhost:10203?target=192.168.0.168:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib09" uri="chtcp-2.0://localhost:10203?target=192.168.0.169:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib10" uri="chtcp-2.0://localhost:10203?target=192.168.0.170:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib11" uri="chtcp-2.0://localhost:10203?target=192.168.0.171:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+  <connection id="gem.gem904daq01.glib12" uri="chtcp-2.0://localhost:10203?target=192.168.0.171:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+
+  <connection id="gem.shelf.glib" uri="chtcp-2.0://localhost:10203?target=192.168.0.175:50001"
+	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
+</connections>

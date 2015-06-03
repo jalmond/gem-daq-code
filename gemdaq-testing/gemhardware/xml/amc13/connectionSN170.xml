@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<connections>
+  <connection id="gem.shelf01.T1" uri="ipbusudp-2.0://192.168.2.170:50001"
+	      address_table="file://AMC13XG_T1.xml" />
+  <connection id="gem.shelf01.T2" uri="ipbusudp-2.0://192.168.2.171:50001"
+	      address_table="file://AMC13XG_T2.xml" />
+</connections>

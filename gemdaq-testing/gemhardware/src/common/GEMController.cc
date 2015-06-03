@@ -12,21 +12,21 @@ gem::hw::vfat::GEMController::GEMController(xdaq::ApplicationStub * s)
     throw (xdaq::exception::Exception):
         xdaq::WebApplication(s)
 {
-    xgi::framework::deferredbind(this, this, &GEMController::Default,       "Default"     );
-    xgi::framework::deferredbind(this, this, &GEMController::Dummy,       "Dummy"     );
-    xgi::framework::deferredbind(this, this, &GEMController::ControlPanel,  "ControlPanel");
-    xgi::framework::deferredbind(this, this, &GEMController::controlVFAT2,  "controlVFAT2");
+    xgi::framework::deferredbind(this, this, &GEMController::Default,       "Default"       );
+    xgi::framework::deferredbind(this, this, &GEMController::Dummy,         "Dummy"         );
+    xgi::framework::deferredbind(this, this, &GEMController::ControlPanel,  "ControlPanel"  );
+    xgi::framework::deferredbind(this, this, &GEMController::controlVFAT2,  "controlVFAT2"  );
     xgi::framework::deferredbind(this, this, &GEMController::CrateSelection,"CrateSelection"); 
-    xgi::framework::deferredbind(this, this, &GEMController::setConfFile,"setConfFile"); 
-    xgi::framework::deferredbind(this, this, &GEMController::MCHStatus,"MCHStatus"); 
-    xgi::framework::deferredbind(this, this, &GEMController::MCHUtils,"MCHUtils"); 
-    xgi::framework::deferredbind(this, this, &GEMController::AMCStatus,"AMCStatus"); 
-    xgi::framework::deferredbind(this, this, &GEMController::AMCUtils,"AMCUtils"); 
-    xgi::framework::deferredbind(this, this, &GEMController::GLIBStatus,"GLIBStatus"); 
-    xgi::framework::deferredbind(this, this, &GEMController::GLIBUtils,"GLIBUtils"); 
-    xgi::framework::deferredbind(this, this, &GEMController::OHStatus,"OHStatus"); 
-    xgi::framework::deferredbind(this, this, &GEMController::OHUtils,"OHUtils"); 
-    xgi::framework::deferredbind(this, this, &GEMController::VFAT2Manager,"VFAT2Manager"); 
+    xgi::framework::deferredbind(this, this, &GEMController::setConfFile,   "setConfFile"   ); 
+    xgi::framework::deferredbind(this, this, &GEMController::MCHStatus,     "MCHStatus"     ); 
+    xgi::framework::deferredbind(this, this, &GEMController::MCHUtils,      "MCHUtils"      ); 
+    xgi::framework::deferredbind(this, this, &GEMController::AMCStatus,     "AMCStatus"     ); 
+    xgi::framework::deferredbind(this, this, &GEMController::AMCUtils,      "AMCUtils"      ); 
+    xgi::framework::deferredbind(this, this, &GEMController::GLIBStatus,    "GLIBStatus"    ); 
+    xgi::framework::deferredbind(this, this, &GEMController::GLIBUtils,     "GLIBUtils"     ); 
+    xgi::framework::deferredbind(this, this, &GEMController::OHStatus,      "OHStatus"      ); 
+    xgi::framework::deferredbind(this, this, &GEMController::OHUtils,       "OHUtils"       ); 
+    xgi::framework::deferredbind(this, this, &GEMController::VFAT2Manager,  "VFAT2Manager"  ); 
 
     //device_ = "CMS_hybrid_J8";
     device_ = "VFAT9";

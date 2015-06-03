@@ -12,4 +12,7 @@
 *.d
 *.o
 lib
+*.sh
+*.csh
 src/linux
+*.dat

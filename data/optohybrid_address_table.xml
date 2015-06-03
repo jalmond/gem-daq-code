@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="optohybrid"  address="0x40030000"
-        description="Optohybrid registers">
-
-    <node id="optical_links"  description="OptoHybrid optical links">
-      <node id="link0"  address="0x000"
+  <node id="OptoHybrid"
+	description="Optohybrid registers, divided into global and local (per optical link)">
+    <node id="OPTICAL_LINKS"  address="0x40030000"
+	  description="Optohybrid registers">
+      <node id="LINK0"  address="0x000"
 	    module="file://${BUILD_HOME}/data/optical_link_registers.xml"
 	    description="optical link status counters and resets"/>
-      <node id="link1"  address="0x100"
+      
+      <node id="LINK1"  address="0x100"
 	    module="file://${BUILD_HOME}/data/optical_link_registers.xml"
 	    description="optical link status counters and resets"/>
-      <node id="link2"  address="0x200"
+      
+      <node id="LINK2"  address="0x200"
 	    module="file://${BUILD_HOME}/data/optical_link_registers.xml"
 	    description="optical link status counters and resets"/>
     </node>
+    
+    <node id="FAST_COM"
+	  module="file://${BUILD_HOME}/data/fast_signals_address_table.xml"
+	  description="global fast commands registers"/>
+    
+    <node id="TRIGGER"
+	  module="file://${BUILD_HOME}/data/trigger_registers.xml"
+	  description="global ttrigger setup"/>
+    
+    <node id="CLOCKING"
+	  module="file://${BUILD_HOME}/data/clocking_registers.xml"
+	  description="global clocking registers"/>
+    
+    <node id="COUNTERS"
+	  module="file://${BUILD_HOME}/data/counter_registers.xml"
+	  description="global counter registers"/>
+    
+    <node id="GEB"
+	  module="file://${BUILD_HOME}/data/geb_vfat_address_table.xml"
+	  description="complete GEB address table"/>
 
-  <node id="system_fast_commands"
-	module="file://${BUILD_HOME}/data/fast_signals_address_table.xml"
-	description="fast commands to send to the system and counters to monitor them">
-  </node><!--end system_fast_commands-->
-
-  <node id="general"
-	module="file://${BUILD_HOME}/data/other_system_registers.xml"
-	description="fast commands to send to the system and counters to monitor them">
-  </node><!--end general-->
+    <node id="FIRMWARE"  address="0x40030157"  mask="0xFFFFFFFF"  permission="r"
+	  description="version of the optohybrid firmware"/>
+  </node> <!-- end of the optohybrid specific registers -->
 
     <!--
     <node id="OHReg0"  address="0x00"  mask="0xffffffff"  permission="rw" 

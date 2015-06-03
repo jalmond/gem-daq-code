@@ -2,16 +2,25 @@
 <xc:Partition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
-  <xc:Context url="http://gem904daq01:2001">
+
+  <xc:Context url="http://gem904daq01:2266">
+
     <xc:Application class="gem::hwMonitor::gemHwMonitorWeb" id="254" instance="0" network="local">
-    <!--<properties xmlns="urn:xdaq-application:gem::hwMonitor::gemHwMonitorWeb"
-		  xsi:type="soapenc:Struct">
-	<device xsi:type="xsd:string">VFAT9</device>
-	<settingsFile xsi:type="xsd:string">/home/mdalchen/test/gem-daq-code/gemdaq-testing/gemHwMonitor/xml/gemHwMonitor.xml</settingsFile>
-      </properties>
-      -->
     </xc:Application>
-    <xc:Module>/home/mdalchen/private/gem-daq-code/gemdaq-testing/gemHwMonitor/lib/linux/x86_64_slc6/libgem_hwMonitor.so</xc:Module>
-    <xc:Module>/home/mdalchen/private/gem-daq-code/gemdaq-testing/gembase/lib/linux/x86_64_slc6/libgem_base.so</xc:Module>
+
+    <xc:Application class="gem::hw::vfat::VFAT2Manager" id="3256" instance="3" network="local">
+      <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
+          xsi:type="soapenc:Struct">
+        <device xsi:type="xsd:string">VFAT9</device>
+        <ipAddr xsi:type="xsd:string">192.168.0.164</ipAddr>
+        <settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
+      </properties>
+    </xc:Application>
+
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemHwMonitor/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_hwMonitor.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gembase/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_base.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemhardware/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_hw.so</xc:Module>
+
   </xc:Context>
+
 </xc:Partition>

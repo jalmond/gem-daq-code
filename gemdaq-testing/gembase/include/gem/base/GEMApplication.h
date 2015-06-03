@@ -9,50 +9,38 @@
 #include <deque>
 #include <map>
 
-#include "xdaq/Application.h"
+#include "xdaq/WebApplication.h"
+#include "xgi/framework/UIManager.h"
+
+#include "toolbox/TimeVal.h"
 
 #include "log4cplus/logger.h"
+#include "gem/utils/GEMLogging.h"
+#include "gem/base/exception/Exception.h"
+#include "gem/base/utils/exception/Exception.h"
 
-#include "toolbox/BSem.h"
-#include "toolbox/task/WorkLoop.h"
-#include "toolbox/fsm/FiniteStateMachine.h"
-#include "toolbox/mem/MemoryPoolFactory.h"
+namespace xdaq {
+  class ApplicationStub;
+}
 
-#include "xdata/Bag.h"
-#include "xdata/Vector.h"
-#include "xdata/InfoSpace.h"
-#include "xdata/ActionListener.h"
-
-#include "xdata/Float.h"
-#include "xdata/String.h"
-#include "xdata/Boolean.h"
-#include "xdata/Integer.h"
-#include "xdata/Integer64.h"
-#include "xdata/UnsignedLong.h"
-#include "xdata/UnsignedInteger.h"
-
-#include "xoap/MessageReference.h"
-
-#include "i2o/utils/AddressMap.h"
-
-#include "xdaq2rc/RcmsStateNotifier.h"
-
-namespace gem {
-  namespace hw {
-    class GEMHwDevice;
-  }
+namespace xgi {
+  class Input;
+  class Output;
 }
 
 namespace gem {
   namespace base {
     
+    class GEMMonitor;
+    class GEMFSMApplication;
     class GEMWebApplication;
-    //class ConfigurationInfoSpaceHandler;
-    //class Monitor;
-    //class WebServer;
     
-    class GEMApplication : virtual public xdaq::Application, virtual public xdata::ActionListener
+    class GEMApplication : public xdaq::WebApplication, public xdata::ActionListener
       {
+	friend class GEMMonitor;
+	friend class GEMFSMApplication;
+	friend class GEMWebApplication;
+
       public:
 	GEMApplication(xdaq::ApplicationStub *stub)
 	  throw (xdaq::exception::Exception);
@@ -61,51 +49,61 @@ namespace gem {
 
 	std::string getFullURL();
 	
+	/**
+	 * The init method is pure virtual in the base class, to ensure
+	 * that it is fully implemented in every derived application,
+	 * with a specific implementation
+	 */
 	virtual void init() = 0;
 	
+	/**
+	 * The actionPerformed method will have a default implementation here
+	 * and can be further specified in derived applications, that will 
+	 * subsequently call gem::base::GEMApplication::actionPerformed(event)
+	 * to replicate the default behaviour
+	 **/
 	virtual void actionPerformed(xdata::Event& event);
 	
+	void xgiDefault(xgi::Input* in, xgi::Output* out);
+	void xgiMonitor(xgi::Input* in, xgi::Output* out);
+	void xgiExpert( xgi::Input* in, xgi::Output* out);
+
       protected:
-	gem::hw::GEMHwDevice* gemHWP_;
 	log4cplus::Logger gemLogger_;
 
-	//virtual ConfigurationInfoSpaceHandler* getCfgInfoSpace() const;
-	//virtual gem::hw::GEMHwDevice* getHw() const;
-	//virtual Monitor* getMonitor() const;
+	xdata::InfoSpace *appInfoSpaceP_;             /*generic application parameters */
+	xdata::InfoSpace *monitorInfoSpaceP_;         /*monitoring parameters, stored in the appInfoSpace */
+	xdata::InfoSpace *configInfoSpaceP_;          /*configuration parameters, stored in the appInfoSpace */
+						    
+	virtual void importConfigurationParameters();
+	virtual void fillConfigurationInfoSpace();
+	virtual void updateConfigurationInfoSpace();
 
-      private:
-	
-	i2o::utils::AddressMap *i2oAddressMap_;
-	toolbox::mem::MemoryPoolFactory *poolFactory_;
-	
-	/**** application properties ****/
-	xdata::InfoSpace *appInfoSpace_;
+	virtual void importMonitoringParameters();
+	virtual void fillMonitoringInfoSpace();
+	virtual void updateMonitoringInfoSpace();
 
-	xdaq::ApplicationDescriptor *appDescriptor_;
-	xdaq::ApplicationContext    *appContext_;
-	xdaq::ApplicationGroup      *appGroup_;
+	virtual GEMWebApplication*  getWebApp()  const { return gemWebInterfaceP_; };
+	virtual GEMMonitor*         getMonitor() const { return gemMonitorP_;      };
+
+	GEMWebApplication* gemWebInterfaceP_; /* */
+	GEMMonitor*        gemMonitorP_;      /* */
+
+	/**
+	 * various application properties
+	 */
+	xdaq::ApplicationDescriptor *appDescriptorP_; /* */
+	xdaq::ApplicationContext    *appContextP_;    /* */
+	xdaq::ApplicationGroup      *appGroupP_;      /* */
+	xdaq::Zone                  *appZoneP_;       /* */
 
 	std::string xmlClass_;
 	unsigned long instance_;
-	std::string urn_;	
+	std::string urn_;
 	
-	gem::base::GEMWebApplication* gemWebInterface_;
-
-	xdata::String          run_type_;
-	xdata::UnsignedInteger run_number_;
-	xdata::UnsignedInteger runSequenceNumber_;
-
-	xdata::Integer64 nevents_;
-
-        xdaq2rc::RcmsStateNotifier rcmsStateNotifier_;
-
-	toolbox::BSem wl_semaphore_;
+      private:
 	
-	toolbox::task::WorkLoop *wl_;
-
-	toolbox::task::ActionSignature *enable_sig_, *configure_sig_, *initialize_sig_;
-	toolbox::task::ActionSignature *start_sig_,  *pause_sig_, *resume_sig_;
-	toolbox::task::ActionSignature *stop_sig_,   *halt_sig_;
+        //xdaq2rc::RcmsStateNotifier rcmsStateNotifier_;
 
       };
     

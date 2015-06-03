@@ -70,8 +70,8 @@
 .vfatChannelButton {
     display:inline-block;
     /*width:125px;*/
-    margin-right:25px
-    margin-left:25px
+    margin-right:25px;
+    margin-left:25px;
     float:center;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

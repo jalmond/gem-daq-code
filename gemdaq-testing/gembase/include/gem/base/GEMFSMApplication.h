@@ -1,48 +1,50 @@
 #ifndef gem_base_GEMFSMApplication_h
 #define gem_base_GEMFSMApplication_h
 
-#include "gem/base/GEMFSM.h"
 #include "gem/base/GEMApplication.h"
+#include "gem/base/GEMFSM.h"
+
+#include "toolbox/task/exception/Exception.h"
+
+namespace toolbox {
+  namespace task{
+    class WorkLoop;
+    class ActionSignature;
+  }
+}
 
 namespace gem {
   namespace base {
-    
-    class GEMFSMApplication: virtual public gem::base::GEMApplication//, virtual public gem::base::GEMFSM
+    class GEMFSM;
+    class GEMApplication;
+    class GEMWebApplication;
+
+    class GEMFSMApplication : public GEMApplication
       {
       public:
 	friend class GEMFSM;
-	//XDAQ_INSTANTIATOR();
+	friend class GEMApplication;
+	friend class GEMWebApplication;
 	
 	GEMFSMApplication(xdaq::ApplicationStub *stub)
 	  throw (xdaq::exception::Exception);
 
 	virtual ~GEMFSMApplication();
 
-	//virtual void actionPerformed(xdata::Event&);
-	
       protected:
-	// hyperdaq action callbacks
-	virtual void webInitialize(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webEnable(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webConfigure(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webStart(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webPause(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webResume(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webStop(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webHalt(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	virtual void webReset(xgi::Input *in, xgi::Output *out)
-	  throw (xgi::exception::Exception);
-	//virtual void webDisable(xgi::Input *in, xgi::Output *out)
-	//  throw (xgi::exception::Exception);
+	//xgi interface
+	virtual void xgiInitialize(xgi::Input *in, xgi::Output *out );
+	virtual void xgiEnable(    xgi::Input *in, xgi::Output *out );
+	virtual void xgiConfigure( xgi::Input *in, xgi::Output *out );
+	virtual void xgiStart(     xgi::Input *in, xgi::Output *out );
+	virtual void xgiPause(     xgi::Input *in, xgi::Output *out );
+	virtual void xgiResume(    xgi::Input *in, xgi::Output *out );
+	virtual void xgiStop(      xgi::Input *in, xgi::Output *out );
+	virtual void xgiHalt(      xgi::Input *in, xgi::Output *out );
+ 	virtual void xgiReset(     xgi::Input *in, xgi::Output *out );
 
+
+	/*
 	// SOAP interface
 	virtual xoap::MessageReference onEnable(     xoap::MessageReference message)
 	  throw (xoap::exception::Exception);
@@ -68,62 +70,110 @@ namespace gem {
 	  throw (xoap::exception::Exception);
 	virtual xoap::MessageReference createReply(  xoap::MessageReference message)
 	  throw (xoap::exception::Exception);
+	*/
 
 	// work loop call-back functions
-	virtual bool initializeAction(toolbox::task::WorkLoop *wl);
-	virtual bool enableAction(    toolbox::task::WorkLoop *wl);
-	virtual bool configureAction( toolbox::task::WorkLoop *wl);
-	virtual bool startAction(     toolbox::task::WorkLoop *wl);
-	virtual bool pauseAction(     toolbox::task::WorkLoop *wl);
-	virtual bool resumeAction(    toolbox::task::WorkLoop *wl);
-	virtual bool stopAction(      toolbox::task::WorkLoop *wl);
-	virtual bool haltAction(      toolbox::task::WorkLoop *wl);
-	virtual bool resetAction(     toolbox::task::WorkLoop *wl);
-	//virtual bool noAction(        toolbox::task::WorkLoop *wl);
-	virtual bool failAction(      toolbox::task::WorkLoop *wl);
+	void workloopDriver(std::string const& command)
+	  throw (::toolbox::task::exception::Exception);
+	
+	std::string workLoopName;
+	toolbox::task::ActionSignature* initSig_  ;
+	toolbox::task::ActionSignature* confSig_  ;
+	toolbox::task::ActionSignature* startSig_ ;
+	toolbox::task::ActionSignature* stopSig_  ;
+	toolbox::task::ActionSignature* pauseSig_ ;
+	toolbox::task::ActionSignature* resumeSig_;
+	toolbox::task::ActionSignature* haltSig_  ;
+	toolbox::task::ActionSignature* resetSig_ ;
+	
+	virtual bool initialize(toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool enable(    toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool configure( toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool start(     toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool pause(     toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool resume(    toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool stop(      toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool halt(      toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool reset(     toolbox::task::WorkLoop *wl) { return false; };
+	//virtual bool noAction(        toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool fail(      toolbox::task::WorkLoop *wl) { return false; };
 
-	//bool calibrationAction(toolbox::task::WorkLoop *wl);
-	//bool calibrationSequencer(toolbox::task::WorkLoop *wl);
+	virtual bool calibrationAction(toolbox::task::WorkLoop *wl) { return false; };
+	virtual bool calibrationSequencer(toolbox::task::WorkLoop *wl) { return false; };
 	
-	//state transitions
-	virtual void initializeAction(toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void enableAction(    toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void configureAction( toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void startAction(     toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void pauseAction(     toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void resumeAction(    toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void stopAction(      toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void haltAction(      toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void noAction(        toolbox::Event::Reference e) 
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void failAction(      toolbox::Event::Reference e) 
-	  throw (toolbox::fsm::exception::Exception);
+	/* state transitions
+	 * defines the behaviour of the application for each state transition
+	 * most will be pure virtual to enforce derived application specific
+	 * implementations, common implementations will be merged into the base
+	 * application
+	 */
+	void transitionDriver(::toolbox::Event::Reference e)
+	  throw (::toolbox::fsm::exception::Exception);
 	
-	virtual void resetAction()//toolbox::Event::Reference e)
-	  throw (toolbox::fsm::exception::Exception);
+ 	virtual void initializeAction() = 0;
+ 	virtual void configureAction( ) = 0;
+	virtual void enableAction(    ) = 0;
+	virtual void startAction(     ) = 0;
+	virtual void pauseAction(     ) = 0;
+	virtual void resumeAction(    ) = 0;
+	virtual void stopAction(      ) = 0;
+	virtual void haltAction(      ) = 0;
 	
+	virtual void noAction(        ) = 0; 
+	//virtual void failAction(      ) = 0; 
+	
+	/* resetAction
+	 * takes the GEMFSM from a state to the uninitialzed state
+	 * recovery from a failed transition, or just a reset
+	 */
+	virtual void resetAction(::toolbox::Event::Reference e)
+	  throw (::toolbox::fsm::exception::Exception);
+	
+	/* failAction
+	 * determines how to handle a failed transition
+	 * 
+	 */
+	virtual void failAction(::toolbox::Event::Reference e)
+	  throw (::toolbox::fsm::exception::Exception);
+	
+	/* stateChanged
+	 * 
+	 * 
+	 */
 	virtual void stateChanged(    toolbox::fsm::FiniteStateMachine &fsm)
-	  throw (toolbox::fsm::exception::Exception);
-	virtual void transitionFailed(toolbox::Event::Reference event)
-	  throw (toolbox::fsm::exception::Exception);
+	  throw (::toolbox::fsm::exception::Exception);
 
+	/* transitionFailed
+	 * 
+	 * 
+	 */
+	virtual void transitionFailed(::toolbox::Event::Reference event)
+	  throw (::toolbox::fsm::exception::Exception);
+
+	/* fireEvent
+	 * Forwards a state change to the GEMFSM object
+	 * @param std::string event name of the event to pass to the GEMFSM
+	 */
 	virtual void fireEvent(std::string event)
-	  throw (toolbox::fsm::exception::Exception);
+	  throw (::toolbox::fsm::exception::Exception);
 	
+	/* changeState
+	 * Forwards a state change to the GEMFSM object
+	 * @param xoap::MessageReference msg message containing the state transition
+	 * @returns xoap::MessageReference response of the SOAP transaction
+	 */
 	virtual xoap::MessageReference changeState(xoap::MessageReference msg);
+
+	/* getCurrentState
+	 * @returns std::string name of the current state of the GEMFSM object
+	 */
+	std::string getCurrentState() const {
+	  return gemfsm_.getCurrentState();
+	};
 	
-
       private:
-	gem::base::GEMFSM gemfsm_;
-
+	GEMFSM gemfsm_;
+	
 	toolbox::BSem wl_semaphore_;
 
 	toolbox::task::WorkLoop *wl_;
@@ -131,6 +181,8 @@ namespace gem {
 	toolbox::task::ActionSignature *enable_signature_, *configure_signature_;
 	toolbox::task::ActionSignature *start_signature_,  *pause_signature_, *resume_signature_;
 	toolbox::task::ActionSignature *stop_signature_,   *halt_signature_;
+	
+	xdata::InfoSpace* gemAppStateInfoSpaceP_;
 
       };
     

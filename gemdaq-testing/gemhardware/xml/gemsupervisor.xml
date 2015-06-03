@@ -2,8 +2,10 @@
 <xc:Partition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
-  <xc:Context url="http://${GEMHOST}:${GEM_SUPER_PORT}">
-    <xc:Application class="gem::supervisor::GemSupervisorWeb" id="254" instance="0" network="local">
+
+  <xc:Context url="http://gem904daq01:2288">
+
+    <xc:Application class="gem::supervisor::GEMSupervisorWeb" id="254" instance="0" network="local">
       <properties xmlns="urn:xdaq-application:GEMSupervisor"
 		  xsi:type="soapenc:Struct">
 	<myParameter xsi:type="xsd:unsignedLong">0x47454d73</myParameter>
@@ -15,11 +17,8 @@
       </properties>
     </xc:Application>
     
-    <xc:Module>${GLIBTEST}/gemdaq-testing/gemsupervisor/lib/linux/x86_64_slc6/libgem_supervisor.so</xc:Module>
-    <!--
-    <xc:Application class="gem::base::GEMApplication" id="255" instance="0" network="local">
-    </xc:Application>
-    <xc:Module>${GLIBTEST}/gemdaq-testing/gembase/lib/linux/x86_64_slc6/libgembase.so</xc:Module>
-    -->
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemsupervisor/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_supervisor.so</xc:Module>
+
   </xc:Context>
+
 </xc:Partition>

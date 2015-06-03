@@ -3,11 +3,11 @@
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
 
-  <xc:Context url="http://${GEMHOST}:10000/rcms">
+  <xc:Context url="http://gem904daq01:10000/rcms">
     <xc:Application class="RCMSStateListener" id="50" instance="3" network="local" path="/services/replycommandreceiver" />
   </xc:Context>
   
-  <xc:Context url="http://${GEMHOST}:${GEM_APP_PORT}">
+  <xc:Context url="http://gem904daq01:2277">
     <!--xc:Application class="gem::base::GEMApplication" id="253" instance="0" network="local">
       <rcmsStateListener xsi:type="soapenc:Struct">
         <classname xsi:type="xsd:string">RCMSStateListener</classname>
@@ -21,7 +21,10 @@
         <instance xsi:type="xsd:unsignedInt">3</instance>
       </rcmsStateListener>
     </xc:Application>
+
     <xc:Module>${XDAQ_ROOT}/lib/libxdaq2rc.so</xc:Module>
-    <xc:Module>${GLIBTEST}/gemdaq-testing/gembase/lib/linux/x86_64_slc6/libgem_base.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gembase/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_base.so</xc:Module>
+
   </xc:Context>
+
 </xc:Partition>

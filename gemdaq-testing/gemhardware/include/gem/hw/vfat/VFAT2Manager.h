@@ -9,7 +9,7 @@
 #include "xdata/UnsignedLong.h"
 #include "xdata/UnsignedInteger32.h"
 
-#include "uhal/uhal.hpp"
+//#include "uhal/uhal.hpp"
 
 #include "xgi/framework/Method.h"
 #include "cgicc/HTMLClasses.h"

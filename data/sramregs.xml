@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="ctrl_sram"   address="0x00000008"  mask="0xffffffff"  permission="r">
-    <node id="sram1_user_logic"	address="0x00000008"  mask="0x00000001"  permission="rw"/>
-    <node id="sram1_bist_run"	address="0x00000008"  mask="0x00000002"  permission="rw"/>
-    <node id="sram2_user_logic"	address="0x00000008"  mask="0x00010000"  permission="rw"/>
-    <node id="sram2_bist_run"	address="0x00000008"  mask="0x00020000"  permission="rw"/>
-    <node id="flash_select"	address="0x00000008"  mask="0x00100000"  permission="rw"/>
-  </node>
+  <node id="CTRL" address="0x0"  permission="rw"
+	description="SRAM interface control register">
+    <node id="SRAM1_USER_LOGIC"	mask="0x00000001"/>
+    <node id="SRAM1_BIST_RUN"	mask="0x00000002"/>
+    <node id="SRAM2_USER_LOGIC"	mask="0x00010000"/>
+    <node id="SRAM2_BIST_RUN"	mask="0x00020000"/>
+    <node id="FLASH_SELECT"	mask="0x00100000"/>
+  </node> <!--end ctrl_sram-->
 
-  <node id="status_sram"   address="0x00000009"  mask="0xffffffff"  permission="r">
-    <node id="sram1_bist_done"	  address="0x00000009"  mask="0x00000001"  permission="r"/>
-    <node id="sram1_bist_ok"	  address="0x00000009"  mask="0x00000002"  permission="r"/>
-    <node id="sram1_bist_errors"  address="0x00000009"  mask="0x00000ff0"  permission="r"/>
-    <node id="sram2_bist_done"	  address="0x00000009"  mask="0x00010000"  permission="r"/>
-    <node id="sram2_bist_ok"	  address="0x00000009"  mask="0x00020000"  permission="r"/>
-    <node id="sram2_bist_errors"  address="0x00000009"  mask="0x0ff00000"  permission="r"/>
-  </node>
+  <node id="STATUS"  address="0x1"  permission="r"
+	description="SRAM interface status register">
+    <node id="SRAM1_BIST_DONE"	  mask="0x00000001"/>
+    <node id="SRAM1_BIST_OK"	  mask="0x00000002"/>
+    <node id="SRAM1_BIST_ERRORS"  mask="0x00000ff0"/>
+    <node id="SRAM2_BIST_DONE"	  mask="0x00010000"/>
+    <node id="SRAM2_BIST_OK"	  mask="0x00020000"/>
+    <node id="SRAM2_BIST_ERRORS"  mask="0x0ff00000"/>
+  </node> <!--end status_sram-->
   
   <!--sram memory space-->
   <node id="sram1"  address="0x02000000"  mask="0xffffffff"  permission="rw"/>

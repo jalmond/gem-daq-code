@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<node id="top">
+  <node id="SETTINGS"  address="0x0"  permission="rw"
+	description="I2C interface: configuration (bus select, frequency, etc., only in bench mode)">
+    <node id="ENABLE"      mask="0x00000800"
+	  description="for FW version 5.3 and higher, enable is bit 15(0x8000) instead of bit 11(0x800)"/>
+    <node id="Reserved"    mask="0x00001000"
+	  description="for FW version 5.3 and higher, reserved bits are [14:13](0x6000) instead of bit 12(0x1000)"/>
+    <node id="BUS_SELECT"  mask="0x00000400"
+	  description="for FW version 5.3 and higher, bus select is [12:10](0x1c00) instead of just bit 10(0x400)"/>
+    <node id="PRESCALER"   mask="0x000003ff"
+	  description="I2C clk(kHz)=62.5/prescale"/>
+  </node> <!--end i2c_settings-->
+
+  <node id="COM"  address="0x1"  permission="rw"
+	description="I2C interface: transaction parameters (slave address, drive to slave, etc., only in bench mode)">
+    <node id="Autoclear"   mask="0xf0000000"
+	  description="special feature of this register, clears automatically the upper 4 bits"/>
+    <node id="Strobe"      mask="0x80000000"
+	  description="Execute I2C strobe signal, autoclears"/>
+    <node id="MODE16"      mask="0x02000000"
+	  description="16-bit operation mode, (PHY only) 0-> standard 8-bit mode, 1->16-bit mode"/>
+    <node id="Res2"        mask="0x01000000"  permission="r"
+	  description="reserved, keep to 0"/>
+    <node id="WRITE"       mask="0x00800000"
+	  description="Write enable"/>
+    <node id="SLV_ADDR"    mask="0x007f0000"
+	  description="Slave address"/>
+    <node id="Res"         mask="0x0000ff00"  permission="r"
+	  description="reserved, keep to 0x00"/>
+    <node id="WRDATA"      mask="0x000000ff"
+	  description="Byte to write to the I2C slave"/>
+  </node> <!--end i2c_command-->
+
+  <node id="REPLY"  address="0x2"  permission="r"
+	description="I2C interface: transaction reply (status, data from drive, etc., only in bench mode">
+    <node id="STATUS"  mask="0x0c000000"
+	  description="status bits: 01->success, 11->failed,00/10->pending"/>
+    <node id="DATA_LO" mask="0x000000ff"
+	  description="low 8 bits of reply"/>
+    <node id="DATA_HI" mask="0x0000ff00"
+	  description="high 8 bits of reply"/>
+    <node id="8b"      mask="0x000000ff"
+	  description="8-bit reply"/>
+    <node id="16b"     mask="0x0000ffff"
+	  description="Full 16 bit reply"/>
+  </node> <!--end i2c_reply-->
+</node>

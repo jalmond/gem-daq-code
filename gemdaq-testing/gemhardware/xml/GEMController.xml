@@ -2,14 +2,19 @@
 <xc:Partition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
-  <xc:Context url="http://xdaqgem:2001">
+
+  <xc:Context url="http://gem904daq01:2211">
+
     <xc:Application class="gem::hw::vfat::GEMController" id="254" instance="0" network="local">
     <properties xmlns="urn:xdaq-application:gem::hw::vfat::GEMController"
 		  xsi:type="soapenc:Struct">
 	<device xsi:type="xsd:string">VFAT9</device>
-	<settingsFile xsi:type="xsd:string">/home/mdalchen/test/gem-daq-code/gemdaq-testing/gemhardware/xml/gem_conf.xml</settingsFile>
+	<settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/gem_conf.xml</settingsFile>
       </properties>
     </xc:Application>
-    <xc:Module>/home/mdalchen/test/gem-daq-code/gemdaq-testing/gemhardware/lib/linux/x86_64_slc6/libgem_hw.so</xc:Module>
+
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemhardware/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_hw.so</xc:Module>
+
   </xc:Context>
+
 </xc:Partition>

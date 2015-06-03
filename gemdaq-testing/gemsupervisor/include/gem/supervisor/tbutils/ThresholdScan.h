@@ -3,6 +3,8 @@
 
 #include "gem/supervisor/tbutils/GEMTBUtil.h"
 
+#include "TStopwatch.h"
+
 namespace gem {
   namespace supervisor {
     namespace tbutils {
@@ -69,9 +71,6 @@ namespace gem {
 	  void displayHistograms(xgi::Output* out)
 	    throw (xgi::exception::Exception);
 	  
-	  //action performed callback
-	  void actionPerformed(xdata::Event& event);
-
 	  class ConfigParams 
 	  {
 	  public:

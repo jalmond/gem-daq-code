@@ -1,203 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--  The tags attribute is a free test attribute which meaning is defined by the uHAL user -->
-<node id="glib_regs">
-  <node id="sysregs"  description="GLIB system registers">
-    <node id="board_id"  address="0x00000000"  permission="r"
-	  description="GLIB board ID code">
-      <node id="board_id_char1"  mask="0xff000000"/>
-      <node id="board_id_char2"  mask="0x00ff0000"/>
-      <node id="board_id_char3"  mask="0x0000ff00"/>
-      <node id="board_id_char4"  mask="0x000000ff"/>
-    </node> <!--end board_id -->
-    
-    <node id="system_id"  address="0x00000001"  permission="r"
-	  description="GLIB system ID code">
-      <node id="system_id_char1"  mask="0xff000000"/>
-      <node id="system_id_char2"  mask="0x00ff0000"/>
-      <node id="system_id_char3"  mask="0x0000ff00"/>
-      <node id="system_id_char4"  mask="0x000000ff"/>
-    </node> <!--end system_id -->
-    
-    <node id="firmware_id"  address="0x00000002"  permission="r" 
-	  description="GLIB firmware date (dd.mm.yy) and version number (x.y.z)">
-      <node id="ver_major"    mask="0xf0000000"/>
-      <node id="ver_minor"    mask="0x0f000000"/>
-      <node id="ver_build"    mask="0x00ff0000"/>
-      <node id="firmware_yy"  mask="0x0000fe00"/>
-      <node id="firmware_mm"  mask="0x000001e0"/>
-      <node id="firmware_dd"  mask="0x0000001f"/>
-    </node> <!--end firmware_id -->
-  </node> <!--end sysregs -->
-  
-  <node id="test"  address="0x00000003"    mask="0xffffffff"  permission="rw"
-	description="Register for testing purposes only"/>
-
-  <node id="ctrl"  address="0x00000004"  permission="rw"
-	description="Controls the external clocking circuitry">
-    <node id="pcie_clk_fsel"	    mask="0x00000001"/>
-    <node id="pcie_clk_mr"	    mask="0x00000002"/>
-    <node id="pcie_clk_oe"	    mask="0x00000004"/>
-    <node id="cdce_powerup"	    mask="0x00000010"/>
-    <node id="cdce_refsel"	    mask="0x00000020"/>
-    <node id="cdce_sync"	    mask="0x00000040"/>
-    <node id="cdce_ctrl_sel"        mask="0x00000080"/>
-    <node id="tclkb_dr_en"	    mask="0x00000200"/>
-    <node id="xpoint2_s10"	    mask="0x00001000"/>
-    <node id="xpoint2_s11"	    mask="0x00002000"/>
-    <node id="xpoint1_s10"	    mask="0x00010000"/>
-    <node id="xpoint1_s11"	    mask="0x00020000"/>
-    <node id="xpoint1_s20"	    mask="0x00040000"/>
-    <node id="xpoint1_s21"	    mask="0x00080000"/>
-    <node id="xpoint1_s30"	    mask="0x00100000"/>
-    <node id="xpoint1_s31"	    mask="0x00200000"/>
-    <node id="xpoint1_s40"	    mask="0x00400000"/>
-    <node id="xpoint1_s41"	    mask="0x00800000"/>
-    <node id="gbt_phase_mon_reset"  mask="0x04000000"/>
-    <node id="fpga_program_b_trst"  mask="0x10000000"/>
-  </node> <!--end ctrl-->
-
-  <node id="ctrl_2"  address="0x00000005"  permission="rw"
-	description="Flash control register">
-    <node id="icap_page"   mask="0x00000003"/>
-    <node id="icap_trigg"  mask="0x00000010"/>
-  </node> <!--end ctrl_2-->
-  
-  <node id="status"  address="0x00000006"  permission="r"
-	description="Status from various external components">
-    <node id="glib_sfp1_status"      mask="0x00000007"/>   
-    <node id="glib_sfp1_mod_abs"     mask="0x00000001"/>   
-    <node id="glib_sfp1_rxlos" 	     mask="0x00000002"/>   
-    <node id="glib_sfp1_txfault"     mask="0x00000004"/>   
-    <node id="glib_sfp2_status"      mask="0x00000070"/>
-    <node id="glib_sfp2_mod_abs"     mask="0x00000010"/>
-    <node id="glib_sfp2_rxlos" 	     mask="0x00000020"/>
-    <node id="glib_sfp2_txfault"     mask="0x00000040"/>
-    <node id="glib_sfp3_status"      mask="0x00000700"/>
-    <node id="glib_sfp3_mod_abs"     mask="0x00000100"/>
-    <node id="glib_sfp3_rxlos" 	     mask="0x00000200"/>
-    <node id="glib_sfp3_txfault"     mask="0x00000400"/>
-    <node id="glib_sfp4_status"      mask="0x00007000"/>
-    <node id="glib_sfp4_mod_abs"     mask="0x00001000"/>
-    <node id="glib_sfp4_rxlos" 	     mask="0x00002000"/>
-    <node id="glib_sfp4_txfault"     mask="0x00004000"/>
-    <node id="gbe_int" 		     mask="0x00010000"/>
-    <node id="fmc1_present"    	     mask="0x00020000"/>
-    <node id="fmc2_present"    	     mask="0x00040000"/>
-    <node id="fpga_reset"	     mask="0x00080000"/>
-    <node id="v6_cpld"         	     mask="0x03f00000"/>
-    <node id="cdce_lock"             mask="0x08000000"/>
-    <node id="sfp_phase_mon_done"    mask="0x10000000"/>
-    <node id="sfp_phase_mon_ok"      mask="0x20000000"/>
-    <node id="fmc1_phase_mon_done"   mask="0x40000000"/>
-    <node id="fmc1_phase_mon_ok"     mask="0x80000000"/>
-  </node> <!--end status-->
-
-  <node id="status_2"   address="0x00000007"  mask="0xffffffff"  permission="r"
-	description="Currently unused"/>
-
-  <node id="ctrl_sram" address="0x00000008"  permission="rw"
-	description="SRAM interface control register">
-    <node id="sram1_user_logic"	mask="0x00000001"/>
-    <node id="sram1_bist_run"	mask="0x00000002"/>
-    <node id="sram2_user_logic"	mask="0x00010000"/>
-    <node id="sram2_bist_run"	mask="0x00020000"/>
-    <node id="flash_select"	mask="0x00100000"/>
-  </node> <!--end ctrl_sram-->
-
-  <node id="status_sram"  address="0x00000009"  permission="r"
-	description="SRAM interface status register">
-    <node id="sram1_bist_done"	  mask="0x00000001"/>
-    <node id="sram1_bist_ok"	  mask="0x00000002"/>
-    <node id="sram1_bist_errors"  mask="0x00000ff0"/>
-    <node id="sram2_bist_done"	  mask="0x00010000"/>
-    <node id="sram2_bist_ok"	  mask="0x00020000"/>
-    <node id="sram2_bist_errors"  mask="0x0ff00000"/>
-  </node> <!--end status_sram-->
-  
-  <node id="spi_txdata"  address="0x0000000a"  mask="0xffffffff"  permission="rw"
-	description="SPI interface: data from FPGA to clock synthesizer"/>
-  
-  <node id="spi_command"  address="0x0000000b"  mask="0xffffffff"  permission="rw"
-	description="SPI interface: configuration (polarity, phase, frequency, etc.,">
-    <!--node id="spi_autoclear"  mask="0xf0000000"/-->
-  </node> <!--end spi_command-->
-  
-  <node id="spi_rxdata"  address="0x0000000c"  mask="0xffffffff"  permission="r"
-	description="SPI interface: data from clock synthesizer to FPGA"/>
-
-  <node id="i2c_settings"  address="0x0000000d"  permission="rw"
-	description="I2C interface: configuration (bus select, frequency, etc., only in bench mode)">
-    <node id="i2c_enable"      mask="0x00000800"/>
-    <node id="i2c_bus_select"  mask="0x00000400"/>
-    <node id="i2c_prescaler"   mask="0x000003ff"/>
-  </node> <!--end i2c_settings-->
-
-  <node id="i2c_command"  address="0x0000000e"  permission="rw"
-	description="I2C interface: transaction parameters (slave address, drive to slave, etc., only in bench mode)">
-    <node id="i2c_autoclear"   mask="0xf0000000"
-	  description="special feature of this register, clears automatically the upper 4 bits"/>
-    <node id="i2c_strobe"      mask="0x80000000"/>
-    <node id="i2c_mode16"      mask="0x02000000"/>
-    <node id="i2c_write"       mask="0x00800000"/>
-    <node id="i2c_slvaddr_7b"  mask="0x007f0000"/>
-    <node id="i2c_wrdata"      mask="0x000000ff"/>
-  </node> <!--end i2c_command-->
-
-  <node id="i2c_reply"  address="0x0000000f"  permission="r"
-	description="I2C interface: transaction reply (status, data from drive, etc., only in bench mode">
-    <node id="i2c_reply_status"  mask="0x0c000000"/>
-    <node id="i2c_reply_8b"      mask="0x000000ff"/>
-    <node id="i2c_reply_16b"     mask="0x0000ffff"/>
-  </node> <!--end i2c_reply-->
-
-  <node id="sfp_phase_mon_ctrl"  address="0x00000010"  permission="rw"
-	description="">
-    <node id="sfp_phase_mon_lower"  mask="0x000000ff"/>
-    <node id="sfp_phase_mon_upper"  mask="0x0000ff00"/>
-  </node> <!--end sfp_phase_mon_ctrl-->
-
-  <node id="sfp_phase_mon_stats"  address="0x00000011"  mask="0xffffffff"  permission="r"
-	description=""/>
-  
-  <node id="fmc1_phase_mon_ctrl"  address="0x00000012"  permission="rw"
-	description="">
-    <node id="fmc1_phase_mon_lower"  mask="0x000000ff"/>
-    <node id="fmc1_phase_mon_upper"  mask="0x0000ff00"/>
-  </node> <!--end fmc1_phase_mon_ctrl-->
-
-  <node id="fmc1_phase_mon_stats"  address="0x00000013"  mask="0xffffffff"  permission="r"
-	description=""/>	
-  
-  <node id="mac_info1"  address="0x0000001c"  permission="r"
-	description="">
-    <node id="mac_ip_source"  mask="0x0fff0000" description=""/>
-    <node id="mac_b5"         mask="0x0000ff00" description=""/>
-    <node id="mac_b4"         mask="0x000000ff" description=""/>
-  </node> <!--end mac_info1-->
-
-  <node id="mac_info2"  address="0x0000001d"  permission="r"
-	description="" >
-    <node id="mac_b3"  mask="0xff000000" />
-    <node id="mac_b2"  mask="0x00ff0000" />
-    <node id="mac_b1"  mask="0x0000ff00" />
-    <node id="mac_b0"  mask="0x000000ff" />
-  </node> <!--end mac_info2-->
-
-  <node id="ip_info"  address="0x0000001e"  permission="r"
-	description="">
-    <node id="ip_b3"   mask="0xff000000" />
-    <node id="ip_b2"   mask="0x00ff0000" />
-    <node id="ip_b1"   mask="0x0000ff00" />
-    <node id="ip_b0"   mask="0x000000ff" />
-  </node> <!--end ip_info-->
+<node id="GLIB">
+  <node id="SYSTEM"  address="0x00000000"  description="GLIB system registers"
+	module="file://${BUILD_HOME}/data/glib_system_registers.xml">
+  </node> <!--end system registers -->
 
 
-  <node id="sram1"  address="0x02000000"  mask="0xffffffff"  permission="rw"
+  <node id="SRAM1"  address="0x02000000"  mask="0xffffffff"  permission="rw"
 	description="SRAM1 memory space "/>
-  <node id="sram2"  address="0x04000000"  mask="0xffffffff"  permission="rw"
+  <node id="SRAM2"  address="0x04000000"  mask="0xffffffff"  permission="rw"
 	description="SRAM2 memory space"/>
   
-  <node id="icap"  address="0x00000200"  mask="0xffffffff"  permission="rw"
+  <node id="ICAP"  address="0x00000200"  mask="0xffffffff"  permission="rw"
 	description="ICAP memory space (seems to not work at the moment)"/>
 
   <node id="GLIB_LINKS"  address="0x40040000">
@@ -212,6 +26,23 @@
     <node id="LINK2"  address="0x200"
 	  module="file://${BUILD_HOME}/data/glib_optical_links.xml"
 	  description="optical link status counters and resets"/>
+    
+    <node id="TRG_DATA"
+	  description="registers for the trigger data sent from the OH to the GLIB">
+      <node id="DATA"  address="0x10000"  mask="0xFFFFFFFF"  permission="r"
+	    description="VFAT trigger data register
+			 Read: 28 MSB are the BX counter, 6 LSB, one fbit per VFAT2 (logical OR of all S-bits)
+			 Write: empty the buffer"/>
+      
+      <node id="FIFO_FLUSH"  address="0x180"  mask="0xFFFFFFFF"  permission="w"
+	    description="empty the trigger data FIFO"/>
+    </node>
+    <node id="TRIGGER">
+      <node id="SOURCE"  address="0x10D"  mask="0xFFFFFFFF"  permission="rw"
+	    description="select the trigger source, GLIB(0), TTC(1), both(2)"/>
+      <node id="TDC_SBits"  address="0x181"  mask="0xFFFFFFFF"  permission="rw"
+	    description="select which VFAT will send SBits to send to the TDC (0-5)"/>
+    </node>
   </node><!--end GLIB_LINKS-->
   
   <node id="TEST">

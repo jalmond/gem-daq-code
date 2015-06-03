@@ -3,93 +3,119 @@
 
 #include <string>
 #include <vector>
+#include <cstdlib>
 
 #include "xdaq/Application.h"
 #include "xgi/framework/Method.h"
 
 #include "gem/utils/gemXMLparser.h"
-#include "gem/utils/gemCrateProperties.h"
+#include "gem/utils/gemComplexDeviceProperties.h"
+#include "gem/utils/gemDeviceProperties.h"
 
 namespace gem {
-    namespace base {
-        namespace utils {
-            class gemXMLparcer;
-            class gemCrateProperties;
-        }
-    }
     namespace hwMonitor {
-        class gemHwMonitorBase//: public xdaq::Application//, public xdata::ActionListener
+        template <class T>
+        class gemHwMonitorBase
         {
             public:
-                //XDAQ_INSTANTIATOR();
-                //gemHwMonitorBase(xdaq::ApplicationStub * s)
                 gemHwMonitorBase()
-                    throw (xdaq::exception::Exception);
+                    throw (xdaq::exception::Exception)
+                {
+                    gemDevice_ = new T();
+                }
 
-                ~gemHwMonitorBase(){delete gemXMLparser_;}
-                /**
-                 *   Select one of available crates
-                 */
-                void setCurrentCrate(std::string crateID)
-                    throw (xgi::exception::Exception)
-		            {currentCrateID_ = crateID;}
-                /**
-                 *   Get selected crate
-                 */
-                std::string getCurrentCrate()
-                    throw (xgi::exception::Exception)
-		            {return currentCrateID_;}
-                /**
-                 *   Set XML configuration file
-                 */
-                void setXMLconfigFile (std::string inputXMLfilename)
-                    throw (xgi::exception::Exception)
-		            {xmlConfigFileName_ = inputXMLfilename;}
-                /**
-                 *   Get XML configuration file
-                 */
-                std::string getXMLconfigFile ()
-                    throw (xgi::exception::Exception)
-		            {return xmlConfigFileName_;}
-                /**
-                 *   Select database configuration file
-                 */
-                void setDBSconfigFile (std::string inputDBSfilename)
-                    throw (xgi::exception::Exception){}
-                /**
-                 *   Board status
-                 */
-                unsigned int getBoardStatus ()
-                    throw (xgi::exception::Exception)
-		            {return boardStatus_;}
+                virtual ~gemHwMonitorBase()
+                {
+                    delete gemDevice_;
+                }
 
-                /*
-                 *   Initialize XML parser
-                 */
-                void initParser()
+                bool isConfigured()
+                    throw (xgi::exception::Exception)
+                {return isConfigured_;}
+
+                void setIsConfigured(bool state)
+                    throw (xgi::exception::Exception)
+                {isConfigured_=state;}
+
+                const std::string getDeviceId()
                     throw (xgi::exception::Exception);
-                /*
-                 *   Get system configuration
+
+                /**
+                 *   Get subdevice status
+                 *   0 - device is working well, 1 - device has errors, 2 - device status unknown
                  */
-                void getSystemConfiguration()
+                unsigned int getSubDeviceStatus (unsigned int i)
+                    throw (xgi::exception::Exception)
+		            {return subDeviceStatus_.at(i);}
+
+                /**
+                 *   Set subdevice status
+                 *   0 - device is working well, 1 - device has errors, 2 - device status unknown
+                 */
+                void setSubDeviceStatus (const unsigned int deviceStatus, const unsigned int i)
+                    throw (xgi::exception::Exception)
+		            {subDeviceStatus_.at(i) = deviceStatus;}
+
+                /**
+                 *   Add subdevice status
+                 *   0 - device is working well, 1 - device has errors, 2 - device status unknown
+                 */
+                void addSubDeviceStatus (unsigned int deviceStatus)
+                    throw (xgi::exception::Exception)
+		            {subDeviceStatus_.push_back(deviceStatus);}
+
+                /**
+                 *   Get device status
+                 *   0 - device is working well, 1 - device has errors, 2 - device status unknown
+                 */
+                unsigned int getDeviceStatus ()
+                    throw (xgi::exception::Exception)
+		            {return deviceStatus_;}
+
+                /**
+                 *   Set device status
+                 *   0 - device is working well, 1 - device has errors, 2 - device status unknown
+                 */
+                void setDeviceStatus (const unsigned int deviceStatus)
+                    throw (xgi::exception::Exception)
+		            {deviceStatus_ = deviceStatus;}
+                /**
+                 *   Set device configuration
+                 */
+                void setDeviceConfiguration(T& device)
                     throw (xgi::exception::Exception);
+                /**
+                 *   Get device reference
+                 */
+                T*  getDevice()
+                    throw (xgi::exception::Exception)
+                    {return gemDevice_;}
+
+                int getNumberOfSubDevices()
+                    throw (xgi::exception::Exception);
+
+                const std::string getCurrentSubDeviceId(unsigned int subDeviceNumber)
+                                    throw (xgi::exception::Exception);
+
                 /**
                  *   Access to board utils
                 virtual void boardUtils ()
                     throw (xgi::exception::Exception);
                  */
-                int getNumberOfCrates()
-                    throw (xgi::exception::Exception);
-
             protected:
             private:
-                std::string currentCrateID_;
-                unsigned int boardStatus_;
-                std::string boardID_;
+                bool isConfigured_;
+                unsigned int deviceStatus_; // 0 - device is working well, 1 - device has errors, 2 - device status unknown
+                std::vector<unsigned int> subDeviceStatus_; // 0 - device is working well, 1 - device has errors, 2 - device status unknown
                 std::string xmlConfigFileName_;
-                gem::base::utils::gemXMLparser *gemXMLparser_;
-                std::vector<gem::base::utils::gemCrateProperties*> crateRefs_;
-        }; // end namespace hwMon
-    }
+                T* gemDevice_;
+        };
+
+        typedef gemHwMonitorBase<gem::utils::gemSystemProperties> gemHwMonitorSystem;
+        typedef gemHwMonitorBase<gem::utils::gemCrateProperties> gemHwMonitorCrate;
+        typedef gemHwMonitorBase<gem::utils::gemGLIBProperties> gemHwMonitorGLIB;
+        typedef gemHwMonitorBase<gem::utils::gemOHProperties> gemHwMonitorOH;
+        typedef gemHwMonitorBase<gem::utils::gemVFATProperties> gemHwMonitorVFAT;
+    } // end namespace hwMon
 } // end namespace gem
 #endif

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<node id="top">
+  <node id="PCIE_CLK_FSEL"	  mask="0x00000001"
+	description="output multiplication factor:0->2.5x, 1->1.25x"/>
+  <node id="PCIE_CLK_MR"	  mask="0x00000002"
+	description="master reset: 1 -> reset, 0 -> normal"/>
+  <node id="PCIE_CLK_OE"	  mask="0x00000004"
+	description="output enable"/>
+  <node id="CDCE_POWERUP"	  mask="0x00000010"
+	description="control power up of CDCE"/>
+  <node id="CDCE_REFSEL"	  mask="0x00000020"
+	description="clock input selection: 1 -> CLK1, 0 -> CLK2"/>
+  <node id="CDCE_SYNC"	          mask="0x00000040"
+	description="CDCE synchronization, transition from 0 to 1 needed to resync"/>
+  <node id="CDCE_CTRLSEL"         mask="0x00000080"
+	description="who drives CDCE: 0 -> system, 1 -> user"/>
+  <node id="TCLKB_DR_EN"	  mask="0x00000200"
+	description="TCKLB to backplane enable"/>
+  <node id="XPOINT2"
+	description="configure the routing of the clocks on the xpoint2 switch
+		     if bit 0 is 0 and bit 1 is 0, the output takes input 1 as the source
+		     if bit 0 is 0 and bit 1 is 1, the output takes input 2 as the source
+		     if bit 0 is 1 and bit 1 is 0, the output takes input 3 as the source
+		     if bit 0 is 1 and bit 1 is 1, the output takes input 4 as the source
+		     ">
+    <node id="S10"	  mask="0x00001000"
+	  description="output 1 first bit"/>
+    <node id="S11"	  mask="0x00002000"
+	  description="output 1 second bit"/>
+  </node> <!-- end xpoint2 configuration-->
+  <node id="XPOINT1"
+	description="configure the routing of the clocks on the xpoint1 switch
+		     if bit 0 is 0 and bit 1 is 0, the output takes input 1 as the source
+		     if bit 0 is 0 and bit 1 is 1, the output takes input 2 as the source
+		     if bit 0 is 1 and bit 1 is 0, the output takes input 3 as the source
+		     if bit 0 is 1 and bit 1 is 1, the output takes input 4 as the source
+		     ">
+    <node id="S10"	  mask="0x00010000"
+	  description="output 1 first bit"/>
+    <node id="S11"	  mask="0x00020000"
+	  description="output 1 second bit"/>
+    <node id="S20"	  mask="0x00040000"
+	  description="output 2 first bit"/>
+    <node id="S21"	  mask="0x00080000"
+	  description="output 2 second bit"/>
+    <node id="S30"	  mask="0x00100000"
+	  description="output 3 first bit"/>
+    <node id="S31"	  mask="0x00200000"
+	  description="output 3 second bit"/>
+    <node id="S40"	  mask="0x00400000"
+	  description="output 4 first bit"/>
+    <node id="S41"	  mask="0x00800000"
+	  description="output 4 second bit"/>
+  </node> <!-- end xpoint1 configuration-->
+
+  <node id="GBT_PHASE_MON_RESET"  mask="0x04000000"
+	description=""/>
+  <node id="FPGA_PROGRAM_B_TRST"  mask="0x10000000"
+	description=""/>
+</node>

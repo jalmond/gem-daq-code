@@ -2,7 +2,7 @@
 <node id="top">
   <node id="VFAT9"
 	address="0x900"  
-	module="file:///home/mdalchen/test/data/vfatregs.xml"
+	module="file://${BUILD_HOME}/data/vfatregs.xml"
 	description="column 1, CMS hybrid VFAT chip adjacent to J8 connector"/>
   
   <node id="VFAT11"

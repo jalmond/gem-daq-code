@@ -1,0 +1,15 @@
+*~
+*.bac
+*.new
+*.old
+*.build
+\#*\#
+#*#
+*.out
+*.log
+*.swp
+*.so
+*.d
+*.o
+lib
+src/linux

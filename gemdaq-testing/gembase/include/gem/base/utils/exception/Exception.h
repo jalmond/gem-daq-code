@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "gem/base/exception/Exception.h"
+#include "gem/utils/exception/Exception.h"
 
 #define GEM_BASE_UTILS_DEFINE_EXCEPTION(EXCEPTION_NAME)			\
   namespace gem {				                        \

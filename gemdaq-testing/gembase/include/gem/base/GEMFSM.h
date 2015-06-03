@@ -30,10 +30,45 @@ namespace gem {
     
     class GEMFSM : virtual public toolbox::lang::Class
       {
+	friend class GEMFSMApplication;
       public:
+	//HCAL states, are they useful for GEM?
+	/*
+	static const toolbox::fsm::State STATE_UNINIT  ='U'; ///< Uninitialized state (power on, reset, and recovery state)
+	static const toolbox::fsm::State STATE_COLD    ='C'; ///< Cold initialization state (firmware reload)
+	static const toolbox::fsm::State STATE_INIT    ='I'; ///< Initialization state
+	static const toolbox::fsm::State STATE_PREINIT ='N'; ///< Pre-initialized state used by cards which may require two stages of configuration, where the first is fast
+	static const toolbox::fsm::State STATE_WARM    ='W'; ///< WARM Initialization state
+	*/
+	// what is halted vs initialized?, go from initial state of halted to initialzed?
+	// or vice versa
+	static const toolbox::fsm::State STATE_INITIAL     ='I'; ///< Initial state
+	//static const toolbox::fsm::State STATE_INITIALIZED ='I'; ///< Initialized state
+	static const toolbox::fsm::State STATE_HALTED      ='H'; ///< Halted state
+	static const toolbox::fsm::State STATE_CONFIGURED  ='C'; ///< Configured state
+	static const toolbox::fsm::State STATE_RUNNING     ='E'; ///< Running (enabled, active) state
+	static const toolbox::fsm::State STATE_PAUSED      ='P'; ///< Paused state
+	static const toolbox::fsm::State STATE_FAILED      ='F'; ///< Failed state
+	static const toolbox::fsm::State STATE_RESET       ='T'; ///< Reset transitional state
+
+	//transitional states
+	//static const toolbox::fsm::State STATE_ENABLE      ='E'; ///< Enable transitional state
+	//static const toolbox::fsm::State STATE_DISABLE     ='D'; ///< Disable transitional state
+	static const toolbox::fsm::State STATE_INITIALIZING ='i'; ///< Initializing transitional state
+	static const toolbox::fsm::State STATE_CONFIGURING  ='c'; ///< Configuring transitional state
+	static const toolbox::fsm::State STATE_HALTING      ='h'; ///< Halting transitional state
+	static const toolbox::fsm::State STATE_PAUSING      ='p'; ///< Pausing transitional state
+	static const toolbox::fsm::State STATE_STOPPING     ='s'; ///< Stopping transitional state
+	static const toolbox::fsm::State STATE_STARTING     ='e'; ///< Starting transitional state
+	static const toolbox::fsm::State STATE_RESUMING     ='r'; ///< Resuming transitional state
+	static const toolbox::fsm::State STATE_RESETTING    ='t'; ///< Resetting transitional state
+	static const toolbox::fsm::State STATE_FIXING       ='X'; ///< Fixing transitional state
+
   	GEMFSM(GEMFSMApplication* const gemAppP);//,
 	//gem::base::utils::ApplicationStateInfoSpaceHandler* const infoSpaceHandlerP);
-	~GEMFSM();
+	virtual ~GEMFSM();
+	
+	void fireEvent(::toolbox::Event::Reference const &event);
 	
 	xoap::MessageReference changeState(xoap::MessageReference msg);
 	
@@ -56,14 +91,15 @@ namespace gem {
 	void invalidAction(toolbox::Event::Reference event);
 	
       private:
-	//gem::base::utils::ApplicationStateInfoSpaceHandler* appStateInfoSpaceHandlerP_;
 	toolbox::fsm::AsynchronousFiniteStateMachine* gemfsmP_;
+	xdata::InfoSpace *appInfoSpaceP_;
+	xdata::InfoSpace *appStateInfoSpaceP_;
 
-	//xdata::String state_;
-	//xdata::String reasonForFailure_;
+	xdata::String gemFSMState_;
+	xdata::String reasonForFailure_;
 
 	GEMFSMApplication* gemAppP_;
-	log4cplus::Logger gemFSMLogger_;
+	log4cplus::Logger gemLogger_;
 	std::map<std::string, std::string> lookupMap_;
 	xdaq2rc::RcmsStateNotifier gemRCMSNotifier_;
       };

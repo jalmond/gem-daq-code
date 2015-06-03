@@ -2,63 +2,56 @@
 <xc:Partition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
-  <xc:Context url="http://${GEMHOST}:${VFAT_MAN_PORT}">
 
-    <xc:Application class="gem::hw::vfat::VFAT2Manager" id="3254" instance="1" network="local">
-      <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
-		  xsi:type="soapenc:Struct">
-	<device xsi:type="xsd:string">VFAT9</device>
-	<ipAddr xsi:type="xsd:string">192.168.0.115</ipAddr>
-	<settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
-      </properties>
-    </xc:Application>
-<!--
-    <xc:Application class="gem::hw::vfat::VFAT2Manager" id="3255" instance="2" network="local">
-      <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
-		  xsi:type="soapenc:Struct">
-	<device xsi:type="xsd:string">VFAT11</device>
-	<ipAddr xsi:type="xsd:string">137.138.115.146</ipAddr>
-	<settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
-      </properties>
-    </xc:Application>
--->    
+  <xc:Context url="http://gem904daq01:2222">
+
     <xc:Application class="gem::hw::vfat::VFAT2Manager" id="3256" instance="3" network="local">
       <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
 		  xsi:type="soapenc:Struct">
 	<device xsi:type="xsd:string">VFAT13</device>
-	<ipAddr xsi:type="xsd:string">192.168.0.115</ipAddr>
+	<ipAddr xsi:type="xsd:string">192.168.0.164</ipAddr>
 	<settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
       </properties>
     </xc:Application>
 
-<!--    
-    <xc:Application class="gem::hw::vfat::VFAT2Manager" id="3257" instance="4" network="local">
-      <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
+    <xc:Application class="gem::hw::amc13::AMC13Manager" id="259" instance="0" network="local">
+      <properties xmlns="urn:xdaq-application:gem::hw::amc13::AMC13Manager"
 		  xsi:type="soapenc:Struct">
-	<device xsi:type="xsd:string">VFAT8</device>
-	<ipAddr xsi:type="xsd:string">192.168.0.115</ipAddr>
-	<settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
+	<!--
+	<rcmsStateListener xsi:type="soapenc:Struct">
+          <classname xsi:type="xsd:string">RCMSStateListener</classname>
+          <instance xsi:type="xsd:unsignedInt">0</instance>
+        </rcmsStateListener>
+	-->    
       </properties>
     </xc:Application>
-    
-    <xc:Application class="gem::hw::vfat::VFAT2Manager" id="3258" instance="5" network="local">
-      <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
+
+    <xc:Application class="gem::supervisor::GEMSupervisor" id="254" instance="0" network="local">
+      <properties xmlns="urn:xdaq-application:GEMSupervisor"
 		  xsi:type="soapenc:Struct">
-	<device xsi:type="xsd:string">VFAT10</device>
-	<ipAddr xsi:type="xsd:string">192.168.0.115</ipAddr>
-	<settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
+	<!--
+	<rcmsStateListener xsi:type="soapenc:Struct">
+          <classname xsi:type="xsd:string">RCMSStateListener</classname>
+          <instance xsi:type="xsd:unsignedInt">0</instance>
+        </rcmsStateListener>
+	-->    
       </properties>
     </xc:Application>
-    
-    <xc:Application class="gem::hw::vfat::VFAT2Manager" id="3259" instance="6" network="local">
-      <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
-		  xsi:type="soapenc:Struct">
-	<device xsi:type="xsd:string">VFAT12</device>
-	<ipAddr xsi:type="xsd:string">192.168.0.115</ipAddr>
-	<settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
-      </properties>
-    </xc:Application>
--->
-    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemhardware/lib/linux/x86_64_slc6/libgem_hw.so</xc:Module>
+
+    <xc:Module>${XDAQ_ROOT}/lib/libxdaq2rc.so</xc:Module>
+
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gembase/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_base.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemutils/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_utils.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemhardware/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_hw.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemsupervisor/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_supervisor.so</xc:Module>
+
   </xc:Context>
+
+  <!--
+  <xc:Context url="http://gem904daq01:10000/rcms">
+    <xc:Application class="RCMSStateListener" id="50" instance="0" network="local" path="/services/replycommandreceiver" />
+    <xc:Module>${XDAQ_ROOT}/lib/libxdaq2rc.so</xc:Module>
+  </xc:Context>
+  -->
+
 </xc:Partition>

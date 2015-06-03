@@ -48,17 +48,25 @@ namespace gem {
     namespace hw {
         namespace vfat {
             class HwVFAT2;
-        }   
+        }
     }
+    namespace readout {
+        class GEMDataParker;
+    }
+
     namespace supervisor {
 
         class GEMGLIBSupervisorWeb: public xdaq::WebApplication
         {
             public:
+
                 XDAQ_INSTANTIATOR();
 
                 GEMGLIBSupervisorWeb(xdaq::ApplicationStub * s)
                     throw (xdaq::exception::Exception);
+
+		void setParameter(xgi::Input * in, xgi::Output * out ) 
+                    throw (xgi::exception::Exception);
 
                 // SOAP interface
                 xoap::MessageReference onConfigure(xoap::MessageReference message)
@@ -109,6 +117,10 @@ namespace gem {
 
                 // work loop call-back functions
                 /**
+                *    Fire initialize action to FSM
+                */
+                bool initializeAction(toolbox::task::WorkLoop *wl);
+                /**
                 *    Fire configure action to FSM
                 */
                 bool configureAction(toolbox::task::WorkLoop *wl);
@@ -152,12 +164,12 @@ namespace gem {
                 */
                 void stopAction(toolbox::Event::Reference e)
                     throw (toolbox::fsm::exception::Exception);
-                /*
+                /**
                 *    Action during transition to "Halted" state
                 */
                 void haltAction(toolbox::Event::Reference e)
                     throw (toolbox::fsm::exception::Exception);
-                /*
+                /**
                 *    Empty action for forbidden state transitions in FSM
                 */
                 void noAction(toolbox::Event::Reference e)
@@ -168,20 +180,21 @@ namespace gem {
                     public:
                         void registerFields(xdata::Bag<ConfigParams> *bag);
 
+                        xdata::String          deviceIP;
+                        xdata::String          outFileName;
+			xdata::String          outputType;
+                        xdata::String          deviceName[24];
+                        xdata::Integer         deviceNum[24];
+
                         xdata::UnsignedInteger latency;
-
-                        xdata::String        outFileName;
-
-                        xdata::String        deviceName;
-                        xdata::String        deviceIP;
-                        xdata::Integer       deviceNum;
-                        xdata::UnsignedShort triggerSource;
-                        xdata::UnsignedShort deviceChipID;
-                        xdata::UnsignedShort deviceVT1;
-                        xdata::UnsignedShort deviceVT2;
+                        xdata::UnsignedShort   triggerSource;
+                        xdata::UnsignedShort   deviceChipID;
+                        xdata::UnsignedShort   deviceVT1;
+                        xdata::UnsignedShort   deviceVT2;
                 };
 
             private:
+
                 toolbox::task::WorkLoop *wl_;
 
                 toolbox::BSem wl_semaphore_;
@@ -199,12 +212,11 @@ namespace gem {
                 xdata::Bag<ConfigParams> confParams_;
 
                 FILE* outputFile;
-
                 uint64_t latency_;
-
                 bool is_working_, is_initialized_, is_configured_, is_running_;
 
                 gem::hw::vfat::HwVFAT2* vfatDevice_;
+                gem::readout::GEMDataParker* gemDataParker;
 
                 int counter_;
 
