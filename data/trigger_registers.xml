@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="SOURCE"     address="0x40030145"  mask="0xFFFFFFFF"  permission="rw"
+  <node id="SOURCE"     address="0x0"  mask="0xFFFFFFFF"  permission="rw"
 	description="select the trigger source, GLIB(0), external(1), both(2)"/>
-  <node id="TDC_SBits"  address="0x40030146"  mask="0xFFFFFFFF"  permission="rw"
+  <node id="TDC_SBits"  address="0x1"  mask="0xFFFFFFFF"  permission="rw"
 	description="select which VFAT will send SBits to send to the TDC (0-5)"/>
 </node> <!-- end trigger setup definitions -->

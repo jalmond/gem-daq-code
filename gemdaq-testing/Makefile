@@ -44,7 +44,7 @@ $(SUBPACKAGES.CLEAN):
 .PHONY: $(SUBPACKAGES) $(SUBPACKAGES.INSTALL) $(SUBPACKAGES.CLEAN)
 
 
-gemHwMonitor: gembase gemhardware
+gemHwMonitor: gemutils gembase gemhardware 
 
 gemhardware: gemutils gembase
 

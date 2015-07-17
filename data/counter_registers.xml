@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="L1A"  address="0x4003015A"
+  <!--node id="L1A"  address="0x4003015A" -->
+  <node id="L1A"  address="0x0"
 	description="L1A counters">
     <node id="External"  address="0x0"  mask="0xFFFFFFFF"  permission="r"
-	  description="counts number of received external L1A signals"/>
+	  description="counts number of received external L1A signals
+		       0x40030X5A"/>
     <node id="Internal"  address="0x1"  mask="0xFFFFFFFF"  permission="r"
-	  description="counts number of received external L1A signals"/>
+	  description="counts number of received internal L1A signals
+		       0x40030X5B"/>
     <node id="Delayed"   address="0x2"  mask="0xFFFFFFFF"  permission="r"
-	  description="counts number of received external L1A signals"/>
+	  description="counts number of received delayed L1A signals
+		       0x40030X5C"/>
     <node id="Total"     address="0x3"  mask="0xFFFFFFFF"  permission="r"
-	  description="counts total number of received L1A signals"/>
+	  description="counts total number of received L1A signals
+		       0x40030X5D"/>
   </node>
   
-  <node id="CalPulse"  address="0x4003015E"
+  <!--node id="CalPulse"  address="0x4003015E" -->
+  <node id="CalPulse"  address="0x4"
 	description="CalPulse counters">
-    <node id="External"  address="0x0"  mask="0xFFFFFFFF"  permission="r"
-	  description="counts number of received external CalPulse signals"/>
-    <node id="Internal"  address="0x1"  mask="0xFFFFFFFF"  permission="r"
-	  description="counts number of received external CalPulse signals"/>
+    <node id="Internal"  address="0x0"  mask="0xFFFFFFFF"  permission="r"
+	  description="counts number of received internal CalPulse signals
+		       0x40030X5E"/>
+    <node id="Delayed"  address="0x1"  mask="0xFFFFFFFF"  permission="r"
+	  description="counts number of received delayed CalPulse signals
+		       0x40030X5F"/>
     <node id="Total"     address="0x2"  mask="0xFFFFFFFF"  permission="r"
-	  description="counts total number of received CalPulse signals"/>
+	  description="counts total number of received CalPulse signals
+		       0x40030X60"/>
   </node>
   
-  <node id="Resync"   address="0x40030161"  mask="0xFFFFFFFF"  permission="r"
-	description="counts number of received Resync signals"/>  
-  <node id="BC0"      address="0x40030162"  mask="0xFFFFFFFF"  permission="r"
-	description="counts number of received BC0 signals"/>  
-  <node id="BXCount"  address="0x40030163"  mask="0xFFFFFFFF"  permission="r"
-	description="BX counter on the OptoHybrid"/> 
+  <node id="Resync"   address="0x7"  mask="0xFFFFFFFF"  permission="r"
+	description="counts number of received Resync signals
+		     0x40030X61"/>  
+  <node id="BC0"      address="0x8"  mask="0xFFFFFFFF"  permission="r"
+	description="counts number of received BC0 signals
+		     0x40030X62"/>  
+  <node id="BXCount"  address="0x9"  mask="0xFFFFFFFF"  permission="r"
+	description="BX counter on the OptoHybrid
+		     0x40030X63"/> 
   
-  <node id="RESETS"
+  <node id="RESETS"  address="0xC"
 	module="file://${BUILD_HOME}/data/counter_reset_registers.xml"
 	description="resets for all the counters"/>
   

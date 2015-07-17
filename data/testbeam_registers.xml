@@ -3,43 +3,27 @@
   
   <node id="OptoHybrid"
 	description="Optohybrid registers, divided into global and local (per optical link)">
-    <node id="OPTICAL_LINKS"  address="0x40030000"
+
+    <node id="OptoHybrid_LINKS"  address="0x40030000"
 	  description="Optohybrid registers">
+
       <node id="LINK0"  address="0x000"
-	    module="file://${BUILD_HOME}/data/optical_link_registers.xml"
+	    module="file://${BUILD_HOME}/data/optohybrid_optical_links.xml"
 	    description="optical link status counters and resets"/>
       
       <node id="LINK1"  address="0x100"
-	    module="file://${BUILD_HOME}/data/optical_link_registers.xml"
+	    module="file://${BUILD_HOME}/data/optohybrid_optical_links.xml"
 	    description="optical link status counters and resets"/>
       
       <node id="LINK2"  address="0x200"
-	    module="file://${BUILD_HOME}/data/optical_link_registers.xml"
+	    module="file://${BUILD_HOME}/data/optohybrid_optical_links.xml"
 	    description="optical link status counters and resets"/>
-    </node>
-    
-    <node id="FAST_COM"
-	  module="file://${BUILD_HOME}/data/fast_signals_address_table.xml"
-	  description="global fast commands registers"/>
-    
-    <node id="TRIGGER"
-	  module="file://${BUILD_HOME}/data/trigger_registers.xml"
-	  description="global ttrigger setup"/>
-    
-    <node id="CLOCKING"
-	  module="file://${BUILD_HOME}/data/clocking_registers.xml"
-	  description="global clocking registers"/>
-    
-    <node id="COUNTERS"
-	  module="file://${BUILD_HOME}/data/counter_registers.xml"
-	  description="global counter registers"/>
+    </node> <!-- end OptoHybrid links block-->
     
     <node id="GEB"
 	  module="file://${BUILD_HOME}/data/geb_vfat_address_table.xml"
 	  description="complete GEB address table"/>
-
-    <node id="FIRMWARE"  address="0x40030157"  mask="0xFFFFFFFF"  permission="r"
-	  description="version of the optohybrid firmware"/>
+    
   </node> <!-- end of the optohybrid specific registers -->
   
   <node id="GLIB"  address="0x40040000">

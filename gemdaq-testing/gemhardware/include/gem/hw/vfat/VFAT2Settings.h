@@ -7,6 +7,7 @@
 
 #include "xdata/UnsignedShort.h"
 #include "xdata/Vector.h"
+#include "xdata/Bag.h"
 
 namespace gem {
   namespace hw {

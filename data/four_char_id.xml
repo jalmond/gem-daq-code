@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="CHAR1"  mask="0xff000000"/>
-  <node id="CHAR2"  mask="0x00ff0000"/>
-  <node id="CHAR3"  mask="0x0000ff00"/>
-  <node id="CHAR4"  mask="0x000000ff"/>
+  <node id="CHAR1"  mask="0xff000000"  permission="r"/>
+  <node id="CHAR2"  mask="0x00ff0000"  permission="r"/>
+  <node id="CHAR3"  mask="0x0000ff00"  permission="r"/>
+  <node id="CHAR4"  mask="0x000000ff"  permission="r"/>
 </node>

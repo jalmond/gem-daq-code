@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="BOARD_ID"  address="0x0"  permission="r"
-	module="${BUILD_HOME}/data/four_char_id.xml"
+  <node id="BOARD_ID" address="0x0"
+	module="file://${BUILD_HOME}/data/four_char_id.xml"
 	description="GLIB board ID code">
   </node> <!--end board_id -->
   
-  <node id="SYSTEM_ID"  address="0x1"  permission="r"
-	module="${BUILD_HOME}/data/four_char_id.xml"
+  <node id="SYSTEM_ID"  address="0x1"
+	module="file://${BUILD_HOME}/data/four_char_id.xml"
 	description="GLIB system ID code">
   </node> <!--end system_id -->
   
   <node id="FIRMWARE"  address="0x2"  permission="r" 
 	description="GLIB firmware date (dd.mm.yy) and version number (x.y.z)">
-    <node id="MAJOR"  mask="0xf0000000"/>
-    <node id="MINOR"  mask="0x0f000000"/>
-    <node id="BUILD"  mask="0x00ff0000"/>
-    <node id="YY"     mask="0x0000fe00"/>
-    <node id="MM"     mask="0x000001e0"/>
-    <node id="DD"     mask="0x0000001f"/>
+    <node id="MAJOR"  mask="0xf0000000"    permission="r"/>
+    <node id="MINOR"  mask="0x0f000000"    permission="r"/>
+    <node id="BUILD"  mask="0x00ff0000"    permission="r"/>
+    <node id="YY"     mask="0x0000fe00"    permission="r"/>
+    <node id="MM"     mask="0x000001e0"    permission="r"/>
+    <node id="DD"     mask="0x0000001f"    permission="r"/>
   </node> <!--end firmware_id -->
   
   <node id="TEST"  address="0x3"    mask="0xffffffff"  permission="rw"
 	description="Register for testing purposes only"/>
 
-  <node id="CLK_CTRL"  address="0x4"  permission="rw"
-	module="${BUILD_HOME}/data/glib_clk_ctrl.xml"
+  <node id="CLK_CTRL"  address="0x4"
+	module="file://${BUILD_HOME}/data/glib_clk_ctrl.xml"
 	description="Controls the external clocking circuitry">
   </node> <!--end ctrl-->
 
@@ -34,27 +34,27 @@
     <node id="ICAP_TRIGG"  mask="0x00000010"/>
   </node> <!--end ctrl_2-->
   
-  <node id="STATUS"  address="0x6"  permission="r"
-	module="${BUILD_HOME}/data/glib_status_register.xml"
+  <node id="STATUS"  address="0x6"
+	module="file://${BUILD_HOME}/data/glib_status_register.xml"
 	description="Status from various external components"/>
 
   <node id="STATUS_2"   address="0x7"  mask="0xffffffff"  permission="r"
 	description="Currently unused"/>
 
-  <node id="SRAM" address="0x00000008"  permission="rw"
-	module="${BUILD_HOME}/data/glib_sram_registers.xml"
+  <node id="SRAM" address="0x8"
+	module="file://${BUILD_HOME}/data/glib_sram_registers.xml"
 	description="SRAM interface control register"/>
   
-  <node id="SPI"  address="0x0000000a"  permission="rw"
-	module="${BUILD_HOME}/data/glib_spi_registers.xml"
+  <node id="SPI"  address="0xa"
+	module="file://${BUILD_HOME}/data/glib_spi_registers.xml"
 	description="SPI interface: data from FPGA to clock synthesizer"/>
   
-  <node id="I2C"  address="0x0000000d"  permission="rw"
-	module="${BUILD_HOME}/data/glib_i2c_registers.xml"
+  <node id="I2C"  address="0xd"
+	module="file://${BUILD_HOME}/data/glib_i2c_registers.xml"
 	description="I2C interface"/>
 
   <node id="SFP_PHASE_MON">
-    <node id="CTRL"  address="0x00000010"  permission="rw"
+    <node id="CTRL"  address="0x10"  permission="rw"
 	  description="">
       <node id="LOWER"  mask="0x000000ff"/>
       <node id="UPPER"  mask="0x0000ff00"/>

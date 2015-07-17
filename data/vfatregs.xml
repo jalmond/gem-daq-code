@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="ContReg0"     address="0x00"  mask="0xFF"  permission="rw"
+  <node id="ContReg0"     address="0x00"  mask="0xFFFFFFFF"  permission="rw"
 	description="VFAT control register 0
 		     Hardwired sleep value 0x00
 		     Software default value 0x00"/>
-  <node id="ContReg1"     address="0x01"  mask="0xFF"  permission="rw"
+  <node id="ContReg1"     address="0x01"  mask="0xFFFFFFFF"  permission="rw"
 	description="VFAT control register 1"/>
-  <node id="IPreampIn"    address="0x02"  mask="0xFF"  permission="rw"
+  <node id="IPreampIn"    address="0x02"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0xa8"/>
-  <node id="IPreampFeed"  address="0x03"  mask="0xFF"  permission="rw"
+  <node id="IPreampFeed"  address="0x03"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x50"/>
-  <node id="IPreampOut"   address="0x04"  mask="0xFF"  permission="rw"
+  <node id="IPreampOut"   address="0x04"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x96"/>
-  <node id="IShaper"      address="0x05"  mask="0xFF"  permission="rw"
+  <node id="IShaper"      address="0x05"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x96"/>
-  <node id="IShaperFeed"  address="0x06"  mask="0xFF"  permission="rw"
+  <node id="IShaperFeed"  address="0x06"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x64"/>
-  <node id="IComp"        address="0x07"  mask="0xFF"  permission="rw"
+  <node id="IComp"        address="0x07"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x78"/>
   
-  <node id="ChipID0"      address="0x08"  mask="0xFF"  permission="r"
+  <node id="ChipID0"      address="0x08"  mask="0xFFFFFFFF"  permission="r"
 	description="8 least significant bits in the chip ID"/>
-  <node id="ChipID1"      address="0x09"  mask="0xFF"  permission="r"
+  <node id="ChipID1"      address="0x09"  mask="0xFFFFFFFF"  permission="r"
 	description="8 most significant bits in the chip ID"/>
   
-  <node id="UpsetReg"     address="0x0A"  mask="0xFF"  permission="r"
+  <node id="UpsetReg"     address="0x0A"  mask="0xFFFFFFFF"  permission="r"
 	description=""/>
   
-  <node id="HitCount0"    address="0x0B"  mask="0xFF"  permission="r"
+  <node id="HitCount0"    address="0x0B"  mask="0xFFFFFFFF"  permission="r"
 	description=""/>
-  <node id="HitCount1"    address="0x0C"  mask="0xFF"  permission="r"
+  <node id="HitCount1"    address="0x0C"  mask="0xFFFFFFFF"  permission="r"
 	description=""/>
-  <node id="HitCount2"    address="0x0D"  mask="0xFF"  permission="r"
+  <node id="HitCount2"    address="0x0D"  mask="0xFFFFFFFF"  permission="r"
 	description=""/>
   
-  <node id="ExtRegPointer"  address="0x0E"  mask="0xFF"  permission="rw"
+  <node id="ExtRegPointer"  address="0x0E"  mask="0xFFFFFFFF"  permission="rw"
 	description="Pointer to one of the extended registers
 		     Hardwired sleep value 0x00
 		     Software default value 0x00"/>
-  <node id="ExtRegData"     address="0x0F"  mask="0xFF"  permission="rw"
+  <node id="ExtRegData"     address="0x0F"  mask="0xFFFFFFFF"  permission="rw"
 	description="Data to be written to the extended register
 		     pointed to by ExtRegPointer
 		     Hardwired sleep value 0x00
@@ -58,7 +58,7 @@
   
   <!--Extended registers, addressed by ExtRegPointer and ExtRegData
 	       (should be taken care of in the GLIB-Optohybrid firmware-->
-  <node id="Latency"       address="0x10"  mask="0xFF"  permission="rw"
+  <node id="Latency"       address="0x10"  mask="0xFFFFFFFF"  permission="rw"
 	description="Programs the L1A latency, each bit is a single clock
 		     cycle (0-255 clock cycles, up to 6.4us)
 		     Hardwired sleep value 0x80
@@ -69,31 +69,31 @@
 		     Hardwired sleep value 0x00
 		     Software default value 0x00"/>
 
-  <node id="VCal"           address="0x91"  mask="0xFF"  permission="rw"
+  <node id="VCal"           address="0x91"  mask="0xFFFFFFFF"  permission="rw"
 	description="Determines the variable calibration voltage 
 		     (between 0.877V and 1.074V)
 		     Hardwired sleep value 0x00
 		     Software default value 0x64"/>
-  <node id="VThreshold1"    address="0x92"  mask="0xFF"  permission="rw"
+  <node id="VThreshold1"    address="0x92"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x00"/>
-  <node id="VThreshold2"    address="0x93"  mask="0xFF"  permission="rw"
+  <node id="VThreshold2"    address="0x93"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x1a"/>
-  <node id="CalPhase"       address="0x94"  mask="0xFF"  permission="rw"
+  <node id="CalPhase"       address="0x94"  mask="0xFFFFFFFF"  permission="rw"
 	description="
 		     Hardwired sleep value 0x00
 		     Software default value 0x00"/>
-  <node id="ContReg2"       address="0x95"  mask="0xFF"  permission="rw"
+  <node id="ContReg2"       address="0x95"  mask="0xFFFFFFFF"  permission="rw"
 	description="Third control register
 		     Hardwired sleep value 0x00
 		     Software default value 0x00"/>
-  <node id="ContReg3"       address="0x96"  mask="0xFF"  permission="rw"
+  <node id="ContReg3"       address="0x96"  mask="0xFFFFFFFF"  permission="rw"
 	description="Fourth control register
 		     Hardwired sleep value 0x00
 		     Software default value 0x00"/>
-  <node id="Spare"          address="0x97"  mask="0xFF"  permission="rw"
+  <node id="Spare"          address="0x97"  mask="0xFFFFFFFF"  permission="rw"
 	description="Spare register, not currently implemented"/>
 </node>

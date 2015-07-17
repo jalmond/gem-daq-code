@@ -30,8 +30,8 @@ gem::hw::amc13::AMC13Manager::AMC13Manager(xdaq::ApplicationStub* stub) :
   //initialize the AMC13Manager application objects
   LOG4CPLUS_DEBUG(getApplicationLogger(), "connecting to the AMC13ManagerWeb interface");
   gemWebInterfaceP_ = new gem::hw::amc13::AMC13ManagerWeb(this);
+  //gemMonitorP_      = new gem::hw::amc13::AMC13HwMonitor(this);
   LOG4CPLUS_DEBUG(getApplicationLogger(), "done");
-  //gemMonitorP_      = new gem::hw::amc13::AMC13HwMonitor();
 
   LOG4CPLUS_DEBUG(getApplicationLogger(), "executing preInit for AMC13Manager");
   preInit();
@@ -43,15 +43,27 @@ gem::hw::amc13::AMC13Manager::~AMC13Manager() {
   
 }
 
+// This is the callback used for handling xdata:Event objects
+void gem::hw::amc13::AMC13Manager::actionPerformed(xdata::Event& event)
+{
+  if (event.type() == "setDefaultValues" || event.type() == "urn:xdaq-event:setDefaultValues") {
+    LOG4CPLUS_DEBUG(getApplicationLogger(), "AMC13Manager::actionPerformed() setDefaultValues" << 
+		    "Default configuration values have been loaded from xml profile");
+    //gemMonitorP_->startMonitoring();
+  }
+  // update monitoring variables
+  gem::base::GEMApplication::actionPerformed(event);
+}
+
 void gem::hw::amc13::AMC13Manager::preInit()
   throw (gem::base::exception::Exception)
 {
   std::string addressBase  = "${AMC13_ADDRESS_TABLE_PATH}/";
   std::string connection   = "${BUILD_HOME}/gemdaq-testing/gemhardware/xml/amc13/connectionSN170_ch.xml";
-  std::string friendlyname = "gem.shelf01.amc13.";
+  std::string cardname = "gem.shelf01.amc13.";
   try {
     gem::utils::LockGuard<gem::utils::Lock> guardedLock(deviceLock_);
-    amc13Device_ = new ::amc13::AMC13(connection,friendlyname+"T1",friendlyname+"T2");
+    amc13Device_ = new ::amc13::AMC13(connection,cardname+"T1",cardname+"T2");
   } catch (uhal::exception::exception & e) {
     LOG4CPLUS_ERROR(getApplicationLogger(), std::string("AMC13::AMC13() failed, caught uhal::exception:") + e.what() );
     XCEPT_RAISE(gem::hw::amc13::exception::HardwareProblem,std::string("Unable to create class: ")+e.what());
@@ -78,18 +90,6 @@ void gem::hw::amc13::AMC13Manager::preInit()
     XCEPT_RAISE(gem::hw::amc13::exception::HardwareProblem,std::string("Problem during preinit : ")+e.what());
   }
   LOG4CPLUS_DEBUG(getApplicationLogger(),"finished with AMC13Manager::preInit()");
-}
-
-// This is the callback used for handling xdata:Event objects
-void gem::hw::amc13::AMC13Manager::actionPerformed(xdata::Event& event)
-{
-  if (event.type() == "setDefaultValues" || event.type() == "urn:xdaq-event:setDefaultValues") {
-    LOG4CPLUS_DEBUG(getApplicationLogger(), "AMC13Manager::actionPerformed() setDefaultValues" << 
-		    "Default configuration values have been loaded from xml profile");
-    //gemMonitorP_->startMonitoring();
-  }
-  // update monitoring variables
-  gem::base::GEMApplication::actionPerformed(event);
 }
 
 void gem::hw::amc13::AMC13Manager::init()

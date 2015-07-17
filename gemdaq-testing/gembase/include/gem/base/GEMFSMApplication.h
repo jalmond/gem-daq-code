@@ -6,6 +6,14 @@
 
 #include "toolbox/task/exception/Exception.h"
 
+#include "xdata/Boolean.h"
+#include "xdata/Integer.h"
+
+#include "gem/utils/Lock.h"
+#include "gem/utils/LockGuard.h"
+
+#define MAX_AMCS_PER_CRATE 12
+
 namespace toolbox {
   namespace task{
     class WorkLoop;

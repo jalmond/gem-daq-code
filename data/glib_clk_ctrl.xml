@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<node id="top">
+<node id="top"   permission="rw">
   <node id="PCIE_CLK_FSEL"	  mask="0x00000001"
 	description="output multiplication factor:0->2.5x, 1->1.25x"/>
   <node id="PCIE_CLK_MR"	  mask="0x00000002"

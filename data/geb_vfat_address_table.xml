@@ -106,8 +106,8 @@
 	  description="column 2, position 7"/>
     
     
-    <node id="RESPONSE"  address="0x20000"  mask="0xFFFFFFFF"  permission="r"
-	  description="read the response from the VFAT transaction (OBSOLETE!!!)"/>
+    <!--node id="RESPONSE"  address="0x20000"  mask="0xFFFFFFFF"  permission="r"
+	  description="read the response from the VFAT transaction (OBSOLETE!!!)"/-->
   </node> <!-- end VFATS block -->
 
   <!-- registers for the VFAT tracking data -->
@@ -128,6 +128,7 @@
     </node> <!-- end column 0 block -->
   </node> <!-- end tracking_data block -->
 
+  <!--
   <node id="VFAT_ADC"  address="0x40030155"
 	description="VFAT2 ADC values">
     <node id="Voltage"  address="0x0"  mask="0xFFFFFFFF"  permission="r"

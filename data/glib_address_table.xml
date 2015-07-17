@@ -1,56 +1,79 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--  The tags attribute is a free test attribute which meaning is defined by the uHAL user -->
-<node id="GLIB">
-  <node id="SYSTEM"  address="0x00000000"  description="GLIB system registers"
-	module="file://${BUILD_HOME}/data/glib_system_registers.xml">
-  </node> <!--end system registers -->
-
-
-  <node id="SRAM1"  address="0x02000000"  mask="0xffffffff"  permission="rw"
-	description="SRAM1 memory space "/>
-  <node id="SRAM2"  address="0x04000000"  mask="0xffffffff"  permission="rw"
-	description="SRAM2 memory space"/>
-  
-  <node id="ICAP"  address="0x00000200"  mask="0xffffffff"  permission="rw"
-	description="ICAP memory space (seems to not work at the moment)"/>
-
-  <node id="GLIB_LINKS"  address="0x40040000">
-    <node id="LINK0"  address="0x000"
-	  module="file://${BUILD_HOME}/data/glib_optical_links.xml"
-	  description="optical link status counters and resets"/>
+<node id="top">
+  <node id="GLIB">
+    <node id="SYSTEM"  address="0x00000000"  description="GLIB system registers"
+	  module="file://${BUILD_HOME}/data/glib_system_registers.xml">
+    </node> <!--end system registers -->
     
-    <node id="LINK1"  address="0x100"
-	  module="file://${BUILD_HOME}/data/glib_optical_links.xml"
-	  description="optical link status counters and resets"/>
+    <node id="SRAM1"  address="0x02000000"  mask="0xffffffff"  permission="rw"
+	  description="SRAM1 memory space "/>
+    <node id="SRAM2"  address="0x04000000"  mask="0xffffffff"  permission="rw"
+	  description="SRAM2 memory space"/>
     
-    <node id="LINK2"  address="0x200"
-	  module="file://${BUILD_HOME}/data/glib_optical_links.xml"
-	  description="optical link status counters and resets"/>
+    <node id="ICAP"  address="0x00000200"  mask="0xffffffff"  permission="rw"
+	  description="ICAP memory space (seems to not work at the moment)"/>
     
-    <node id="TRG_DATA"
-	  description="registers for the trigger data sent from the OH to the GLIB">
-      <node id="DATA"  address="0x10000"  mask="0xFFFFFFFF"  permission="r"
-	    description="VFAT trigger data register
-			 Read: 28 MSB are the BX counter, 6 LSB, one fbit per VFAT2 (logical OR of all S-bits)
-			 Write: empty the buffer"/>
+    <!-- registers for the VFAT tracking data -->
+    <node id="TRK_DATA"  address="0x40020000"
+	  description="VFAT tracking data registers">
       
-      <node id="FIFO_FLUSH"  address="0x180"  mask="0xFFFFFFFF"  permission="w"
-	    description="empty the trigger data FIFO"/>
-    </node>
-    <node id="TRIGGER">
-      <node id="SOURCE"  address="0x10D"  mask="0xFFFFFFFF"  permission="rw"
-	    description="select the trigger source, GLIB(0), TTC(1), both(2)"/>
-      <node id="TDC_SBits"  address="0x181"  mask="0xFFFFFFFF"  permission="rw"
-	    description="select which VFAT will send SBits to send to the TDC (0-5)"/>
-    </node>
-  </node><!--end GLIB_LINKS-->
-  
-  <node id="TEST">
-    <node id="GLIB"  address="0x4004010A"
-	  description="is the GLIB accessible"/>
-    <node id="OptoHybrid"  address="0x40030100"
-	  description="is the OH accessible"/>
-    <node id="VFATs"  address="0x40010808"
-	  description="are the VFAT2s accessible"/>
-  </node> <!-- end TEST registers -->
-</node> <!--end glib_regs-->
+      <node id="COL0"  address="0x000"
+	    module="file://${BUILD_HOME}/data/vfat_tracking_data.xml"
+	    description="First phi column">
+      </node> <!-- end column 0 block -->
+      <node id="COL1"  address="0x100"
+	    module="file://${BUILD_HOME}/data/vfat_tracking_data.xml"
+	    description="First phi column">
+      </node> <!-- end column 0 block -->
+      <node id="COL2"  address="0x200"
+	    module="file://${BUILD_HOME}/data/vfat_tracking_data.xml"
+	    description="First phi column">
+      </node> <!-- end column 0 block -->
+    </node> <!-- end tracking_data block -->
+    
+    <node id="GLIB_LINKS"  address="0x40040000">
+      <node id="LINK0"  address="0x000"
+	    module="file://${BUILD_HOME}/data/glib_optical_links.xml"
+	    description="optical link status counters and resets"/>
+      
+      <node id="LINK1"  address="0x100"
+	    module="file://${BUILD_HOME}/data/glib_optical_links.xml"
+	    description="optical link status counters and resets"/>
+      
+      <node id="LINK2"  address="0x200"
+	    module="file://${BUILD_HOME}/data/glib_optical_links.xml"
+	    description="optical link status counters and resets"/>
+      
+      <node id="TRG_DATA"
+	    description="registers for the trigger data sent from the OH to the GLIB">
+	<node id="DATA"  address="0x10000"  mask="0xFFFFFFFF"  permission="r"
+	      description="VFAT trigger data register
+			   Read: 28 MSB are the BX counter, 6 LSB, one fbit per VFAT2 (logical OR of all S-bits)
+			   Write: empty the buffer"/>
+
+	<!--
+	<node id="FIFO_FLUSH"  address="0x180"  mask="0xFFFFFFFF"  permission="w"
+	      description="empty the trigger data FIFO"/>
+	-->
+      </node>
+      <!--
+      <node id="TRIGGER">
+	<node id="SOURCE"  address="0x10D"  mask="0xFFFFFFFF"  permission="rw"
+	      description="select the trigger source, GLIB(0), TTC(1), both(2)"/>
+	<node id="TDC_SBits"  address="0x181"  mask="0xFFFFFFFF"  permission="rw"
+	      description="select which VFAT will send SBits to send to the TDC (0-5)"/>
+      </node>
+      -->
+    </node><!--end GLIB_LINKS-->
+    
+    <node id="TEST">
+      <node id="GLIB"  address="0x4004010A"
+	    description="is the GLIB accessible"/>
+      <node id="OptoHybrid"  address="0x40030100"
+	    description="is the OH accessible"/>
+      <node id="VFATs"  address="0x40010808"
+	    description="are the VFAT2s accessible"/>
+    </node> <!-- end TEST registers -->
+  </node> <!--end glib_regs-->
+</node> <!--end top-->

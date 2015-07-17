@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="Send"  address="0x40030140"
+  <node id="Send"  address="0x0"
 	description="send fast command">
     <node id="L1A"          address="0x0"  mask="0xFFFFFFFF"  permission="w"
 	  description="send LV1A command to system" />

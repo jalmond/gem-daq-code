@@ -58,6 +58,22 @@ namespace gem {
         return(true);
       };	  
 
+      bool printGEBheader(int event, const GEBData& geb){
+        if( event<0) return(false);
+ 	  cout << "Received tracking data word:" << endl;
+	  cout << " 0x" << std::setw(8) << hex << geb.header << " ChamID " << ((0x000000fff0000000 & geb.header) >> 28) 
+               << dec << " sumVFAT " << (0x000000000fffffff & geb.header) << endl;
+        return(true);
+      };	  
+
+      bool writeZEROline(string file){
+        ofstream outf(file.c_str(), ios_base::app );
+        if(!outf.is_open()) return(false);
+          outf << "\n" << endl;
+          outf.close();
+        return(true);
+      };	  
+
       bool writeGEBtrailer(string file, int event, const GEBData& geb){
         ofstream outf(file.c_str(), ios_base::app );
         if( event<0) return(false);
@@ -77,6 +93,7 @@ namespace gem {
           outf << hex << vfat.lsData << dec << endl;
           outf << hex << vfat.msData << dec << endl;
           outf << hex << vfat.crc << dec << endl;
+          //writeZEROline(file);
           outf.close();
         return(true);
       };	  

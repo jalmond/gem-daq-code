@@ -9,6 +9,9 @@
 #include "gemHwMonitorBase.h"
 #include "gemHwMonitorHelper.h"
 
+#include "gem/hw/GEMHwDevice.h"
+#include "gem/hw/glib/HwGLIB.h"
+#include "gem/hw/optohybrid/HwOptoHybrid.h"
 #include "gem/hw/vfat/HwVFAT2.h"
 #include "gem/hw/vfat/VFAT2Settings.h"
 #include "gem/hw/vfat/VFAT2SettingsEnums.h"
@@ -20,6 +23,13 @@ namespace cgicc {
 }
 namespace gem {
     namespace hw {
+        class GEMHwDevice;
+        namespace glib {
+            class HwGLIB;
+        }
+        namespace optohybrid {
+            class HwOptoHybrid;
+        }
         namespace vfat {
             class HwVFAT2;
             class VFAT2Settings;
@@ -89,17 +99,24 @@ namespace gem {
 */
             private:
                 gemHwMonitorSystem* gemHwMonitorSystem_;
-                gemHwMonitorCrate* gemHwMonitorCrate_;
-                gemHwMonitorGLIB* gemHwMonitorGLIB_;
-                gemHwMonitorOH* gemHwMonitorOH_;
-                gemHwMonitorVFAT* gemHwMonitorVFAT_;
+                std::vector<gemHwMonitorCrate*> gemHwMonitorCrate_;
+                std::vector<gemHwMonitorGLIB*> gemHwMonitorGLIB_;
+                std::vector<gemHwMonitorOH*> gemHwMonitorOH_;
+                std::vector<gemHwMonitorVFAT*> gemHwMonitorVFAT_;
                 gemHwMonitorHelper* gemSystemHelper_;
                 bool crateCfgAvailable_;
                 int nCrates_;
+                int indexCrate_;
+                int indexGLIB_;
+                int indexOH_;
+                int indexVFAT_;
                 std::string crateToShow_;
                 std::string glibToShow_;
                 std::string ohToShow_;
                 std::string vfatToShow_;
+                std::string glibIP;
+                gem::hw::glib::HwGLIB* glibDevice_;
+                gem::hw::optohybrid::HwOptoHybrid* ohDevice_;
                 gem::hw::vfat::HwVFAT2* vfatDevice_;
                 std::vector<std::string> checkedCrates_;
 

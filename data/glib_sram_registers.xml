@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<node id="top">
+  <node id="CTRL" address="0x0"  permission="rw"
+	description="SRAM interface control register">
+    <node id="SRAM1_USER_LOGIC"	mask="0x00000001"/>
+    <node id="SRAM1_BIST_RUN"	mask="0x00000002"/>
+    <node id="SRAM2_USER_LOGIC"	mask="0x00010000"/>
+    <node id="SRAM2_BIST_RUN"	mask="0x00020000"/>
+    <node id="FLASH_SELECT"	mask="0x00100000"/>
+  </node> <!--end ctrl_sram-->
+
+  <node id="STATUS"  address="0x1"  permission="r"
+	description="SRAM interface status register">
+    <node id="SRAM1_BIST_DONE"	  mask="0x00000001"/>
+    <node id="SRAM1_BIST_OK"	  mask="0x00000002"/>
+    <node id="SRAM1_BIST_ERRORS"  mask="0x00000ff0"/>
+    <node id="SRAM2_BIST_DONE"	  mask="0x00010000"/>
+    <node id="SRAM2_BIST_OK"	  mask="0x00020000"/>
+    <node id="SRAM2_BIST_ERRORS"  mask="0x0ff00000"/>
+  </node> <!--end status_sram-->
+  
+  <!--sram memory space-->
+  <node id="sram1"  address="0x02000000"  mask="0xffffffff"  permission="rw"/>
+  <node id="sram2"  address="0x04000000"  mask="0xffffffff"  permission="rw"/>
+</node>

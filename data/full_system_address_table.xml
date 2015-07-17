@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<node id="top">
+  
+  <node id="GLIB"
+	description="GLIB registers, divided into global and local (per optical link)"
+	module="file://${BUILD_HOME}/data/glib_address_table.xml"/>
+  
+  <node id="OptoHybrid"
+	description="Optohybrid registers, divided into global and local (per optical link)"
+	module="file://${BUILD_HOME}/data/optohybrid_address_table.xml"/>
+  
+</node>

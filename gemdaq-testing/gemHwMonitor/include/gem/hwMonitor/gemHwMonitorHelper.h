@@ -20,7 +20,7 @@ namespace gem {
                     throw (xdaq::exception::Exception)
                 {
                     std::string defaulXMLcfgFile = std::getenv("BUILD_HOME");
-                    defaulXMLcfgFile +="/gemdaq-testing/gembase/xml/gem_conf.xml";
+                    defaulXMLcfgFile +="/gemdaq-testing/gembase/xml/gem_test_904.xml";
                     this->setXMLconfigFile(defaulXMLcfgFile.c_str());
                     ptr_gemSystem_ = gemSystem;
                     ptr_gemSystem_->setDeviceStatus(2);

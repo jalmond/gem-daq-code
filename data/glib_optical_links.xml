@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<node id="top">
+<node id="top"> 
   <node id="OPTICAL_LINKS"  address="0x00"
 	module="file://${BUILD_HOME}/data/optical_link_registers.xml"/>
   
@@ -11,5 +11,14 @@
 	  description="read the number of entries in the tracking data FIFO" />
     <node id="FLUSH"  address="0x1"  mask="0xFFFFFFFF"  permission="w"
 	  description="empty the tracking data FIFO"/>
+  </node>
+
+  <node id="TRIGGER">
+    <node id="SOURCE"      address="0x0D"  mask="0xFFFFFFFF"  permission="rw"
+	  description="select the trigger source, GLIB(0), TTC(1), both(2)"/>
+    <node id="FIFO_FLUSH"  address="0x80"  mask="0xFFFFFFFF"  permission="w"
+	  description="empty the trigger data FIFO"/>
+    <node id="TDC_SBits"   address="0x81"  mask="0xFFFFFFFF"  permission="rw"
+	  description="select which VFAT will send SBits to send to the TDC (0-5)"/>
   </node>
 </node> <!-- end top block -->

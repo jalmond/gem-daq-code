@@ -5,13 +5,13 @@
     
     <node id="LinkErr"        address="0x00"  mask="0xFFFFFFFF"  permission="r"
 	  description="link error counter"/>
-    <node id="RecI2CReqests"  address="0x01"  mask="0xFFFFFFFF"  permission="r"
+    <node id="RecI2CRequests"  address="0x01"  mask="0xFFFFFFFF"  permission="r"
 	  description="number of received VFAT2 I2C requests"/>
-    <node id="SntI2CReqests"  address="0x02"  mask="0xFFFFFFFF"  permission="r"
+    <node id="SntI2CRequests"  address="0x02"  mask="0xFFFFFFFF"  permission="r"
 	  description="number of sent VFAT2 I2C requests"/>
-    <node id="RecRegReqests"  address="0x03"  mask="0xFFFFFFFF"  permission="r"
+    <node id="RecRegRequests"  address="0x03"  mask="0xFFFFFFFF"  permission="r"
 	  description="number of received register requests"/>
-    <node id="SntRegReqests"  address="0x04"  mask="0xFFFFFFFF"  permission="r"
+    <node id="SntRegRequests"  address="0x04"  mask="0xFFFFFFFF"  permission="r"
 	  description="number of sent register requests"/>
   </node> <!-- end counters block -->
   
@@ -19,13 +19,13 @@
 	description="reset the various counters">
     <node id="LinkErr"        address="0x00"  mask="0xFFFFFFFF"  permission="w"
 	  description="reset the error counter"/>
-    <node id="RecI2CReqests"  address="0x01"  mask="0xFFFFFFFF"  permission="w"
+    <node id="RecI2CRequests"  address="0x01"  mask="0xFFFFFFFF"  permission="w"
 	  description="reset counter for number of received VFAT2 I2C requests"/>
-    <node id="SntI2CReqests"  address="0x02"  mask="0xFFFFFFFF"  permission="w"
+    <node id="SntI2CRequests"  address="0x02"  mask="0xFFFFFFFF"  permission="w"
 	  description="reset counter for number of sent VFAT2 I2C requests"/>
-    <node id="RecRegReqests"  address="0x03"  mask="0xFFFFFFFF"  permission="w"
+    <node id="RecRegRequests"  address="0x03"  mask="0xFFFFFFFF"  permission="w"
 	  description="reset counter for number of received register requests"/>
-    <node id="SntRegReqests"  address="0x04"  mask="0xFFFFFFFF"  permission="w"
+    <node id="SntRegRequests"  address="0x04"  mask="0xFFFFFFFF"  permission="w"
 	  description="reset counter for number of sent register requests"/>
   </node> <!-- end resets block -->
   

@@ -326,6 +326,7 @@ bool gem::supervisor::tbutils::ThresholdScan::readFIFO(toolbox::task::WorkLoop* 
 {
   //VFATEvent vfat;
   gem::readout::VFATData vfat;
+
   int ievent=0;
 
   wl_semaphore_.take();
@@ -459,9 +460,10 @@ bool gem::supervisor::tbutils::ThresholdScan::readFIFO(toolbox::task::WorkLoop* 
     gem::readout::printVFATdataBits(ievent, vfat);
 
    /*
-    * GEM data filling
-    gem::readout::GEMDataParker::fillGEMevent(gem, geb, vfat);
-    */
+    * GEM data filling */
+    //gem::readout::GEMDataParker::writeGEMevent(gem, geb, vfat);
+    //gem::readout::GEMDataParker::fillGEMevent(gem, geb, vfat);
+    //int counter_ = gemDataParker->dumpDataToDisk();
 
     //while (bxNum == bxExp) {
     
@@ -1089,7 +1091,7 @@ void gem::supervisor::tbutils::ThresholdScan::configureAction(toolbox::Event::Re
     histos[hi] = new TH1F(histName.str().c_str(), histTitle.str().c_str(), nBins, minTh-0.5, maxTh+0.5);
   }
   outputCanvas = new TCanvas("outputCanvas","outputCanvas",600,800);
-  
+
   is_working_    = false;
 }
 
@@ -1117,18 +1119,43 @@ void gem::supervisor::tbutils::ThresholdScan::startAction(toolbox::Event::Refere
   tmpFileName.append(".dat");
   std::replace(tmpFileName.begin(), tmpFileName.end(), ' ', '_' );
   std::replace(tmpFileName.begin(), tmpFileName.end(), ':', '-');
-  //std::replace(tmpFileName.begin(), tmpFileName.end(), '\n', '_');
 
   confParams_.bag.outFileName = tmpFileName;
 
   LOG4CPLUS_INFO(getApplicationLogger(),"Creating file " << confParams_.bag.outFileName.toString());
 
-  //std::fstream scanStream(confParams_.bag.outFileName.c_str(),
-  std::fstream scanStream(tmpFileName.c_str(), std::ios::app | std::ios::binary);
-  if (scanStream.is_open())
-    LOG4CPLUS_INFO(getApplicationLogger(),"file " << confParams_.bag.outFileName.toString() << " opened");
+  std::ofstream scanStream(tmpFileName.c_str(), std::ios::app | std::ios::binary);
 
-  //write some global run information header
+  if (scanStream.is_open()){
+    LOG4CPLUS_INFO(getApplicationLogger(),"::startAction " 
+        << "file " << confParams_.bag.outFileName.toString() << " opened");
+  }
+
+  // Setup Scan file, information header
+  tmpFileName = "ScanSetup_";
+  tmpFileName.append(utcTime);
+  tmpFileName.erase(std::remove(tmpFileName.begin(), tmpFileName.end(), '\n'), tmpFileName.end());
+  tmpFileName.append(".txt");
+  std::replace(tmpFileName.begin(), tmpFileName.end(), ' ', '_' );
+  std::replace(tmpFileName.begin(), tmpFileName.end(), ':', '-');
+  confParams_.bag.outFileName = tmpFileName;
+
+  LOG4CPLUS_DEBUG(getApplicationLogger(),"::startAction " 
+		  << "Created ScanSetup file " << tmpFileName );
+
+  std::ofstream scanSetup(tmpFileName.c_str(), std::ios::app );
+  if (scanSetup.is_open()){
+    LOG4CPLUS_INFO(getApplicationLogger(),"::startAction " 
+        << "file " << tmpFileName << " opened and closed");
+    scanSetup << "\n The Time & Date : " << utcTime << endl;
+    scanSetup << " ChipID        0x" << hex << confParams_.bag.deviceChipID << dec << endl;
+    scanSetup << " Latency       " << latency_ << endl;
+    scanSetup << " nTriggers     " << nTriggers_  << endl;
+    scanSetup << " stepSize      " << stepSize_ << endl;
+    scanSetup << " minThresh     " << minThresh_ << endl;
+    scanSetup << " maxThresh     " << maxThresh_ << endl;
+    }
+  scanSetup.close();
   
   //char data[128/8]
   is_running_ = true;

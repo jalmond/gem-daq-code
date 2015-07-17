@@ -43,6 +43,7 @@ GEM_HW_DEFINE_EXCEPTION(ConfigurationProblem)
 GEM_HW_DEFINE_EXCEPTION(ConfigurationValidationProblem)
 
 GEM_HW_DEFINE_EXCEPTION(HardwareProblem)
+GEM_HW_DEFINE_EXCEPTION(UninitializedDevice)
 
 GEM_HW_DEFINE_EXCEPTION(RCMSNotificationError)
 GEM_HW_DEFINE_EXCEPTION(SOAPTransitionProblem)

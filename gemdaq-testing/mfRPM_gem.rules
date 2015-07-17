@@ -1,0 +1,44 @@
+# copied from mfRPM_hcal.rules to use their directory manipulation
+PackagePath  = $(BUILD_HOME)/$(Project)/$(LongPackage)
+PWD          = $(shell pwd)
+
+ifdef Package
+
+ifndef PackageName
+PackageName=$(shell awk -F'"' 'BEGIN{IGNORECASE=1} /package[ \t\r\f\v]*=/ {print $$2;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+ifndef PACKAGE_VER_MAJOR
+PACKAGE_VER_MAJOR=$(shell awk 'BEGIN{IGNORECASE=1} /define $(LongPackage)_VERSION_MAJOR/ {print $$3;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+ifndef PACKAGE_VER_MINOR
+PACKAGE_VER_MINOR=$(shell awk 'BEGIN{IGNORECASE=1} /define $(LongPackage)_VERSION_MINOR/ {print $$3;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+ifndef PACKAGE_VER_PATCH
+PACKAGE_VER_PATCH=$(shell awk 'BEGIN{IGNORECASE=1} /define $(LongPackage)_VERSION_PATCH/ {print $$3;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+
+#
+# Extract summary, description and authors
+#
+ifndef Description
+Description = $(shell awk -F'"' 'BEGIN{IGNORECASE=1} /description[ \t\r\f\v]*=/ {print $$2;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+ifndef Summary
+Summary = $(shell awk -F'"' 'BEGIN{IGNORECASE=1} /summary[ \t\r\f\v]*=/ {print $$2;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+ifndef Authors
+Authors = $(shell awk -F'"' 'BEGIN{IGNORECASE=1} /authors[ \t\r\f\v]*=/ {print $$2;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+ifndef Link
+Link = $(shell awk -F'"' 'BEGIN{IGNORECASE=1} /link[ \t\r\f\v]*=/ {print $$2;}' $(PackagePath)/include/$(Project)/$(ShortPackage)/version.h)
+endif
+
+endif
+

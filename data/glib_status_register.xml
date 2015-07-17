@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<node id="top">
+<node id="top"   permission="r">
   <node id="SFP1"
 	description="status bits for SFP cage 1">
     <node id="STATUS"      mask="0x00000007"

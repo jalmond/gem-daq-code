@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<node id="top">
+  <node id="OPTICAL_LINKS"  address="0x00"
+	module="file://${BUILD_HOME}/data/optical_link_registers.xml"/>
+  
+  <node id="FAST_COM"  address="0x40"
+	module="file://${BUILD_HOME}/data/fast_signals_address_table.xml"
+	description="global fast commands registers"/>
+  
+  <node id="TRIGGER"   address="0x45"
+	module="file://${BUILD_HOME}/data/trigger_registers.xml"
+	description="global ttrigger setup"/>
+  
+  <node id="CLOCKING"  address="0x4B"
+	module="file://${BUILD_HOME}/data/clocking_registers.xml"
+	description="global clocking registers"/>
+  
+  <node id="COUNTERS"  address="0x5A"
+	module="file://${BUILD_HOME}/data/counter_registers.xml"
+	description="global counter registers"/>
+  
+  <node id="FIRMWARE"  address="0x57"  mask="0xFFFFFFFF"  permission="r"
+	description="version of the optohybrid firmware"/>
+
+  <node id="VFAT_ADC"  address="0x40030155"
+	description="VFAT2 ADC values">
+    <node id="Voltage"  address="0x0"  mask="0xFFFFFFFF"  permission="r"
+	  description="read the voltage ADC off the VFAT chip" />
+    <node id="Current"  address="0x1"  mask="0xFFFFFFFF"  permission="r"
+	  description="send CalPulse command to system" />
+  </node> <!-- end ADC block -->
+</node> <!-- end top block -->

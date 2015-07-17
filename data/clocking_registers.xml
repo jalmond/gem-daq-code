@@ -1,24 +1,24 @@
-o<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="VFAT"  address="0x4003014B">
+  <node id="VFAT"  address="0x0">
     <node id="SOURCE"  address="0x0"  mask="0xFFFFFFFF"  permission="rw"
 	  description="select the VFAT2 clock source, onboard(0), external(1)"/>
     <node id="FALLBACK"  address="0x1"  mask="0xFFFFFFFF"  permission="rw"
 	  description="allow(1) fallback in case of CDCE lock fail"/>
   </node> <!-- VFAT clock control registers -->
   
-  <node id="CDCE"  address="0x4003014D">
+  <node id="CDCE"  address="0x2">
     <node id="SOURCE"  address="0x0"  mask="0xFFFFFFFF"  permission="rw"
 	  description="select the CDCE clock source, same as VFAT(0), recovered(1)"/>
     <node id="FALLBACK"  address="0x1"  mask="0xFFFFFFFF"  permission="rw"
 	  description="allow(1) fallback in case of CDCE lock fail"/>
   </node> <!-- CDCE clock control registers -->
   
-  <node id="FPGA_PLL_LOCKED"  address="0x4003014F"  mask="0xFFFFFFFF"  permission="r"
+  <node id="FPGA_PLL_LOCKED"  address="0x3"  mask="0xFFFFFFFF"  permission="r"
 	description="status of the PLL for the onboard clock"/>
-  <node id="CDCE_LOCKED"  address="0x40030150"  mask="0xFFFFFFFF"  permission="r"
+  <node id="CDCE_LOCKED"  address="0x4"  mask="0xFFFFFFFF"  permission="r"
 	description="status of the CDCE"/>
-  <node id="GTP_REC_LOCKED"  address="0x40030151"  mask="0xFFFFFFFF"  permission="r"
+  <node id="GTP_REC_LOCKED"  address="0x5"  mask="0xFFFFFFFF"  permission="r"
 	description="status of the PLL for the recovered clock"/>
   
 </node> <!-- end trigger setup definitions -->

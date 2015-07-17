@@ -13,11 +13,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
 
-#include "xdata/Integer.h"
-
-#include "gem/utils/Lock.h"
-#include "gem/utils/LockGuard.h"
-
 namespace amc13 {
   class AMC13;
   class Status;

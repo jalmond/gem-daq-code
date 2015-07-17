@@ -22,6 +22,7 @@ namespace gem {
                     throw (xdaq::exception::Exception)
                 {
                     gemDevice_ = new T();
+                    isConfigured_ = false;
                 }
 
                 virtual ~gemHwMonitorBase()

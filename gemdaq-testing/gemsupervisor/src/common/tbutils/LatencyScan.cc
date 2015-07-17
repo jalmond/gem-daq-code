@@ -1568,7 +1568,7 @@ void gem::supervisor::tbutils::LatencyScan::initializeAction(toolbox::Event::Ref
   is_working_ = true;
   setLogLevelTo(uhal::Info());  // Set uHAL logging level Debug (most) to Error (least)
   hw_semaphore_.take();
-  vfatDevice_ = new gem::hw::vfat::HwVFAT2(getApplicationLogger(), confParams_.bag.deviceName.toString());
+  vfatDevice_ = new gem::hw::vfat::HwVFAT2(confParams_.bag.deviceName.toString());
   
   vfatDevice_->setAddressTableFileName("testbeam_registers.xml");
   vfatDevice_->setDeviceIPAddress(confParams_.bag.deviceIP);

@@ -1,5 +1,6 @@
-#export BUILD_HOME=/home/sturdy/gemdev/gem-daq-code
+#export BUILD_HOME=</path/to/your/BUILD_HOME>
 #Run this script after you've set BUILD_HOME, or uncomment the previous line and set it to your BUILD_HOME
+
 # The OS is not set in environment. We assume we are not cross-compiling, and try
 # to guess the OS
 
@@ -46,5 +47,4 @@ export LD_LIBRARY_PATH=$BUILD_HOME/$project/gemreadout/lib/$XDAQ_OS/$XDAQ_PLATFO
 export LD_LIBRARY_PATH=$BUILD_HOME/$project/gemhardware/lib/$XDAQ_OS/$XDAQ_PLATFORM:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$BUILD_HOME/$project/gemsupervisor/lib/$XDAQ_OS/$XDAQ_PLATFORM:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$BUILD_HOME/$project/gemHwMonitor/lib/$XDAQ_OS/$XDAQ_PLATFORM:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=`remove_dups_path $LD_LIBRARY_PATH`
 echo LD_LIBRARY_PATH $LD_LIBRARY_PATH

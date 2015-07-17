@@ -1,259 +1,259 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <node id="top">
-  <node id="ChanReg1"  address="0x00"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg1"  address="0x00"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 1"/>
-  <node id="ChanReg2"  address="0x01"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg2"  address="0x01"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 2"/>
-  <node id="ChanReg3"  address="0x02"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg3"  address="0x02"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 3"/>
-  <node id="ChanReg4"  address="0x03"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg4"  address="0x03"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 4"/>
-  <node id="ChanReg5"  address="0x04"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg5"  address="0x04"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 5"/>
-  <node id="ChanReg6"  address="0x05"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg6"  address="0x05"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 6"/>
-  <node id="ChanReg7"  address="0x06"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg7"  address="0x06"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 7"/>
-  <node id="ChanReg8"  address="0x07"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg8"  address="0x07"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 8"/>
-  <node id="ChanReg9"  address="0x08"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg9"  address="0x08"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 9"/>
-  <node id="ChanReg10"  address="0x09"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg10"  address="0x09"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 10"/>
-  <node id="ChanReg11"  address="0x0A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg11"  address="0x0A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 11"/>
-  <node id="ChanReg12"  address="0x0B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg12"  address="0x0B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 12"/>
-  <node id="ChanReg13"  address="0x0C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg13"  address="0x0C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 13"/>
-  <node id="ChanReg14"  address="0x0D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg14"  address="0x0D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 14"/>
-  <node id="ChanReg15"  address="0x0E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg15"  address="0x0E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 15"/>
-  <node id="ChanReg16"  address="0x0F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg16"  address="0x0F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 16"/>
-  <node id="ChanReg17"  address="0x10"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg17"  address="0x10"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 17"/>
-  <node id="ChanReg18"  address="0x11"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg18"  address="0x11"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 18"/>
-  <node id="ChanReg19"  address="0x12"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg19"  address="0x12"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 19"/>
-  <node id="ChanReg20"  address="0x13"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg20"  address="0x13"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 20"/>
-  <node id="ChanReg21"  address="0x14"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg21"  address="0x14"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 21"/>
-  <node id="ChanReg22"  address="0x15"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg22"  address="0x15"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 22"/>
-  <node id="ChanReg23"  address="0x16"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg23"  address="0x16"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 23"/>
-  <node id="ChanReg24"  address="0x17"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg24"  address="0x17"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 24"/>
-  <node id="ChanReg25"  address="0x18"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg25"  address="0x18"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 25"/>
-  <node id="ChanReg26"  address="0x19"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg26"  address="0x19"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 26"/>
-  <node id="ChanReg27"  address="0x1A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg27"  address="0x1A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 27"/>
-  <node id="ChanReg28"  address="0x1B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg28"  address="0x1B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 28"/>
-  <node id="ChanReg29"  address="0x1C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg29"  address="0x1C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 29"/>
-  <node id="ChanReg30"  address="0x1D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg30"  address="0x1D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 30"/>
-  <node id="ChanReg31"  address="0x1E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg31"  address="0x1E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 31"/>
-  <node id="ChanReg32"  address="0x1F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg32"  address="0x1F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 32"/>
-  <node id="ChanReg33"  address="0x20"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg33"  address="0x20"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 33"/>
-  <node id="ChanReg34"  address="0x21"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg34"  address="0x21"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 34"/>
-  <node id="ChanReg35"  address="0x22"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg35"  address="0x22"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 35"/>
-  <node id="ChanReg36"  address="0x23"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg36"  address="0x23"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 36"/>
-  <node id="ChanReg37"  address="0x24"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg37"  address="0x24"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 37"/>
-  <node id="ChanReg38"  address="0x25"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg38"  address="0x25"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 38"/>
-  <node id="ChanReg39"  address="0x26"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg39"  address="0x26"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 39"/>
-  <node id="ChanReg40"  address="0x27"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg40"  address="0x27"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 40"/>
-  <node id="ChanReg41"  address="0x28"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg41"  address="0x28"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 41"/>
-  <node id="ChanReg42"  address="0x29"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg42"  address="0x29"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 42"/>
-  <node id="ChanReg43"  address="0x2A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg43"  address="0x2A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 43"/>
-  <node id="ChanReg44"  address="0x2B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg44"  address="0x2B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 44"/>
-  <node id="ChanReg45"  address="0x2C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg45"  address="0x2C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 45"/>
-  <node id="ChanReg46"  address="0x2D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg46"  address="0x2D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 46"/>
-  <node id="ChanReg47"  address="0x2E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg47"  address="0x2E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 47"/>
-  <node id="ChanReg48"  address="0x2F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg48"  address="0x2F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 48"/>
-  <node id="ChanReg49"  address="0x30"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg49"  address="0x30"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 49"/>
-  <node id="ChanReg50"  address="0x31"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg50"  address="0x31"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 50"/>
-  <node id="ChanReg51"  address="0x32"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg51"  address="0x32"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 51"/>
-  <node id="ChanReg52"  address="0x33"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg52"  address="0x33"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 52"/>
-  <node id="ChanReg53"  address="0x34"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg53"  address="0x34"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 53"/>
-  <node id="ChanReg54"  address="0x35"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg54"  address="0x35"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 54"/>
-  <node id="ChanReg55"  address="0x36"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg55"  address="0x36"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 55"/>
-  <node id="ChanReg56"  address="0x37"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg56"  address="0x37"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 56"/>
-  <node id="ChanReg57"  address="0x38"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg57"  address="0x38"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 57"/>
-  <node id="ChanReg58"  address="0x39"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg58"  address="0x39"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 58"/>
-  <node id="ChanReg59"  address="0x3A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg59"  address="0x3A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 59"/>
-  <node id="ChanReg60"  address="0x3B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg60"  address="0x3B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 60"/>
-  <node id="ChanReg61"  address="0x3C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg61"  address="0x3C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 61"/>
-  <node id="ChanReg62"  address="0x3D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg62"  address="0x3D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 62"/>
-  <node id="ChanReg63"  address="0x3E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg63"  address="0x3E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 63"/>
-  <node id="ChanReg64"  address="0x3F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg64"  address="0x3F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 64"/>
-  <node id="ChanReg65"  address="0x40"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg65"  address="0x40"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 65"/>
-  <node id="ChanReg66"  address="0x41"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg66"  address="0x41"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 66"/>
-  <node id="ChanReg67"  address="0x42"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg67"  address="0x42"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 67"/>
-  <node id="ChanReg68"  address="0x43"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg68"  address="0x43"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 68"/>
-  <node id="ChanReg69"  address="0x44"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg69"  address="0x44"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 69"/>
-  <node id="ChanReg70"  address="0x45"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg70"  address="0x45"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 70"/>
-  <node id="ChanReg71"  address="0x46"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg71"  address="0x46"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 71"/>
-  <node id="ChanReg72"  address="0x47"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg72"  address="0x47"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 72"/>
-  <node id="ChanReg73"  address="0x48"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg73"  address="0x48"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 73"/>
-  <node id="ChanReg74"  address="0x49"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg74"  address="0x49"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 74"/>
-  <node id="ChanReg75"  address="0x4A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg75"  address="0x4A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 75"/>
-  <node id="ChanReg76"  address="0x4B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg76"  address="0x4B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 76"/>
-  <node id="ChanReg77"  address="0x4C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg77"  address="0x4C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 77"/>
-  <node id="ChanReg78"  address="0x4D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg78"  address="0x4D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 78"/>
-  <node id="ChanReg79"  address="0x4E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg79"  address="0x4E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 79"/>
-  <node id="ChanReg80"  address="0x4F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg80"  address="0x4F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 80"/>
-  <node id="ChanReg81"  address="0x50"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg81"  address="0x50"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 81"/>
-  <node id="ChanReg82"  address="0x51"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg82"  address="0x51"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 82"/>
-  <node id="ChanReg83"  address="0x52"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg83"  address="0x52"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 83"/>
-  <node id="ChanReg84"  address="0x53"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg84"  address="0x53"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 84"/>
-  <node id="ChanReg85"  address="0x54"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg85"  address="0x54"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 85"/>
-  <node id="ChanReg86"  address="0x55"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg86"  address="0x55"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 86"/>
-  <node id="ChanReg87"  address="0x56"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg87"  address="0x56"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 87"/>
-  <node id="ChanReg88"  address="0x57"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg88"  address="0x57"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 88"/>
-  <node id="ChanReg89"  address="0x58"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg89"  address="0x58"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 89"/>
-  <node id="ChanReg90"  address="0x59"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg90"  address="0x59"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 90"/>
-  <node id="ChanReg91"  address="0x5A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg91"  address="0x5A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 91"/>
-  <node id="ChanReg92"  address="0x5B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg92"  address="0x5B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 92"/>
-  <node id="ChanReg93"  address="0x5C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg93"  address="0x5C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 93"/>
-  <node id="ChanReg94"  address="0x5D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg94"  address="0x5D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 94"/>
-  <node id="ChanReg95"  address="0x5E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg95"  address="0x5E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 95"/>
-  <node id="ChanReg96"  address="0x5F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg96"  address="0x5F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 96"/>
-  <node id="ChanReg97"  address="0x60"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg97"  address="0x60"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 97"/>
-  <node id="ChanReg98"  address="0x61"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg98"  address="0x61"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 98"/>
-  <node id="ChanReg99"  address="0x62"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg99"  address="0x62"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 99"/>
-  <node id="ChanReg100"  address="0x63"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg100"  address="0x63"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 100"/>
-  <node id="ChanReg101"  address="0x64"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg101"  address="0x64"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 101"/>
-  <node id="ChanReg102"  address="0x65"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg102"  address="0x65"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 102"/>
-  <node id="ChanReg103"  address="0x66"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg103"  address="0x66"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 103"/>
-  <node id="ChanReg104"  address="0x67"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg104"  address="0x67"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 104"/>
-  <node id="ChanReg105"  address="0x68"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg105"  address="0x68"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 105"/>
-  <node id="ChanReg106"  address="0x69"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg106"  address="0x69"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 106"/>
-  <node id="ChanReg107"  address="0x6A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg107"  address="0x6A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 107"/>
-  <node id="ChanReg108"  address="0x6B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg108"  address="0x6B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 108"/>
-  <node id="ChanReg109"  address="0x6C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg109"  address="0x6C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 109"/>
-  <node id="ChanReg110"  address="0x6D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg110"  address="0x6D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 110"/>
-  <node id="ChanReg111"  address="0x6E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg111"  address="0x6E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 111"/>
-  <node id="ChanReg112"  address="0x6F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg112"  address="0x6F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 112"/>
-  <node id="ChanReg113"  address="0x70"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg113"  address="0x70"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 113"/>
-  <node id="ChanReg114"  address="0x71"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg114"  address="0x71"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 114"/>
-  <node id="ChanReg115"  address="0x72"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg115"  address="0x72"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 115"/>
-  <node id="ChanReg116"  address="0x73"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg116"  address="0x73"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 116"/>
-  <node id="ChanReg117"  address="0x74"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg117"  address="0x74"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 117"/>
-  <node id="ChanReg118"  address="0x75"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg118"  address="0x75"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 118"/>
-  <node id="ChanReg119"  address="0x76"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg119"  address="0x76"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 119"/>
-  <node id="ChanReg120"  address="0x77"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg120"  address="0x77"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 120"/>
-  <node id="ChanReg121"  address="0x78"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg121"  address="0x78"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 121"/>
-  <node id="ChanReg122"  address="0x79"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg122"  address="0x79"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 122"/>
-  <node id="ChanReg123"  address="0x7A"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg123"  address="0x7A"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 123"/>
-  <node id="ChanReg124"  address="0x7B"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg124"  address="0x7B"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 124"/>
-  <node id="ChanReg125"  address="0x7C"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg125"  address="0x7C"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 125"/>
-  <node id="ChanReg126"  address="0x7D"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg126"  address="0x7D"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 126"/>
-  <node id="ChanReg127"  address="0x7E"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg127"  address="0x7E"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 127"/>
-  <node id="ChanReg128"  address="0x7F"  mask="0xFF"  permission="rw" 
+  <node id="ChanReg128"  address="0x7F"  mask="0xFFFFFFFF"  permission="rw" 
 	description="Register for VFAT channel 128"/>
 </node>

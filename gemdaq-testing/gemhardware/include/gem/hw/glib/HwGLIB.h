@@ -1,29 +1,10 @@
 #ifndef gem_hw_glib_HwGLIB_h
 #define gem_hw_glib_HwGLIB_h
 
-#include "xdaq/Application.h"
-
-#include "xdata/String.h"
-#include "xdata/UnsignedLong.h"
-#include "xdata/UnsignedInteger32.h"
-#include "xdata/ActionListener.h"
-
 #include "gem/hw/GEMHwDevice.h"
 
 #include "gem/hw/glib/exception/Exception.h"
 //#include "gem/hw/glib/GLIBMonitor.h"
-
-#include "uhal/uhal.hpp"
-
-typedef uhal::exception::exception uhalException;
-
-namespace uhal {
-  class HwInterface;
-}
-
-namespace xdaq {
-  class Application;;
-}
 
 namespace gem {
   namespace hw {
@@ -34,7 +15,8 @@ namespace gem {
       class HwGLIB: public gem::hw::GEMHwDevice
 	{
 	public:
-	  HwGLIB(const log4cplus::Logger& gemLogger);
+	  HwGLIB();
+	  HwGLIB(int const& crate, int const& slot);
 	
 	  ~HwGLIB();
 
@@ -93,13 +75,13 @@ namespace gem {
 	   * @param factor 0 -> OUT = 2.5xIN, 1 -> OUT = 1.25xIN
 	   * @param reset 1 -> reset, 0 -> normal operation
 	   * @param enable 0 -> disabled, 1 -> enabled
-	   * void controlPCIe(uint8_t factor);
+	   * void controlPCIe(uint8_t const& factor);
 	   **/
 	  
 	  /** select the PCIe clock multiplier
 	   * @param factor 0 -> OUT = 2.5xIN, 1 -> OUT = 1.25xIN
 	   **/
-	  void PCIeClkFSel(uint8_t factor) {
+	  void PCIeClkFSel(uint8_t const& factor) {
 	    std::stringstream regName;
 	    regName << "SYSTEM.CLK_CTRL.";
 	    writeReg(getDeviceBaseNode(),regName.str()+"PCIE_CLK_FSEL",(uint32_t)factor);
@@ -275,18 +257,18 @@ namespace gem {
 	   * XPoint2 output 3 routes to MGT113REFCLK1
 	   * XPoint2 output 4 routes nowhere
 	   **/
-	  void XPointControl(bool xpoint2, uint8_t input, uint8_t output);
+	  void XPointControl(bool xpoint2, uint8_t const& input, uint8_t const& output);
 	  
 	  /** get the routing of the XPoint switch
 	   * @returns the input that is currently routed to a specified output
 	   **/
-	  uint8_t XPointControl(bool xpoint2, uint8_t output);
+	  uint8_t XPointControl(bool xpoint2, uint8_t const& output);
 	  
 	  /** get the status of the GLIB SFP
 	   * @param sfpcage
 	   * @returns the 3 status bits of the specified SFP
 	   **/
-	  uint8_t SFPStatus(uint8_t sfpcage);
+	  uint8_t SFPStatus(uint8_t const& sfpcage);
 	  
 	  /** get the presence of the FMC in slot 1 or 2
 	   * @param fmc2 true for FMC2 false for FMC1
@@ -302,31 +284,42 @@ namespace gem {
 	  /** returns the state of the FPGA reset line (driven by the CPLD)
 	   * @returns true if there is a reset
 	   **/
-	  bool FPGAReset();
+	  bool FPGAResetStatus();
 	  
 	  /** returns the status of the 6-bit bus between the FPGA and the CPLD
 	   * @returns 
 	   **/
-	  uint8_t V6CPLD();
+	  uint8_t V6CPLDStatus();
 	  
 	  /** is the CDCE locked
 	   * @returns true if the CDCE is locked
 	   **/
-	  bool CDCELocked();
+	  bool CDCELockStatus();
 	  
 	  
 	  //user core functionality
-	  /** Read the user firmware register
+	  /** Read the user firmware register using m_controlLink
+	   * @returns a hex number corresponding to the build date
+	   **/
+	  uint32_t getUserFirmware();
+	  
+	  /** Read the user firmware register for a given link
+	   * @returns a hex number corresponding to the build date
+	   **/
+	  uint32_t getUserFirmware(uint8_t const& link);
+	  
+	  /** Read the user firmware register for a given link
 	   * @returns a string corresponding to the build date
 	   **/
-	  std::string getUserFirmware();
+	  std::string getUserFirmwareDate();
+	  std::string getUserFirmwareDate(uint8_t const& link);
 	  
 	  /** Read the link status registers, store the information in a struct
 	   * @param uint8_t link is the number of the link to query
 	   * @retval _status a struct containing the status bits of the optical link
 	   * @throws gem::hw::glib::exception::InvalidLink if the link number is outside of 0-2
 	   **/
-	  GEMHwDevice::OpticalLinkStatus LinkStatus(uint8_t link);
+	  GEMHwDevice::OpticalLinkStatus LinkStatus(uint8_t const& link);
 	  
 	  /** Reset the link status registers
 	   * @param uint8_t link is the number of the link to query
@@ -339,29 +332,55 @@ namespace gem {
 	   * bit 5 - RegisterSnt 0x10
 	   * @throws gem::hw::glib::exception::InvalidLink if the link number is outside of 0-2
 	   **/
-	  void LinkReset(uint8_t link, uint8_t resets);
+	  void LinkReset(uint8_t const& link, uint8_t const& resets);
 
+	  /** Reset the all link status registers
+	   * @param uint8_t resets control which bits to reset
+	   **/
+	  void ResetLinks(uint8_t const& resets) {
+	    for (auto link = activeLinks.begin(); link != activeLinks.end(); ++link)
+	      LinkReset(link->first,resets);
+	  };
+	  
 	  /** Read the trigger data
 	   * @retval uint32_t returns 32 bits 6 bits for s-bits and 26 for bunch countrr
 	   **/
-	  uint32_t readTriggerFIFO();
+	  uint32_t readTriggerFIFO(uint8_t const& link);
 
 	  /** Empty the trigger data FIFO
 	   * 
 	   **/
-	  void flushTriggerFIFO();
+	  void flushTriggerFIFO(uint8_t const& link);
 
 	  /** Read the tracking data FIFO occupancy
 	   * @param uint8_t link is the number of the link to query
 	   * @retval uint32_t returns the number of events in the tracking data FIFO
 	   **/
-	  uint32_t getFIFOOccupancy(uint8_t link);
+	  uint32_t getFIFOOccupancy(uint8_t const& link);
+
+	  /** see if there is tracking data available
+	   * @param uint8_t link is the number of the column of the tracking data to read
+	   * @retval bool returns true if there is tracking data in the FIFO
+	      TRK_DATA.COLX.DATA_RDY
+	   */
+	  bool hasTrackingData(uint8_t const& link);
+
+	  /** get the tracking data, have to do this intelligently, as each column will be independent (for now)
+	      and need to pack all events together
+	      OR we put the column data in it's own block, and figure it out later...
+	   * @param uint8_t link is the number of the column of the tracking data to read
+	   * @retval std::vector<uint32_t> returns the 7 data words in the buffer, for a single chip
+	   * maybe better to return a block of memory...
+	      TRK_DATA.COLX.DATA_RDY
+	      TRK_DATA.COLX.DATA.[0-6]
+	   */
+	  std::vector<uint32_t> getTrackingData(uint8_t const& link);
 
 	  /** Empty the tracking data FIFO
 	   * @param uint8_t link is the number of the link to query
 	   * 
 	   **/
-	  void flushFIFO(uint8_t link);
+	  void flushFIFO(uint8_t const& link);
 
 
 	protected:
@@ -374,7 +393,13 @@ namespace gem {
 	  //GLIBMonitor *monGLIB_;
 
 	
+	  bool links[3];
+	    
+	  std::vector<linkStatus> activeLinks;
+
 	private:
+	  uint8_t m_controlLink;
+	  int m_crate, m_slot;
 	
 	}; //end class HwGLIB
     } //end namespace gem::hw::glib

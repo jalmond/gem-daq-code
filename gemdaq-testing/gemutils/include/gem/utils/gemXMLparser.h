@@ -12,7 +12,10 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/format.hpp>
 
+#include "gem/utils/GEMLogging.h"
+
 #include "gem/utils/gemComplexDeviceProperties.h"
+
 namespace gem {
   namespace utils {
     class gemXMLparser
@@ -66,6 +69,7 @@ namespace gem {
       static void addProperty(const char* key, const xercesc::DOMNode* n, gemVFATProperties* vfat);
       std::string xmlFile_;
       gemSystemProperties *gemSystem_;
+      log4cplus::Logger gemLogger_;
     };
   } // end namespace gem::utils
 } // end namespace gem

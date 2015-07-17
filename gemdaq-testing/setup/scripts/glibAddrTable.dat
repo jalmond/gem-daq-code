@@ -1,0 +1,1258 @@
+*------------------------------------------------------------------------------------------
+* system regs
+*------------------------------------------------------------------------------------------
+* RegName           	RegAddr     RegMask      R     W     Description
+*------------------------------------------------------------------------------------------
+* ---Test registers---------------------------------------------
+testing                 0x40030000    ffffffff     1     1
+VFATs_TEST              0x40010808    ffffffff     1     0
+
+* ---GLIB user firmware registers-------------------------------
+triggerdata             0x40050000    ffffffff     1     0
+
+* ---GLIB user firmware registers (link specific)---------------
+* link0
+GLIB_link0_TrgSrc           0x4004000d    ffffffff  1     1
+GLIB_link0_TDC_SBit         0x40040081    ffffffff  1     1
+GLIB_link0_FW               0x4004000A    ffffffff  1     0
+GLIB_link0_ErrCnt           0x40040000    ffffffff  1     0
+GLIB_link0_I2CRecCnt        0x40040001    ffffffff  1     0
+GLIB_link0_I2CSndCnt        0x40040002    ffffffff  1     0
+GLIB_link0_RegRecCnt        0x40040003    ffffffff  1     0
+GLIB_link0_RegSndCnt        0x40040004    ffffffff  1     0
+GLIB_link0_Rst_ErrCnt       0x40040005    ffffffff  0     1
+GLIB_link0_Rst_I2CRecCnt    0x40040006    ffffffff  0     1
+GLIB_link0_Rst_I2CSndCnt    0x40040007    ffffffff  0     1
+GLIB_link0_Rst_RegRecCnt    0x40040008    ffffffff  0     1
+GLIB_link0_Rst_RegSndCnt    0x40040009    ffffffff  0     1
+GLIB_link0_FWVer            0x4004000A    ffffffff  1     0
+GLIB_link0_FIFO_Occ         0x4004000B    ffffffff  1     0
+GLIB_link0_FIFO_Flush       0x4004000C    ffffffff  0     1
+
+ch1trackingdata0        0x40020000    ffffffff     1     0
+ch1trackingdata1        0x40020001    ffffffff     1     0
+ch1trackingdata2        0x40020002    ffffffff     1     0
+ch1trackingdata3        0x40020003    ffffffff     1     0
+ch1trackingdata4        0x40020004    ffffffff     1     0
+ch1trackingdata5        0x40020005    ffffffff     1     0
+ch1trackingdata6        0x40020006    ffffffff     1     0
+ch1trackingdata7        0x40020007    ffffffff     1     0
+
+* link1
+GLIB_link1_TrgSrc           0x4004010d    ffffffff  1     1
+GLIB_link1_TDC_SBit         0x40040181    ffffffff  1     1
+GLIB_link1_FW               0x4004010A    ffffffff  1     0
+GLIB_link1_ErrCnt           0x40040100    ffffffff  1     0
+GLIB_link1_I2CRecCnt        0x40040101    ffffffff  1     0
+GLIB_link1_I2CSndCnt        0x40040102    ffffffff  1     0
+GLIB_link1_RegRecCnt        0x40040103    ffffffff  1     0
+GLIB_link1_RegSndCnt        0x40040104    ffffffff  1     0
+GLIB_link1_Rst_ErrCnt       0x40040105    ffffffff  0     1
+GLIB_link1_Rst_I2CRecCnt    0x40040106    ffffffff  0     1
+GLIB_link1_Rst_I2CSndCnt    0x40040107    ffffffff  0     1
+GLIB_link1_Rst_RegRecCnt    0x40040108    ffffffff  0     1
+GLIB_link1_Rst_RegSndCnt    0x40040109    ffffffff  0     1
+GLIB_link1_FWVer            0x4004010A    ffffffff  1     0
+GLIB_link1_FIFO_Occ         0x4004010B    ffffffff  1     0
+GLIB_link1_FIFO_Flush       0x4004010C    ffffffff  0     1
+
+ch2trackingdata0        0x40020100    ffffffff     1     0
+ch2trackingdata1        0x40020101    ffffffff     1     0
+ch2trackingdata2        0x40020102    ffffffff     1     0
+ch2trackingdata3        0x40020103    ffffffff     1     0
+ch2trackingdata4        0x40020104    ffffffff     1     0
+ch2trackingdata5        0x40020105    ffffffff     1     0
+ch2trackingdata6        0x40020106    ffffffff     1     0
+ch2trackingdata7        0x40020107    ffffffff     1     0
+
+* link2
+GLIB_link2_TrgSrc           0x4004020d    ffffffff  1     1
+GLIB_link2_TDC_SBit         0x40040281    ffffffff  1     1
+GLIB_link2_FW               0x4004020A    ffffffff  1     0
+GLIB_link2_ErrCnt           0x40040200    ffffffff  1     0
+GLIB_link2_I2CRecCnt        0x40040201    ffffffff  1     0
+GLIB_link2_I2CSndCnt        0x40040202    ffffffff  1     0
+GLIB_link2_RegRecCnt        0x40040203    ffffffff  1     0
+GLIB_link2_RegSndCnt        0x40040204    ffffffff  1     0
+GLIB_link2_Rst_ErrCnt       0x40040205    ffffffff  0     1
+GLIB_link2_Rst_I2CRecCnt    0x40040206    ffffffff  0     1
+GLIB_link2_Rst_I2CSndCnt    0x40040207    ffffffff  0     1
+GLIB_link2_Rst_RegRecCnt    0x40040208    ffffffff  0     1
+GLIB_link2_Rst_RegSndCnt    0x40040209    ffffffff  0     1
+GLIB_link2_FWVer            0x4004020A    ffffffff  1     0
+GLIB_link2_FIFO_Occ         0x4004020B    ffffffff  1     0
+GLIB_link2_FIFO_Flush       0x4004020C    ffffffff  0     1
+
+ch3trackingdata0        0x40020200    ffffffff     1     0
+ch3trackingdata1        0x40020201    ffffffff     1     0
+ch3trackingdata2        0x40020202    ffffffff     1     0
+ch3trackingdata3        0x40020203    ffffffff     1     0
+ch3trackingdata4        0x40020204    ffffffff     1     0
+ch3trackingdata5        0x40020205    ffffffff     1     0
+ch3trackingdata6        0x40020206    ffffffff     1     0
+ch3trackingdata7        0x40020207    ffffffff     1     0
+
+* ---OH firmware registers (link related)----------------
+* these are all OH specific registers and are link dependent
+* link0
+OH_link0_TrgSrc           0x40030045    ffffffff  1     1
+OH_link0_VADCVal          0x40030055    ffffffff  1     0
+OH_link0_IADCVal          0x40030056    ffffffff  1     0
+
+OH_link0_ReadL1A          0x4003005D    ffffffff  1     0
+OH_link0_ReadCal          0x40030060    ffffffff  1     0
+OH_link0_ReadResync       0x40030061    ffffffff  1     0
+OH_link0_ReadBC0          0x40030062    ffffffff  1     0
+OH_link0_ReadBX           0x40030063    ffffffff  1     0
+
+OH_link0_RstL1A           0x40030069    ffffffff  0     1
+OH_link0_RstCal           0x4003006C    ffffffff  0     1
+OH_link0_RstResync        0x4003006D    ffffffff  0     1
+OH_link0_RstBC0           0x4003006E    ffffffff  0     1
+
+OH_link0_SendL1A          0x40030040    ffffffff  0     1
+OH_link0_SendCal          0x40030041    ffffffff  0     1
+OH_link0_SendResync       0x40030042    ffffffff  0     1
+OH_link0_SendBC0          0x40030043    ffffffff  0     1
+OH_link0_SendL1ACal       0x40030044    ffffffff  0     1
+
+OH_link0_VFAT_SRC         0x4003004B    ffffffff  1     1
+OH_link0_VFAT_BKP         0x4003004C    ffffffff  1     1
+OH_link0_CDCE_SRC         0x4003004D    ffffffff  1     1
+OH_link0_CDCE_BKP         0x4003004E    ffffffff  1     1
+
+OH_link0_CDCE_Locked      0x4003004F    ffffffff  1     0
+OH_link0_FPGA_PLL_Locked  0x40030050    ffffffff  1     0
+OH_link0_GTP_Locked       0x40030051    ffffffff  1     0
+
+OH_link0_ErrCnt           0x40030000	ffffffff  1     0
+OH_link0_I2CRecCnt        0x40030001    ffffffff  1     0
+OH_link0_I2CSndCnt        0x40030002	ffffffff  1     0
+OH_link0_RegRecCnt        0x40030003    ffffffff  1     0
+OH_link0_RegSndCnt        0x40030004	ffffffff  1     0
+OH_link0_Rst_ErrCnt       0x40030005    ffffffff  0     1
+OH_link0_Rst_I2CRecCnt    0x40030006    ffffffff  0     1
+OH_link0_Rst_I2CSndCnt    0x40030007    ffffffff  0     1
+OH_link0_Rst_RegRecCnt    0x40030008    ffffffff  0     1
+OH_link0_Rst_RegSndCnt    0x40030009    ffffffff  0     1
+OH_link0_TEST             0x40030000    ffffffff  1     0
+OH_link0_FW               0x40030057    ffffffff  1     0
+OH_link0_TDC_SBit         0x40030046    ffffffff  1     1
+
+* link1
+OH_link1_TrgSrc           0x40030145    ffffffff  1     1
+OH_link1_VADCVal          0x40030155    ffffffff  1     0
+OH_link1_IADCVal          0x40030156    ffffffff  1     0
+
+OH_link1_ReadL1A          0x4003015D    ffffffff  1     0
+OH_link1_ReadCal          0x40030160    ffffffff  1     0
+OH_link1_ReadResync       0x40030161    ffffffff  1     0
+OH_link1_ReadBC0          0x40030162    ffffffff  1     0
+OH_link1_ReadBX           0x40030163    ffffffff  1     0
+
+OH_link1_RstL1A           0x40030169    ffffffff  0     1
+OH_link1_RstCal           0x4003016C    ffffffff  0     1
+OH_link1_RstResync        0x4003016D    ffffffff  0     1
+OH_link1_RstBC0           0x4003016E    ffffffff  0     1
+
+OH_link1_SendL1A          0x40030140    ffffffff  0     1
+OH_link1_SendCal          0x40030141    ffffffff  0     1
+OH_link1_SendResync       0x40030142    ffffffff  0     1
+OH_link1_SendBC0          0x40030143    ffffffff  0     1
+OH_link1_SendL1ACal       0x40030144    ffffffff  0     1
+
+OH_link1_VFAT_SRC         0x4003014B    ffffffff  1     1
+OH_link1_VFAT_BKP         0x4003014C    ffffffff  1     1
+OH_link1_CDCE_SRC         0x4003014D    ffffffff  1     1
+OH_link1_CDCE_BKP         0x4003014E    ffffffff  1     1
+
+OH_link1_CDCE_Locked      0x4003014F    ffffffff  1     0
+OH_link1_FPGA_PLL_Locked  0x40030150    ffffffff  1     0
+OH_link1_GTP_Locked       0x40030151    ffffffff  1     0
+
+OH_link1_ErrCnt           0x40030100	ffffffff  1     0
+OH_link1_I2CRecCnt        0x40030101    ffffffff  1     0
+OH_link1_I2CSndCnt        0x40030102	ffffffff  1     0
+OH_link1_RegRecCnt        0x40030103    ffffffff  1     0
+OH_link1_RegSndCnt        0x40030104	ffffffff  1     0
+OH_link1_Rst_ErrCnt       0x40030105    ffffffff  0     1
+OH_link1_Rst_I2CRecCnt    0x40030106    ffffffff  0     1
+OH_link1_Rst_I2CSndCnt    0x40030107    ffffffff  0     1
+OH_link1_Rst_RegRecCnt    0x40030108    ffffffff  0     1
+OH_link1_Rst_RegSndCnt    0x40030109    ffffffff  0     1
+OH_link1_TEST             0x40030100    ffffffff  1     0
+OH_link1_FW               0x40030157    ffffffff  1     0
+OH_link1_TDC_SBit         0x40030146    ffffffff  1     1
+
+* link2
+OH_link2_TrgSrc           0x40030245    ffffffff  1     1
+OH_link2_VADCVal          0x40030255    ffffffff  1     0
+OH_link2_IADCVal          0x40030256    ffffffff  1     0
+
+OH_link2_ReadL1A          0x4003025D    ffffffff  1     0
+OH_link2_ReadCal          0x40030260    ffffffff  1     0
+OH_link2_ReadResync       0x40030261    ffffffff  1     0
+OH_link2_ReadBC0          0x40030262    ffffffff  1     0
+OH_link2_ReadBX           0x40030263    ffffffff  1     0
+
+OH_link2_RstL1A           0x40030269    ffffffff  0     1
+OH_link2_RstCal           0x4003026C    ffffffff  0     1
+OH_link2_RstResync        0x4003026D    ffffffff  0     1
+OH_link2_RstBC0           0x4003026E    ffffffff  0     1
+
+OH_link2_SendL1A          0x40030240    ffffffff  0     1
+OH_link2_SendCal          0x40030241    ffffffff  0     1
+OH_link2_SendResync       0x40030242    ffffffff  0     1
+OH_link2_SendBC0          0x40030243    ffffffff  0     1
+OH_link2_SendL1ACal       0x40030244    ffffffff  0     1
+
+OH_link2_VFAT_SRC         0x4003024B    ffffffff  1     1
+OH_link2_VFAT_BKP         0x4003024C    ffffffff  1     1
+OH_link2_CDCE_SRC         0x4003024D    ffffffff  1     1
+OH_link2_CDCE_BKP         0x4003024E    ffffffff  1     1
+
+OH_link2_CDCE_Locked      0x4003024F    ffffffff  1     0
+OH_link2_FPGA_PLL_Locked  0x40030250    ffffffff  1     0
+OH_link2_GTP_Locked       0x40030251    ffffffff  1     0
+
+OH_link2_ErrCnt           0x40030200	ffffffff  1     0
+OH_link2_I2CRecCnt        0x40030201    ffffffff  1     0
+OH_link2_I2CSndCnt        0x40030202	ffffffff  1     0
+OH_link2_RegRecCnt        0x40030203    ffffffff  1     0
+OH_link2_RegSndCnt        0x40030204	ffffffff  1     0
+OH_link2_Rst_ErrCnt       0x40030205    ffffffff  0     1
+OH_link2_Rst_I2CRecCnt    0x40030206    ffffffff  0     1
+OH_link2_Rst_I2CSndCnt    0x40030207    ffffffff  0     1
+OH_link2_Rst_RegRecCnt    0x40030208    ffffffff  0     1
+OH_link2_Rst_RegSndCnt    0x40030209    ffffffff  0     1
+OH_link2_TEST             0x40030200    ffffffff  1     0
+OH_link2_FW               0x40030257    ffffffff  1     0
+OH_link2_TDC_SBit         0x40030246    ffffffff  1     1
+
+OH_link3_ErrCnt           0x40030300	ffffffff  1     0
+OH_link3_I2CRecCnt        0x40030301    ffffffff  1     0
+OH_link3_I2CSndCnt        0x40030302	ffffffff  1     0
+OH_link3_RegRecCnt        0x40030303    ffffffff  1     0
+OH_link3_RegSndCnt        0x40030304	ffffffff  1     0
+OH_link3_Rst_ErrCnt       0x40030305    ffffffff  0     1
+OH_link3_Rst_I2CRecCnt    0x40030306    ffffffff  0     1
+OH_link3_Rst_I2CSndCnt    0x40030307    ffffffff  0     1
+OH_link3_Rst_RegRecCnt    0x40030308    ffffffff  0     1
+OH_link3_Rst_RegSndCnt    0x40030309    ffffffff  0     1
+OH_link3_TEST             0x40030300    ffffffff  1     0
+OH_link3_FW               0x40030357    ffffffff  1     0
+OH_link3_TDC_SBit         0x40030346    ffffffff  1     1
+
+
+* ---VFAT2 registers--------------------------------------------
+vfat2_slot0_ctrl0             0x40010000    ffffffff     1     1
+vfat2_slot0_ctrl1             0x40010001    ffffffff     1     1
+vfat2_slot0_ipreampin         0x40010002    ffffffff     1     1
+vfat2_slot0_ipreampfeed       0x40010003    ffffffff     1     1
+vfat2_slot0_ipreampout        0x40010004    ffffffff     1     1
+vfat2_slot0_ishaper           0x40010005    ffffffff     1     1
+vfat2_slot0_ishaperfeed       0x40010006    ffffffff     1     1
+vfat2_slot0_icomp             0x40010007    ffffffff     1     1
+vfat2_slot0_chipid0           0x40010008    ffffffff     1     0
+vfat2_slot0_chipid1           0x40010009    ffffffff     1     0
+vfat2_slot0_upsetreg          0x4001000A    ffffffff     1     0
+vfat2_slot0_hitcounter0       0x4001000B    ffffffff     1     0
+vfat2_slot0_hitcounter1       0x4001000C    ffffffff     1     0
+vfat2_slot0_hitcounter2       0x4001000D    ffffffff     1     0
+vfat2_slot0_extregpointer     0x4001000E    ffffffff     1     1
+vfat2_slot0_extregdata        0x4001000F    ffffffff     1     1
+vfat2_slot0_lat               0x40010010    ffffffff     1     1
+vfat2_slot0_channel1          0x40010011    ffffffff     1     1
+vfat2_slot0_channel2          0x40010012    ffffffff     1     1
+vfat2_slot0_channel10         0x40010020    ffffffff     1     1
+vfat2_slot0_vcal              0x40010091    ffffffff     1     1
+vfat2_slot0_vthreshold1       0x40010092    ffffffff     1     1
+vfat2_slot0_vthreshold2       0x40010093    ffffffff     1     1
+vfat2_slot0_calphase          0x40010094    ffffffff     1     1
+vfat2_slot0_ctrl2             0x40010095    ffffffff     1     1
+vfat2_slot0_ctrl3             0x40010096    ffffffff     1     1
+vfat2_slot0_spare             0x40010097    ffffffff     1     1
+
+vfat2_slot1_ctrl0             0x40010100    ffffffff     1     1
+vfat2_slot1_ctrl1             0x40010101    ffffffff     1     1
+vfat2_slot1_ipreampin         0x40010102    ffffffff     1     1
+vfat2_slot1_ipreampfeed       0x40010103    ffffffff     1     1
+vfat2_slot1_ipreampout        0x40010104    ffffffff     1     1
+vfat2_slot1_ishaper           0x40010105    ffffffff     1     1
+vfat2_slot1_ishaperfeed       0x40010106    ffffffff     1     1
+vfat2_slot1_icomp             0x40010107    ffffffff     1     1
+vfat2_slot1_chipid0           0x40010108    ffffffff     1     0
+vfat2_slot1_chipid1           0x40010109    ffffffff     1     0
+vfat2_slot1_upsetreg          0x4001010A    ffffffff     1     0
+vfat2_slot1_hitcounter0       0x4001010B    ffffffff     1     0
+vfat2_slot1_hitcounter1       0x4001010C    ffffffff     1     0
+vfat2_slot1_hitcounter2       0x4001010D    ffffffff     1     0
+vfat2_slot1_extregpointer     0x4001010E    ffffffff     1     1
+vfat2_slot1_extregdata        0x4001010F    ffffffff     1     1
+vfat2_slot1_lat               0x40010110    ffffffff     1     1
+vfat2_slot1_channel1          0x40010111    ffffffff     1     1
+vfat2_slot1_channel2          0x40010112    ffffffff     1     1
+vfat2_slot1_channel10         0x40010120    ffffffff     1     1
+vfat2_slot1_vcal              0x40010191    ffffffff     1     1
+vfat2_slot1_vthreshold1       0x40010192    ffffffff     1     1
+vfat2_slot1_vthreshold2       0x40010193    ffffffff     1     1
+vfat2_slot1_calphase          0x40010194    ffffffff     1     1
+vfat2_slot1_ctrl2             0x40010195    ffffffff     1     1
+vfat2_slot1_ctrl3             0x40010196    ffffffff     1     1
+vfat2_slot1_spare             0x40010197    ffffffff     1     1
+
+vfat2_slot2_ctrl0             0x40010200    ffffffff     1     1
+vfat2_slot2_ctrl1             0x40010201    ffffffff     1     1
+vfat2_slot2_ipreampin         0x40010202    ffffffff     1     1
+vfat2_slot2_ipreampfeed       0x40010203    ffffffff     1     1
+vfat2_slot2_ipreampout        0x40010204    ffffffff     1     1
+vfat2_slot2_ishaper           0x40010205    ffffffff     1     1
+vfat2_slot2_ishaperfeed       0x40010206    ffffffff     1     1
+vfat2_slot2_icomp             0x40010207    ffffffff     1     1
+vfat2_slot2_chipid0           0x40010208    ffffffff     1     0
+vfat2_slot2_chipid1           0x40010209    ffffffff     1     0
+vfat2_slot2_upsetreg          0x4001020A    ffffffff     1     0
+vfat2_slot2_hitcounter0       0x4001020B    ffffffff     1     0
+vfat2_slot2_hitcounter1       0x4001020C    ffffffff     1     0
+vfat2_slot2_hitcounter2       0x4001020D    ffffffff     1     0
+vfat2_slot2_extregpointer     0x4001020E    ffffffff     1     1
+vfat2_slot2_extregdata        0x4001020F    ffffffff     1     1
+vfat2_slot2_lat               0x40010210    ffffffff     1     1
+vfat2_slot2_channel1          0x40010211    ffffffff     1     1
+vfat2_slot2_channel2          0x40010212    ffffffff     1     1
+vfat2_slot2_channel10         0x40010220    ffffffff     1     1
+vfat2_slot2_vcal              0x40010291    ffffffff     1     1
+vfat2_slot2_vthreshold1       0x40010292    ffffffff     1     1
+vfat2_slot2_vthreshold2       0x40010293    ffffffff     1     1
+vfat2_slot2_calphase          0x40010294    ffffffff     1     1
+vfat2_slot2_ctrl2             0x40010295    ffffffff     1     1
+vfat2_slot2_ctrl3             0x40010296    ffffffff     1     1
+vfat2_slot2_spare             0x40010297    ffffffff     1     1
+
+vfat2_slot3_ctrl0             0x40010300    ffffffff     1     1
+vfat2_slot3_ctrl1             0x40010301    ffffffff     1     1
+vfat2_slot3_ipreampin         0x40010302    ffffffff     1     1
+vfat2_slot3_ipreampfeed       0x40010303    ffffffff     1     1
+vfat2_slot3_ipreampout        0x40010304    ffffffff     1     1
+vfat2_slot3_ishaper           0x40010305    ffffffff     1     1
+vfat2_slot3_ishaperfeed       0x40010306    ffffffff     1     1
+vfat2_slot3_icomp             0x40010307    ffffffff     1     1
+vfat2_slot3_chipid0           0x40010308    ffffffff     1     0
+vfat2_slot3_chipid1           0x40010309    ffffffff     1     0
+vfat2_slot3_upsetreg          0x4001030A    ffffffff     1     0
+vfat2_slot3_hitcounter0       0x4001030B    ffffffff     1     0
+vfat2_slot3_hitcounter1       0x4001030C    ffffffff     1     0
+vfat2_slot3_hitcounter2       0x4001030D    ffffffff     1     0
+vfat2_slot3_extregpointer     0x4001030E    ffffffff     1     1
+vfat2_slot3_extregdata        0x4001030F    ffffffff     1     1
+vfat2_slot3_lat               0x40010310    ffffffff     1     1
+vfat2_slot3_channel1          0x40010311    ffffffff     1     1
+vfat2_slot3_channel2          0x40010312    ffffffff     1     1
+vfat2_slot3_channel10         0x40010320    ffffffff     1     1
+vfat2_slot3_vcal              0x40010391    ffffffff     1     1
+vfat2_slot3_vthreshold1       0x40010392    ffffffff     1     1
+vfat2_slot3_vthreshold2       0x40010393    ffffffff     1     1
+vfat2_slot3_calphase          0x40010394    ffffffff     1     1
+vfat2_slot3_ctrl2             0x40010395    ffffffff     1     1
+vfat2_slot3_ctrl3             0x40010396    ffffffff     1     1
+vfat2_slot3_spare             0x40010397    ffffffff     1     1
+
+vfat2_slot4_ctrl0             0x40010400    ffffffff     1     1
+vfat2_slot4_ctrl1             0x40010401    ffffffff     1     1
+vfat2_slot4_ipreampin         0x40010402    ffffffff     1     1
+vfat2_slot4_ipreampfeed       0x40010403    ffffffff     1     1
+vfat2_slot4_ipreampout        0x40010404    ffffffff     1     1
+vfat2_slot4_ishaper           0x40010405    ffffffff     1     1
+vfat2_slot4_ishaperfeed       0x40010406    ffffffff     1     1
+vfat2_slot4_icomp             0x40010407    ffffffff     1     1
+vfat2_slot4_chipid0           0x40010408    ffffffff     1     0
+vfat2_slot4_chipid1           0x40010409    ffffffff     1     0
+vfat2_slot4_upsetreg          0x4001040A    ffffffff     1     0
+vfat2_slot4_hitcounter0       0x4001040B    ffffffff     1     0
+vfat2_slot4_hitcounter1       0x4001040C    ffffffff     1     0
+vfat2_slot4_hitcounter2       0x4001040D    ffffffff     1     0
+vfat2_slot4_extregpointer     0x4001040E    ffffffff     1     1
+vfat2_slot4_extregdata        0x4001040F    ffffffff     1     1
+vfat2_slot4_lat               0x40010410    ffffffff     1     1
+vfat2_slot4_channel1          0x40010411    ffffffff     1     1
+vfat2_slot4_channel2          0x40010412    ffffffff     1     1
+vfat2_slot4_channel10         0x40010420    ffffffff     1     1
+vfat2_slot4_vcal              0x40010491    ffffffff     1     1
+vfat2_slot4_vthreshold1       0x40010492    ffffffff     1     1
+vfat2_slot4_vthreshold2       0x40010493    ffffffff     1     1
+vfat2_slot4_calphase          0x40010494    ffffffff     1     1
+vfat2_slot4_ctrl2             0x40010495    ffffffff     1     1
+vfat2_slot4_ctrl3             0x40010496    ffffffff     1     1
+vfat2_slot4_spare             0x40010497    ffffffff     1     1
+
+vfat2_slot5_ctrl0             0x40010500    ffffffff     1     1
+vfat2_slot5_ctrl1             0x40010501    ffffffff     1     1
+vfat2_slot5_ipreampin         0x40010502    ffffffff     1     1
+vfat2_slot5_ipreampfeed       0x40010503    ffffffff     1     1
+vfat2_slot5_ipreampout        0x40010504    ffffffff     1     1
+vfat2_slot5_ishaper           0x40010505    ffffffff     1     1
+vfat2_slot5_ishaperfeed       0x40010506    ffffffff     1     1
+vfat2_slot5_icomp             0x40010507    ffffffff     1     1
+vfat2_slot5_chipid0           0x40010508    ffffffff     1     0
+vfat2_slot5_chipid1           0x40010509    ffffffff     1     0
+vfat2_slot5_upsetreg          0x4001050A    ffffffff     1     0
+vfat2_slot5_hitcounter0       0x4001050B    ffffffff     1     0
+vfat2_slot5_hitcounter1       0x4001050C    ffffffff     1     0
+vfat2_slot5_hitcounter2       0x4001050D    ffffffff     1     0
+vfat2_slot5_extregpointer     0x4001050E    ffffffff     1     1
+vfat2_slot5_extregdata        0x4001050F    ffffffff     1     1
+vfat2_slot5_lat               0x40010510    ffffffff     1     1
+vfat2_slot5_channel1          0x40010511    ffffffff     1     1
+vfat2_slot5_channel2          0x40010512    ffffffff     1     1
+vfat2_slot5_channel10         0x40010520    ffffffff     1     1
+vfat2_slot5_vcal              0x40010591    ffffffff     1     1
+vfat2_slot5_vthreshold1       0x40010592    ffffffff     1     1
+vfat2_slot5_vthreshold2       0x40010593    ffffffff     1     1
+vfat2_slot5_calphase          0x40010594    ffffffff     1     1
+vfat2_slot5_ctrl2             0x40010595    ffffffff     1     1
+vfat2_slot5_ctrl3             0x40010596    ffffffff     1     1
+vfat2_slot5_spare             0x40010597    ffffffff     1     1
+
+vfat2_slot6_ctrl0             0x40010600    ffffffff     1     1
+vfat2_slot6_ctrl1             0x40010601    ffffffff     1     1
+vfat2_slot6_ipreampin         0x40010602    ffffffff     1     1
+vfat2_slot6_ipreampfeed       0x40010603    ffffffff     1     1
+vfat2_slot6_ipreampout        0x40010604    ffffffff     1     1
+vfat2_slot6_ishaper           0x40010605    ffffffff     1     1
+vfat2_slot6_ishaperfeed       0x40010606    ffffffff     1     1
+vfat2_slot6_icomp             0x40010607    ffffffff     1     1
+vfat2_slot6_chipid0           0x40010608    ffffffff     1     0
+vfat2_slot6_chipid1           0x40010609    ffffffff     1     0
+vfat2_slot6_upsetreg          0x4001060A    ffffffff     1     0
+vfat2_slot6_hitcounter0       0x4001060B    ffffffff     1     0
+vfat2_slot6_hitcounter1       0x4001060C    ffffffff     1     0
+vfat2_slot6_hitcounter2       0x4001060D    ffffffff     1     0
+vfat2_slot6_extregpointer     0x4001060E    ffffffff     1     1
+vfat2_slot6_extregdata        0x4001060F    ffffffff     1     1
+vfat2_slot6_lat               0x40010610    ffffffff     1     1
+vfat2_slot6_channel1          0x40010611    ffffffff     1     1
+vfat2_slot6_channel2          0x40010612    ffffffff     1     1
+vfat2_slot6_channel10         0x40010620    ffffffff     1     1
+vfat2_slot6_vcal              0x40010691    ffffffff     1     1
+vfat2_slot6_vthreshold1       0x40010692    ffffffff     1     1
+vfat2_slot6_vthreshold2       0x40010693    ffffffff     1     1
+vfat2_slot6_calphase          0x40010694    ffffffff     1     1
+vfat2_slot6_ctrl2             0x40010695    ffffffff     1     1
+vfat2_slot6_ctrl3             0x40010696    ffffffff     1     1
+vfat2_slot6_spare             0x40010697    ffffffff     1     1
+
+vfat2_slot7_ctrl0             0x40010700    ffffffff     1     1
+vfat2_slot7_ctrl1             0x40010701    ffffffff     1     1
+vfat2_slot7_ipreampin         0x40010702    ffffffff     1     1
+vfat2_slot7_ipreampfeed       0x40010703    ffffffff     1     1
+vfat2_slot7_ipreampout        0x40010704    ffffffff     1     1
+vfat2_slot7_ishaper           0x40010705    ffffffff     1     1
+vfat2_slot7_ishaperfeed       0x40010706    ffffffff     1     1
+vfat2_slot7_icomp             0x40010707    ffffffff     1     1
+vfat2_slot7_chipid0           0x40010708    ffffffff     1     0
+vfat2_slot7_chipid1           0x40010709    ffffffff     1     0
+vfat2_slot7_upsetreg          0x4001070A    ffffffff     1     0
+vfat2_slot7_hitcounter0       0x4001070B    ffffffff     1     0
+vfat2_slot7_hitcounter1       0x4001070C    ffffffff     1     0
+vfat2_slot7_hitcounter2       0x4001070D    ffffffff     1     0
+vfat2_slot7_extregpointer     0x4001070E    ffffffff     1     1
+vfat2_slot7_extregdata        0x4001070F    ffffffff     1     1
+vfat2_slot7_lat               0x40010710    ffffffff     1     1
+vfat2_slot7_channel1          0x40010711    ffffffff     1     1
+vfat2_slot7_channel2          0x40010712    ffffffff     1     1
+vfat2_slot7_channel10         0x40010720    ffffffff     1     1
+vfat2_slot7_vcal              0x40010791    ffffffff     1     1
+vfat2_slot7_vthreshold1       0x40010792    ffffffff     1     1
+vfat2_slot7_vthreshold2       0x40010793    ffffffff     1     1
+vfat2_slot7_calphase          0x40010794    ffffffff     1     1
+vfat2_slot7_ctrl2             0x40010795    ffffffff     1     1
+vfat2_slot7_ctrl3             0x40010796    ffffffff     1     1
+vfat2_slot7_spare             0x40010797    ffffffff     1     1
+
+vfat2_slot8_ctrl0             0x40010800    ffffffff     1     1
+vfat2_slot8_ctrl1             0x40010801    ffffffff     1     1
+vfat2_slot8_ipreampin         0x40010802    ffffffff     1     1
+vfat2_slot8_ipreampfeed       0x40010803    ffffffff     1     1
+vfat2_slot8_ipreampout        0x40010804    ffffffff     1     1
+vfat2_slot8_ishaper           0x40010805    ffffffff     1     1
+vfat2_slot8_ishaperfeed       0x40010806    ffffffff     1     1
+vfat2_slot8_icomp             0x40010807    ffffffff     1     1
+vfat2_slot8_chipid0           0x40010808    ffffffff     1     0
+vfat2_slot8_chipid1           0x40010809    ffffffff     1     0
+vfat2_slot8_upsetreg          0x4001080A    ffffffff     1     0
+vfat2_slot8_hitcounter0       0x4001080B    ffffffff     1     0
+vfat2_slot8_hitcounter1       0x4001080C    ffffffff     1     0
+vfat2_slot8_hitcounter2       0x4001080D    ffffffff     1     0
+vfat2_slot8_extregpointer     0x4001080E    ffffffff     1     1
+vfat2_slot8_extregdata        0x4001080F    ffffffff     1     1
+vfat2_slot8_lat               0x40010810    ffffffff     1     1
+vfat2_slot8_channel1          0x40010811    ffffffff     1     1
+vfat2_slot8_channel2          0x40010812    ffffffff     1     1
+vfat2_slot8_channel10         0x40010820    ffffffff     1     1
+vfat2_slot8_vcal              0x40010891    ffffffff     1     1
+vfat2_slot8_vthreshold1       0x40010892    ffffffff     1     1
+vfat2_slot8_vthreshold2       0x40010893    ffffffff     1     1
+vfat2_slot8_calphase          0x40010894    ffffffff     1     1
+vfat2_slot8_ctrl2             0x40010895    ffffffff     1     1
+vfat2_slot8_ctrl3             0x40010896    ffffffff     1     1
+vfat2_slot8_spare             0x40010897    ffffffff     1     1
+
+vfat2_slot9_ctrl0             0x40010900    ffffffff     1     1
+vfat2_slot9_ctrl1             0x40010901    ffffffff     1     1
+vfat2_slot9_ipreampin         0x40010902    ffffffff     1     1
+vfat2_slot9_ipreampfeed       0x40010903    ffffffff     1     1
+vfat2_slot9_ipreampout        0x40010904    ffffffff     1     1
+vfat2_slot9_ishaper           0x40010905    ffffffff     1     1
+vfat2_slot9_ishaperfeed       0x40010906    ffffffff     1     1
+vfat2_slot9_icomp             0x40010907    ffffffff     1     1
+vfat2_slot9_chipid0           0x40010908    ffffffff     1     0
+vfat2_slot9_chipid1           0x40010909    ffffffff     1     0
+vfat2_slot9_upsetreg          0x4001090A    ffffffff     1     0
+vfat2_slot9_hitcounter0       0x4001090B    ffffffff     1     0
+vfat2_slot9_hitcounter1       0x4001090C    ffffffff     1     0
+vfat2_slot9_hitcounter2       0x4001090D    ffffffff     1     0
+vfat2_slot9_extregpointer     0x4001090E    ffffffff     1     1
+vfat2_slot9_extregdata        0x4001090F    ffffffff     1     1
+vfat2_slot9_lat               0x40010910    ffffffff     1     1
+vfat2_slot9_channel1          0x40010911    ffffffff     1     1
+vfat2_slot9_channel2          0x40010912    ffffffff     1     1
+vfat2_slot9_channel10         0x40010920    ffffffff     1     1
+vfat2_slot9_vcal              0x40010991    ffffffff     1     1
+vfat2_slot9_vthreshold1       0x40010992    ffffffff     1     1
+vfat2_slot9_vthreshold2       0x40010993    ffffffff     1     1
+vfat2_slot9_calphase          0x40010994    ffffffff     1     1
+vfat2_slot9_ctrl2             0x40010995    ffffffff     1     1
+vfat2_slot9_ctrl3             0x40010996    ffffffff     1     1
+vfat2_slot9_spare             0x40010997    ffffffff     1     1
+
+vfat2_slot10_ctrl0             0x40010a00    ffffffff     1     1
+vfat2_slot10_ctrl1             0x40010a01    ffffffff     1     1
+vfat2_slot10_ipreampin         0x40010a02    ffffffff     1     1
+vfat2_slot10_ipreampfeed       0x40010a03    ffffffff     1     1
+vfat2_slot10_ipreampout        0x40010a04    ffffffff     1     1
+vfat2_slot10_ishaper           0x40010a05    ffffffff     1     1
+vfat2_slot10_ishaperfeed       0x40010a06    ffffffff     1     1
+vfat2_slot10_icomp             0x40010a07    ffffffff     1     1
+vfat2_slot10_chipid0           0x40010a08    ffffffff     1     0
+vfat2_slot10_chipid1           0x40010a09    ffffffff     1     0
+vfat2_slot10_upsetreg          0x40010a0A    ffffffff     1     0
+vfat2_slot10_hitcounter0       0x40010a0B    ffffffff     1     0
+vfat2_slot10_hitcounter1       0x40010a0C    ffffffff     1     0
+vfat2_slot10_hitcounter2       0x40010a0D    ffffffff     1     0
+vfat2_slot10_extregpointer     0x40010a0E    ffffffff     1     1
+vfat2_slot10_extregdata        0x40010a0F    ffffffff     1     1
+vfat2_slot10_lat               0x40010a10    ffffffff     1     1
+vfat2_slot10_channel1          0x40010a11    ffffffff     1     1
+vfat2_slot10_channel2          0x40010a12    ffffffff     1     1
+vfat2_slot10_channel10         0x40010a20    ffffffff     1     1
+vfat2_slot10_vcal              0x40010a91    ffffffff     1     1
+vfat2_slot10_vthreshold1       0x40010a92    ffffffff     1     1
+vfat2_slot10_vthreshold2       0x40010a93    ffffffff     1     1
+vfat2_slot10_calphase          0x40010a94    ffffffff     1     1
+vfat2_slot10_ctrl2             0x40010a95    ffffffff     1     1
+vfat2_slot10_ctrl3             0x40010a96    ffffffff     1     1
+vfat2_slot10_spare             0x40010a97    ffffffff     1     1
+
+vfat2_slot11_ctrl0             0x40010b00    ffffffff     1     1
+vfat2_slot11_ctrl1             0x40010b01    ffffffff     1     1
+vfat2_slot11_ipreampin         0x40010b02    ffffffff     1     1
+vfat2_slot11_ipreampfeed       0x40010b03    ffffffff     1     1
+vfat2_slot11_ipreampout        0x40010b04    ffffffff     1     1
+vfat2_slot11_ishaper           0x40010b05    ffffffff     1     1
+vfat2_slot11_ishaperfeed       0x40010b06    ffffffff     1     1
+vfat2_slot11_icomp             0x40010b07    ffffffff     1     1
+vfat2_slot11_chipid0           0x40010b08    ffffffff     1     0
+vfat2_slot11_chipid1           0x40010b09    ffffffff     1     0
+vfat2_slot11_upsetreg          0x40010b0A    ffffffff     1     0
+vfat2_slot11_hitcounter0       0x40010b0B    ffffffff     1     0
+vfat2_slot11_hitcounter1       0x40010b0C    ffffffff     1     0
+vfat2_slot11_hitcounter2       0x40010b0D    ffffffff     1     0
+vfat2_slot11_extregpointer     0x40010b0E    ffffffff     1     1
+vfat2_slot11_extregdata        0x40010b0F    ffffffff     1     1
+vfat2_slot11_lat               0x40010b10    ffffffff     1     1
+vfat2_slot11_channel1          0x40010b11    ffffffff     1     1
+vfat2_slot11_channel2          0x40010b12    ffffffff     1     1
+vfat2_slot11_channel10         0x40010b20    ffffffff     1     1
+vfat2_slot11_vcal              0x40010b91    ffffffff     1     1
+vfat2_slot11_vthreshold1       0x40010b92    ffffffff     1     1
+vfat2_slot11_vthreshold2       0x40010b93    ffffffff     1     1
+vfat2_slot11_calphase          0x40010b94    ffffffff     1     1
+vfat2_slot11_ctrl2             0x40010b95    ffffffff     1     1
+vfat2_slot11_ctrl3             0x40010b96    ffffffff     1     1
+vfat2_slot11_spare             0x40010b97    ffffffff     1     1
+
+vfat2_slot12_ctrl0             0x40010c00    ffffffff     1     1
+vfat2_slot12_ctrl1             0x40010c01    ffffffff     1     1
+vfat2_slot12_ipreampin         0x40010c02    ffffffff     1     1
+vfat2_slot12_ipreampfeed       0x40010c03    ffffffff     1     1
+vfat2_slot12_ipreampout        0x40010c04    ffffffff     1     1
+vfat2_slot12_ishaper           0x40010c05    ffffffff     1     1
+vfat2_slot12_ishaperfeed       0x40010c06    ffffffff     1     1
+vfat2_slot12_icomp             0x40010c07    ffffffff     1     1
+vfat2_slot12_chipid0           0x40010c08    ffffffff     1     0
+vfat2_slot12_chipid1           0x40010c09    ffffffff     1     0
+vfat2_slot12_upsetreg          0x40010c0A    ffffffff     1     0
+vfat2_slot12_hitcounter0       0x40010c0B    ffffffff     1     0
+vfat2_slot12_hitcounter1       0x40010c0C    ffffffff     1     0
+vfat2_slot12_hitcounter2       0x40010c0D    ffffffff     1     0
+vfat2_slot12_extregpointer     0x40010c0E    ffffffff     1     1
+vfat2_slot12_extregdata        0x40010c0F    ffffffff     1     1
+vfat2_slot12_lat               0x40010c10    ffffffff     1     1
+vfat2_slot12_channel1          0x40010c11    ffffffff     1     1
+vfat2_slot12_channel2          0x40010c12    ffffffff     1     1
+vfat2_slot12_channel10         0x40010c20    ffffffff     1     1
+vfat2_slot12_vcal              0x40010c91    ffffffff     1     1
+vfat2_slot12_vthreshold1       0x40010c92    ffffffff     1     1
+vfat2_slot12_vthreshold2       0x40010c93    ffffffff     1     1
+vfat2_slot12_calphase          0x40010c94    ffffffff     1     1
+vfat2_slot12_ctrl2             0x40010c95    ffffffff     1     1
+vfat2_slot12_ctrl3             0x40010c96    ffffffff     1     1
+vfat2_slot12_spare             0x40010c97    ffffffff     1     1
+
+vfat2_slot13_ctrl0             0x40010d00    ffffffff     1     1
+vfat2_slot13_ctrl1             0x40010d01    ffffffff     1     1
+vfat2_slot13_ipreampin         0x40010d02    ffffffff     1     1
+vfat2_slot13_ipreampfeed       0x40010d03    ffffffff     1     1
+vfat2_slot13_ipreampout        0x40010d04    ffffffff     1     1
+vfat2_slot13_ishaper           0x40010d05    ffffffff     1     1
+vfat2_slot13_ishaperfeed       0x40010d06    ffffffff     1     1
+vfat2_slot13_icomp             0x40010d07    ffffffff     1     1
+vfat2_slot13_chipid0           0x40010d08    ffffffff     1     0
+vfat2_slot13_chipid1           0x40010d09    ffffffff     1     0
+vfat2_slot13_upsetreg          0x40010d0A    ffffffff     1     0
+vfat2_slot13_hitcounter0       0x40010d0B    ffffffff     1     0
+vfat2_slot13_hitcounter1       0x40010d0C    ffffffff     1     0
+vfat2_slot13_hitcounter2       0x40010d0D    ffffffff     1     0
+vfat2_slot13_extregpointer     0x40010d0E    ffffffff     1     1
+vfat2_slot13_extregdata        0x40010d0F    ffffffff     1     1
+vfat2_slot13_lat               0x40010d10    ffffffff     1     1
+vfat2_slot13_channel1          0x40010d11    ffffffff     1     1
+vfat2_slot13_channel2          0x40010d12    ffffffff     1     1
+vfat2_slot13_channel10         0x40010d20    ffffffff     1     1
+vfat2_slot13_vcal              0x40010d91    ffffffff     1     1
+vfat2_slot13_vthreshold1       0x40010d92    ffffffff     1     1
+vfat2_slot13_vthreshold2       0x40010d93    ffffffff     1     1
+vfat2_slot13_calphase          0x40010d94    ffffffff     1     1
+vfat2_slot13_ctrl2             0x40010d95    ffffffff     1     1
+vfat2_slot13_ctrl3             0x40010d96    ffffffff     1     1
+vfat2_slot13_spare             0x40010d97    ffffffff     1     1
+
+vfat2_slot14_ctrl0             0x40010E00    ffffffff     1     1
+vfat2_slot14_ctrl1             0x40010E01    ffffffff     1     1
+vfat2_slot14_ipreampin         0x40010E02    ffffffff     1     1
+vfat2_slot14_ipreampfeed       0x40010E03    ffffffff     1     1
+vfat2_slot14_ipreampout        0x40010E04    ffffffff     1     1
+vfat2_slot14_ishaper           0x40010E05    ffffffff     1     1
+vfat2_slot14_ishaperfeed       0x40010E06    ffffffff     1     1
+vfat2_slot14_icomp             0x40010E07    ffffffff     1     1
+vfat2_slot14_chipid0           0x40010E08    ffffffff     1     0
+vfat2_slot14_chipid1           0x40010E09    ffffffff     1     0
+vfat2_slot14_upsetreg          0x40010E0A    ffffffff     1     0
+vfat2_slot14_hitcounter0       0x40010E0B    ffffffff     1     0
+vfat2_slot14_hitcounter1       0x40010E0C    ffffffff     1     0
+vfat2_slot14_hitcounter2       0x40010E0D    ffffffff     1     0
+vfat2_slot14_extregpointer     0x40010E0E    ffffffff     1     1
+vfat2_slot14_extregdata        0x40010E0F    ffffffff     1     1
+vfat2_slot14_lat               0x40010E10    ffffffff     1     1
+vfat2_slot14_channel1          0x40010E11    ffffffff     1     1
+vfat2_slot14_channel2          0x40010E12    ffffffff     1     1
+vfat2_slot14_channel10         0x40010E20    ffffffff     1     1
+vfat2_slot14_vcal              0x40010E91    ffffffff     1     1
+vfat2_slot14_vthreshold1       0x40010E92    ffffffff     1     1
+vfat2_slot14_vthreshold2       0x40010E93    ffffffff     1     1
+vfat2_slot14_calphase          0x40010E94    ffffffff     1     1
+vfat2_slot14_ctrl2             0x40010E95    ffffffff     1     1
+vfat2_slot14_ctrl3             0x40010E96    ffffffff     1     1
+vfat2_slot14_spare             0x40010E97    ffffffff     1     1
+
+vfat2_slot15_ctrl0             0x40010F00    ffffffff     1     1
+vfat2_slot15_ctrl1             0x40010F01    ffffffff     1     1
+vfat2_slot15_ipreampin         0x40010F02    ffffffff     1     1
+vfat2_slot15_ipreampfeed       0x40010F03    ffffffff     1     1
+vfat2_slot15_ipreampout        0x40010F04    ffffffff     1     1
+vfat2_slot15_ishaper           0x40010F05    ffffffff     1     1
+vfat2_slot15_ishaperfeed       0x40010F06    ffffffff     1     1
+vfat2_slot15_icomp             0x40010F07    ffffffff     1     1
+vfat2_slot15_chipid0           0x40010F08    ffffffff     1     0
+vfat2_slot15_chipid1           0x40010F09    ffffffff     1     0
+vfat2_slot15_upsetreg          0x40010F0A    ffffffff     1     0
+vfat2_slot15_hitcounter0       0x40010F0B    ffffffff     1     0
+vfat2_slot15_hitcounter1       0x40010F0C    ffffffff     1     0
+vfat2_slot15_hitcounter2       0x40010F0D    ffffffff     1     0
+vfat2_slot15_extregpointer     0x40010F0E    ffffffff     1     1
+vfat2_slot15_extregdata        0x40010F0F    ffffffff     1     1
+vfat2_slot15_lat               0x40010F10    ffffffff     1     1
+vfat2_slot15_channel1          0x40010F11    ffffffff     1     1
+vfat2_slot15_channel2          0x40010F12    ffffffff     1     1
+vfat2_slot15_channel10         0x40010F20    ffffffff     1     1
+vfat2_slot15_vcal              0x40010F91    ffffffff     1     1
+vfat2_slot15_vthreshold1       0x40010F92    ffffffff     1     1
+vfat2_slot15_vthreshold2       0x40010F93    ffffffff     1     1
+vfat2_slot15_calphase          0x40010F94    ffffffff     1     1
+vfat2_slot15_ctrl2             0x40010F95    ffffffff     1     1
+vfat2_slot15_ctrl3             0x40010F96    ffffffff     1     1
+vfat2_slot15_spare             0x40010F97    ffffffff     1     1
+
+vfat2_slot16_ctrl0             0x40011000    ffffffff     1     1
+vfat2_slot16_ctrl1             0x40011001    ffffffff     1     1
+vfat2_slot16_ipreampin         0x40011002    ffffffff     1     1
+vfat2_slot16_ipreampfeed       0x40011003    ffffffff     1     1
+vfat2_slot16_ipreampout        0x40011004    ffffffff     1     1
+vfat2_slot16_ishaper           0x40011005    ffffffff     1     1
+vfat2_slot16_ishaperfeed       0x40011006    ffffffff     1     1
+vfat2_slot16_icomp             0x40011007    ffffffff     1     1
+vfat2_slot16_chipid0           0x40011008    ffffffff     1     0
+vfat2_slot16_chipid1           0x40011009    ffffffff     1     0
+vfat2_slot16_upsetreg          0x4001100A    ffffffff     1     0
+vfat2_slot16_hitcounter0       0x4001100B    ffffffff     1     0
+vfat2_slot16_hitcounter1       0x4001100C    ffffffff     1     0
+vfat2_slot16_hitcounter2       0x4001100D    ffffffff     1     0
+vfat2_slot16_extregpointer     0x4001100E    ffffffff     1     1
+vfat2_slot16_extregdata        0x4001100F    ffffffff     1     1
+vfat2_slot16_lat               0x40011010    ffffffff     1     1
+vfat2_slot16_channel1          0x40011011    ffffffff     1     1
+vfat2_slot16_channel2          0x40011012    ffffffff     1     1
+vfat2_slot16_channel10         0x40011020    ffffffff     1     1
+vfat2_slot16_vcal              0x40011091    ffffffff     1     1
+vfat2_slot16_vthreshold1       0x40011092    ffffffff     1     1
+vfat2_slot16_vthreshold2       0x40011093    ffffffff     1     1
+vfat2_slot16_calphase          0x40011094    ffffffff     1     1
+vfat2_slot16_ctrl2             0x40011095    ffffffff     1     1
+vfat2_slot16_ctrl3             0x40011096    ffffffff     1     1
+vfat2_slot16_spare             0x40011097    ffffffff     1     1
+
+vfat2_slot17_ctrl0             0x40011100    ffffffff     1     1
+vfat2_slot17_ctrl1             0x40011101    ffffffff     1     1
+vfat2_slot17_ipreampin         0x40011102    ffffffff     1     1
+vfat2_slot17_ipreampfeed       0x40011103    ffffffff     1     1
+vfat2_slot17_ipreampout        0x40011104    ffffffff     1     1
+vfat2_slot17_ishaper           0x40011105    ffffffff     1     1
+vfat2_slot17_ishaperfeed       0x40011106    ffffffff     1     1
+vfat2_slot17_icomp             0x40011107    ffffffff     1     1
+vfat2_slot17_chipid0           0x40011108    ffffffff     1     0
+vfat2_slot17_chipid1           0x40011109    ffffffff     1     0
+vfat2_slot17_upsetreg          0x4001110A    ffffffff     1     0
+vfat2_slot17_hitcounter0       0x4001110B    ffffffff     1     0
+vfat2_slot17_hitcounter1       0x4001110C    ffffffff     1     0
+vfat2_slot17_hitcounter2       0x4001110D    ffffffff     1     0
+vfat2_slot17_extregpointer     0x4001110E    ffffffff     1     1
+vfat2_slot17_extregdata        0x4001110F    ffffffff     1     1
+vfat2_slot17_lat               0x40011110    ffffffff     1     1
+vfat2_slot17_channel1          0x40011111    ffffffff     1     1
+vfat2_slot17_channel2          0x40011112    ffffffff     1     1
+vfat2_slot17_channel10         0x40011120    ffffffff     1     1
+vfat2_slot17_vcal              0x40011191    ffffffff     1     1
+vfat2_slot17_vthreshold1       0x40011192    ffffffff     1     1
+vfat2_slot17_vthreshold2       0x40011193    ffffffff     1     1
+vfat2_slot17_calphase          0x40011194    ffffffff     1     1
+vfat2_slot17_ctrl2             0x40011195    ffffffff     1     1
+vfat2_slot17_ctrl3             0x40011196    ffffffff     1     1
+vfat2_slot17_spare             0x40011197    ffffffff     1     1
+
+vfat2_slot18_ctrl0             0x40011200    ffffffff     1     1
+vfat2_slot18_ctrl1             0x40011201    ffffffff     1     1
+vfat2_slot18_ipreampin         0x40011202    ffffffff     1     1
+vfat2_slot18_ipreampfeed       0x40011203    ffffffff     1     1
+vfat2_slot18_ipreampout        0x40011204    ffffffff     1     1
+vfat2_slot18_ishaper           0x40011205    ffffffff     1     1
+vfat2_slot18_ishaperfeed       0x40011206    ffffffff     1     1
+vfat2_slot18_icomp             0x40011207    ffffffff     1     1
+vfat2_slot18_chipid0           0x40011208    ffffffff     1     0
+vfat2_slot18_chipid1           0x40011209    ffffffff     1     0
+vfat2_slot18_upsetreg          0x4001120A    ffffffff     1     0
+vfat2_slot18_hitcounter0       0x4001120B    ffffffff     1     0
+vfat2_slot18_hitcounter1       0x4001120C    ffffffff     1     0
+vfat2_slot18_hitcounter2       0x4001120D    ffffffff     1     0
+vfat2_slot18_extregpointer     0x4001120E    ffffffff     1     1
+vfat2_slot18_extregdata        0x4001120F    ffffffff     1     1
+vfat2_slot18_lat               0x40011210    ffffffff     1     1
+vfat2_slot18_channel1          0x40011211    ffffffff     1     1
+vfat2_slot18_channel2          0x40011212    ffffffff     1     1
+vfat2_slot18_channel10         0x40011220    ffffffff     1     1
+vfat2_slot18_vcal              0x40011291    ffffffff     1     1
+vfat2_slot18_vthreshold1       0x40011292    ffffffff     1     1
+vfat2_slot18_vthreshold2       0x40011293    ffffffff     1     1
+vfat2_slot18_calphase          0x40011294    ffffffff     1     1
+vfat2_slot18_ctrl2             0x40011295    ffffffff     1     1
+vfat2_slot18_ctrl3             0x40011296    ffffffff     1     1
+vfat2_slot18_spare             0x40011297    ffffffff     1     1
+
+vfat2_slot19_ctrl0             0x40011300    ffffffff     1     1
+vfat2_slot19_ctrl1             0x40011301    ffffffff     1     1
+vfat2_slot19_ipreampin         0x40011302    ffffffff     1     1
+vfat2_slot19_ipreampfeed       0x40011303    ffffffff     1     1
+vfat2_slot19_ipreampout        0x40011304    ffffffff     1     1
+vfat2_slot19_ishaper           0x40011305    ffffffff     1     1
+vfat2_slot19_ishaperfeed       0x40011306    ffffffff     1     1
+vfat2_slot19_icomp             0x40011307    ffffffff     1     1
+vfat2_slot19_chipid0           0x40011308    ffffffff     1     0
+vfat2_slot19_chipid1           0x40011309    ffffffff     1     0
+vfat2_slot19_upsetreg          0x4001130A    ffffffff     1     0
+vfat2_slot19_hitcounter0       0x4001130B    ffffffff     1     0
+vfat2_slot19_hitcounter1       0x4001130C    ffffffff     1     0
+vfat2_slot19_hitcounter2       0x4001130D    ffffffff     1     0
+vfat2_slot19_extregpointer     0x4001130E    ffffffff     1     1
+vfat2_slot19_extregdata        0x4001130F    ffffffff     1     1
+vfat2_slot19_lat               0x40011310    ffffffff     1     1
+vfat2_slot19_channel1          0x40011311    ffffffff     1     1
+vfat2_slot19_channel2          0x40011312    ffffffff     1     1
+vfat2_slot19_channel10         0x40011320    ffffffff     1     1
+vfat2_slot19_vcal              0x40011391    ffffffff     1     1
+vfat2_slot19_vthreshold1       0x40011392    ffffffff     1     1
+vfat2_slot19_vthreshold2       0x40011393    ffffffff     1     1
+vfat2_slot19_calphase          0x40011394    ffffffff     1     1
+vfat2_slot19_ctrl2             0x40011395    ffffffff     1     1
+vfat2_slot19_ctrl3             0x40011396    ffffffff     1     1
+vfat2_slot19_spare             0x40011397    ffffffff     1     1
+
+vfat2_slot20_ctrl0             0x40011400    ffffffff     1     1
+vfat2_slot20_ctrl1             0x40011401    ffffffff     1     1
+vfat2_slot20_ipreampin         0x40011402    ffffffff     1     1
+vfat2_slot20_ipreampfeed       0x40011403    ffffffff     1     1
+vfat2_slot20_ipreampout        0x40011404    ffffffff     1     1
+vfat2_slot20_ishaper           0x40011405    ffffffff     1     1
+vfat2_slot20_ishaperfeed       0x40011406    ffffffff     1     1
+vfat2_slot20_icomp             0x40011407    ffffffff     1     1
+vfat2_slot20_chipid0           0x40011408    ffffffff     1     0
+vfat2_slot20_chipid1           0x40011409    ffffffff     1     0
+vfat2_slot20_upsetreg          0x4001140A    ffffffff     1     0
+vfat2_slot20_hitcounter0       0x4001140B    ffffffff     1     0
+vfat2_slot20_hitcounter1       0x4001140C    ffffffff     1     0
+vfat2_slot20_hitcounter2       0x4001140D    ffffffff     1     0
+vfat2_slot20_extregpointer     0x4001140E    ffffffff     1     1
+vfat2_slot20_extregdata        0x4001140F    ffffffff     1     1
+vfat2_slot20_lat               0x40011410    ffffffff     1     1
+vfat2_slot20_channel1          0x40011411    ffffffff     1     1
+vfat2_slot20_channel2          0x40011412    ffffffff     1     1
+vfat2_slot20_channel10         0x40011420    ffffffff     1     1
+vfat2_slot20_vcal              0x40011491    ffffffff     1     1
+vfat2_slot20_vthreshold1       0x40011492    ffffffff     1     1
+vfat2_slot20_vthreshold2       0x40011493    ffffffff     1     1
+vfat2_slot20_calphase          0x40011494    ffffffff     1     1
+vfat2_slot20_ctrl2             0x40011495    ffffffff     1     1
+vfat2_slot20_ctrl3             0x40011496    ffffffff     1     1
+vfat2_slot20_spare             0x40011497    ffffffff     1     1
+
+vfat2_slot21_ctrl0             0x40011500    ffffffff     1     1
+vfat2_slot21_ctrl1             0x40011501    ffffffff     1     1
+vfat2_slot21_ipreampin         0x40011502    ffffffff     1     1
+vfat2_slot21_ipreampfeed       0x40011503    ffffffff     1     1
+vfat2_slot21_ipreampout        0x40011504    ffffffff     1     1
+vfat2_slot21_ishaper           0x40011505    ffffffff     1     1
+vfat2_slot21_ishaperfeed       0x40011506    ffffffff     1     1
+vfat2_slot21_icomp             0x40011507    ffffffff     1     1
+vfat2_slot21_chipid0           0x40011508    ffffffff     1     0
+vfat2_slot21_chipid1           0x40011509    ffffffff     1     0
+vfat2_slot21_upsetreg          0x4001150A    ffffffff     1     0
+vfat2_slot21_hitcounter0       0x4001150B    ffffffff     1     0
+vfat2_slot21_hitcounter1       0x4001150C    ffffffff     1     0
+vfat2_slot21_hitcounter2       0x4001150D    ffffffff     1     0
+vfat2_slot21_extregpointer     0x4001150E    ffffffff     1     1
+vfat2_slot21_extregdata        0x4001150F    ffffffff     1     1
+vfat2_slot21_lat               0x40011510    ffffffff     1     1
+vfat2_slot21_channel1          0x40011511    ffffffff     1     1
+vfat2_slot21_channel2          0x40011512    ffffffff     1     1
+vfat2_slot21_channel10         0x40011520    ffffffff     1     1
+vfat2_slot21_vcal              0x40011591    ffffffff     1     1
+vfat2_slot21_vthreshold1       0x40011592    ffffffff     1     1
+vfat2_slot21_vthreshold2       0x40011593    ffffffff     1     1
+vfat2_slot21_calphase          0x40011594    ffffffff     1     1
+vfat2_slot21_ctrl2             0x40011595    ffffffff     1     1
+vfat2_slot21_ctrl3             0x40011596    ffffffff     1     1
+vfat2_slot21_spare             0x40011597    ffffffff     1     1
+
+vfat2_slot22_ctrl0             0x40011600    ffffffff     1     1
+vfat2_slot22_ctrl1             0x40011601    ffffffff     1     1
+vfat2_slot22_ipreampin         0x40011602    ffffffff     1     1
+vfat2_slot22_ipreampfeed       0x40011603    ffffffff     1     1
+vfat2_slot22_ipreampout        0x40011604    ffffffff     1     1
+vfat2_slot22_ishaper           0x40011605    ffffffff     1     1
+vfat2_slot22_ishaperfeed       0x40011606    ffffffff     1     1
+vfat2_slot22_icomp             0x40011607    ffffffff     1     1
+vfat2_slot22_chipid0           0x40011608    ffffffff     1     0
+vfat2_slot22_chipid1           0x40011609    ffffffff     1     0
+vfat2_slot22_upsetreg          0x4001160A    ffffffff     1     0
+vfat2_slot22_hitcounter0       0x4001160B    ffffffff     1     0
+vfat2_slot22_hitcounter1       0x4001160C    ffffffff     1     0
+vfat2_slot22_hitcounter2       0x4001160D    ffffffff     1     0
+vfat2_slot22_extregpointer     0x4001160E    ffffffff     1     1
+vfat2_slot22_extregdata        0x4001160F    ffffffff     1     1
+vfat2_slot22_lat               0x40011610    ffffffff     1     1
+vfat2_slot22_channel1          0x40011611    ffffffff     1     1
+vfat2_slot22_channel2          0x40011612    ffffffff     1     1
+vfat2_slot22_channel10         0x40011620    ffffffff     1     1
+vfat2_slot22_vcal              0x40011691    ffffffff     1     1
+vfat2_slot22_vthreshold1       0x40011692    ffffffff     1     1
+vfat2_slot22_vthreshold2       0x40011693    ffffffff     1     1
+vfat2_slot22_calphase          0x40011694    ffffffff     1     1
+vfat2_slot22_ctrl2             0x40011695    ffffffff     1     1
+vfat2_slot22_ctrl3             0x40011696    ffffffff     1     1
+vfat2_slot22_spare             0x40011697    ffffffff     1     1
+
+vfat2_slot23_ctrl0             0x40011700    ffffffff     1     1
+vfat2_slot23_ctrl1             0x40011701    ffffffff     1     1
+vfat2_slot23_ipreampin         0x40011702    ffffffff     1     1
+vfat2_slot23_ipreampfeed       0x40011703    ffffffff     1     1
+vfat2_slot23_ipreampout        0x40011704    ffffffff     1     1
+vfat2_slot23_ishaper           0x40011705    ffffffff     1     1
+vfat2_slot23_ishaperfeed       0x40011706    ffffffff     1     1
+vfat2_slot23_icomp             0x40011707    ffffffff     1     1
+vfat2_slot23_chipid0           0x40011708    ffffffff     1     0
+vfat2_slot23_chipid1           0x40011709    ffffffff     1     0
+vfat2_slot23_upsetreg          0x4001170A    ffffffff     1     0
+vfat2_slot23_hitcounter0       0x4001170B    ffffffff     1     0
+vfat2_slot23_hitcounter1       0x4001170C    ffffffff     1     0
+vfat2_slot23_hitcounter2       0x4001170D    ffffffff     1     0
+vfat2_slot23_extregpointer     0x4001170E    ffffffff     1     1
+vfat2_slot23_extregdata        0x4001170F    ffffffff     1     1
+vfat2_slot23_lat               0x40011710    ffffffff     1     1
+vfat2_slot23_channel1          0x40011711    ffffffff     1     1
+vfat2_slot23_channel2          0x40011712    ffffffff     1     1
+vfat2_slot23_channel10         0x40011720    ffffffff     1     1
+vfat2_slot23_vcal              0x40011791    ffffffff     1     1
+vfat2_slot23_vthreshold1       0x40011792    ffffffff     1     1
+vfat2_slot23_vthreshold2       0x40011793    ffffffff     1     1
+vfat2_slot23_calphase          0x40011794    ffffffff     1     1
+vfat2_slot23_ctrl2             0x40011795    ffffffff     1     1
+vfat2_slot23_ctrl3             0x40011796    ffffffff     1     1
+vfat2_slot23_spare             0x40011797    ffffffff     1     1
+
+* ---GLIB system registers---------------------------------
+sysregs		00000000    ffffffff     1     0
+board_id	00000000    ffffffff     1     0
+  board_id_char1	00000000    ff000000     1     0
+  board_id_char2	00000000    00ff0000     1     0
+  board_id_char3	00000000    0000ff00     1     0
+  board_id_char4	00000000    000000ff     1     0
+sys_id		00000001    ffffffff     1     0
+  sys_id_char1		00000001    ff000000     1     0
+  sys_id_char2 		00000001    00ff0000     1     0
+  sys_id_char3		00000001    0000ff00     1     0
+  sys_id_char4		00000001    000000ff     1     0
+firmware_id	00000002    ffffffff     1     0
+  ver_major		00000002    f0000000     1     0
+  ver_minor		00000002    0f000000     1     0
+  ver_build		00000002    00ff0000     1     0
+  firmware_yy		00000002    0000fe00     1     0
+  firmware_mm		00000002    000001e0     1     0
+  firmware_dd		00000002    0000001f     1     0
+*
+test		00000003    ffffffff     1     1
+*
+ctrl		00000004    ffffffff     1     1
+  pcie_clk_fsel		00000004    00000001     1     1
+  pcie_clk_mr		00000004    00000002     1     1
+  pcie_clk_oe		00000004    00000004     1     1
+  cdce_powerup		00000004    00000010     1     1
+  cdce_refsel		00000004    00000020	 1     1
+  cdce_sync		00000004    00000040     1     1
+  cdce_ctrl_sel    	00000004    00000080     1     1
+  tclkb_dr_en		00000004    00000200     1     1
+  xpoint2_s10		00000004    00001000     1     1
+  xpoint2_s11		00000004    00002000     1     1
+  xpoint1_s10		00000004    00010000     1     1
+  xpoint1_s11		00000004    00020000     1     1
+  xpoint1_s20		00000004    00040000     1     1
+  xpoint1_s21		00000004    00080000     1     1
+  xpoint1_s30 		00000004    00100000     1     1
+  xpoint1_s31		00000004    00200000     1     1
+  xpoint1_s40		00000004    00400000     1     1
+  xpoint1_s41		00000004    00800000     1     1
+  gbt_phase_mon_reset 	00000004    04000000     1     1
+  fpga_program_b_trst	00000004    10000000     1     1
+*
+ctrl_2		00000005    ffffffff     1     1
+  icap_page		00000005    00000003     1     1
+  icap_trigg		00000005    00000010     1     1
+*
+status          00000006    ffffffff     1     0
+  glib_sfp1_status  	00000006    00000007     1     0
+  glib_sfp1_mod_abs 	00000006    00000001     1     0
+  glib_sfp1_rxlos 	00000006    00000002     1     0
+  glib_sfp1_txfault 	00000006    00000004     1     0
+  glib_sfp2_status  	00000006    00000070     1     0
+  glib_sfp2_mod_abs 	00000006    00000010     1     0
+  glib_sfp2_rxlos 	00000006    00000020     1     0
+  glib_sfp2_txfault 	00000006    00000040     1     0
+  glib_sfp3_status  	00000006    00000700     1     0
+  glib_sfp3_mod_abs 	00000006    00000100     1     0
+  glib_sfp3_rxlos 	00000006    00000200     1     0
+  glib_sfp3_txfault 	00000006    00000400     1     0
+  glib_sfp4_status  	00000006    00007000     1     0
+  glib_sfp4_mod_abs 	00000006    00001000     1     0
+  glib_sfp4_rxlos 	00000006    00002000     1     0
+  glib_sfp4_txfault 	00000006    00004000     1     0
+  gbe_int 		00000006    00010000     1     0
+  fmc1_present    	00000006    00020000     1     0
+  fmc2_present    	00000006    00040000     1     0
+  fpga_reset	    	00000006    00080000     1     0
+  v6_cpld         	00000006    03f00000     1     0
+  cdce_lock       	00000006    08000000     1     0
+  sfp_phase_mon_done    00000006    10000000     1     0
+  sfp_phase_mon_ok      00000006    20000000     1     0
+  fmc1_phase_mon_done   00000006    40000000     1     0
+  fmc1_phase_mon_ok     00000006    80000000     1     0
+*
+status_2	00000007    ffffffff     1     0
+*
+ctrl_sram	00000008    ffffffff     1     1
+  sram1_user_logic	00000008    00000001     1     1
+  sram1_bist_run	00000008    00000002     1     1
+  sram2_user_logic	00000008    00010000     1     1
+  sram2_bist_run	00000008    00020000     1     1
+  flash_select		00000008    00100000     1     1
+*
+status_sram	00000009    ffffffff     1     0
+  sram1_bist_done	00000009    00000001     1     0
+  sram1_bist_ok		00000009    00000002     1     0
+  sram1_bist_errors	00000009    00000ff0     1     0
+  sram2_bist_done	00000009    00010000     1     0
+  sram2_bist_ok		00000009    00020000     1     0
+  sram2_bist_errors	00000009    0ff00000     1     0
+*
+spi_txdata      0000000a    ffffffff     1     1
+*
+spi_command	0000000b    ffffffff     1     1
+  spi_autoclear  	0000000b    f0000000     1     1
+*
+spi_rxdata      0000000c    ffffffff     1     0
+*
+i2c_settings    0000000d    ffffffff     1     1
+  i2c_enable            0000000d    00000800     1     1
+  i2c_bus_select        0000000d    00000400     1     1
+  i2c_prescaler         0000000d    000003ff     1     1
+*
+i2c_command     0000000e    ffffffff     1     1
+  i2c_autoclear  	0000000e    f0000000     1     1 * special feature of that register, clears automatically the upper 4 bits
+  i2c_strobe 	  	0000000e    80000000     1     1
+  i2c_mode16 	  	0000000e    02000000     1     1
+  i2c_write 	  	0000000e    00800000     1     1
+  i2c_slvaddr_7b  	0000000e    007f0000     1     1
+  i2c_wrdata  		0000000e    000000ff     1     1
+*
+i2c_reply	0000000f    ffffffff     1     0
+  i2c_reply_status      0000000f    0c000000     1     0
+  i2c_reply_8b		0000000f    000000ff     1     0
+  i2c_reply_16b		0000000f    0000ffff     1     0
+*
+sfp_phase_mon_ctrl	00000010   ffffffff      1     1
+  sfp_phase_mon_lower   	   00000010   000000ff      1     1
+  sfp_phase_mon_upper   	   00000010   0000ff00      1     1
+sfp_phase_mon_stats 	00000011   ffffffff      1     0
+
+fmc1_phase_mon_ctrl	00000012   ffffffff      1     1
+  fmc1_phase_mon_lower  	   00000012   000000ff      1     1
+  fmc1_phase_mon_upper  	   00000012   0000ff00      1     1
+fmc1_phase_mon_stats 	00000013   ffffffff      1     0
+
+mac_ip_source		0000001c   0fff0000      1     0
+mac_b5			0000001c   0000ff00      1     0
+mac_b4			0000001c   000000ff      1     0
+mac_b3			0000001d   ff000000      1     0
+mac_b2			0000001d   00ff0000      1     0
+mac_b1			0000001d   0000ff00      1     0
+mac_b0			0000001d   000000ff      1     0
+ip_addr			0000001e   ffffffff      1     0
+ip_b3			0000001e   ff000000      1     0
+ip_b2			0000001e   00ff0000      1     0
+ip_b1			0000001e   0000ff00      1     0
+ip_b0			0000001e   000000ff      1     0
+
+
+
+*------------------------------------------------------------------------------------------
+* sram memory space
+*------------------------------------------------------------------------------------------
+* RegName          		RegAddr     RegMask      R     W     Description
+*------------------------------------------------------------------------------------------
+sram1					02000000    ffffffff     1     1
+sram2					04000000    ffffffff     1     1
+
+*------------------------------------------------------------------------------------------
+* icap memory space
+*------------------------------------------------------------------------------------------
+* RegName          		RegAddr     RegMask      R     W     Description
+*------------------------------------------------------------------------------------------
+icap     				00000200    ffffffff	 1     1
+
+*------------------------------------------------------------------------------------------
+* flash memory space
+*------------------------------------------------------------------------------------------
+* RegName          		RegAddr     RegMask      R     W     Description
+*------------------------------------------------------------------------------------------
+flash_async_read_cmd 	0800bddf    ffffffff	 1     1   	 Note!!! The Flash is 16 bit but the mask is 32 bit
+flash_sync_read_cmd		08004ddf    ffffffff	 1     1	 to be able to use blockWrite and fifoWrite
+*
+flash_bank15			08000000    ffffffff	 1     1     512Kword
+	flash_block130		08000000    ffffffff	 1     1 	 64Kword
+	flash_block129		08010000    ffffffff	 1     1 	 64Kword
+	flash_block128		08020000    ffffffff	 1     1 	 64Kword
+	flash_block127		08030000    ffffffff	 1     1 	 64Kword
+	flash_block126		08040000    ffffffff	 1     1 	 64Kword
+	flash_block125		08050000    ffffffff	 1     1 	 64Kword
+	flash_block124		08060000    ffffffff	 1     1 	 64Kword
+	flash_block123		08070000    ffffffff	 1     1  	 64Kword
+*
+flash_bank14			08080000    ffffffff	 1     1     512Kword
+	flash_block122		08080000    ffffffff	 1     1 	 64Kword
+	flash_block121		08090000    ffffffff	 1     1 	 64Kword
+	flash_block120		080a0000    ffffffff	 1     1 	 64Kword
+	flash_block119		080b0000    ffffffff	 1     1 	 64Kword
+	flash_block118		080c0000    ffffffff	 1     1 	 64Kword
+	flash_block117		080d0000    ffffffff	 1     1 	 64Kword
+	flash_block116		080e0000    ffffffff	 1     1 	 64Kword
+	flash_block115		080f0000    ffffffff	 1     1  	 64Kword
+*
+flash_bank13			08100000    ffffffff	 1     1     512Kword
+	flash_block114		08100000    ffffffff	 1     1 	 64Kword
+	flash_block113		08110000    ffffffff	 1     1 	 64Kword
+	flash_block112		08120000    ffffffff	 1     1 	 64Kword
+	flash_block111		08130000    ffffffff	 1     1 	 64Kword
+	flash_block110		08140000    ffffffff	 1     1 	 64Kword
+	flash_block109		08150000    ffffffff	 1     1 	 64Kword
+	flash_block108		08160000    ffffffff	 1     1 	 64Kword
+	flash_block107		08170000    ffffffff	 1     1  	 64Kword
+*
+flash_bank12			08180000    ffffffff	 1     1     512Kword
+	flash_block106		08180000    ffffffff	 1     1  	 64Kword
+	flash_block105		08190000    ffffffff	 1     1  	 64Kword
+	flash_block104		081a0000    ffffffff	 1     1  	 64Kword
+	flash_block103		081b0000    ffffffff	 1     1  	 64Kword
+	flash_block102		081c0000    ffffffff	 1     1  	 64Kword
+	flash_block101		081d0000    ffffffff	 1     1  	 64Kword
+	flash_block100		081e0000    ffffffff	 1     1  	 64Kword
+	flash_block99 		081f0000    ffffffff	 1     1   	 64Kword
+*
+flash_bank11			08200000    ffffffff	 1     1     512Kword
+	flash_block98		08200000    ffffffff	 1     1  	 64Kword
+	flash_block97		08210000    ffffffff	 1     1  	 64Kword
+	flash_block96		08220000    ffffffff	 1     1  	 64Kword
+	flash_block95		08230000    ffffffff	 1     1  	 64Kword
+	flash_block94		08240000    ffffffff	 1     1  	 64Kword
+	flash_block93		08250000    ffffffff	 1     1  	 64Kword
+	flash_block92		08260000    ffffffff	 1     1  	 64Kword
+	flash_block91		08270000    ffffffff	 1     1   	 64Kword
+*
+flash_bank10			08280000    ffffffff	 1     1     512Kword
+	flash_block90		08280000    ffffffff	 1     1  	 64Kword
+	flash_block89		08290000    ffffffff	 1     1  	 64Kword
+	flash_block88		082a0000    ffffffff	 1     1  	 64Kword
+	flash_block87		082b0000    ffffffff	 1     1  	 64Kword
+	flash_block86		082c0000    ffffffff	 1     1  	 64Kword
+	flash_block85		082d0000    ffffffff	 1     1  	 64Kword
+	flash_block84		082e0000    ffffffff	 1     1  	 64Kword
+	flash_block83		082f0000    ffffffff	 1     1   	 64Kword
+*
+flash_bank9				08300000    ffffffff	 1     1     512Kword
+	flash_block82		08300000    ffffffff	 1     1 	 64Kword
+	flash_block81		08310000    ffffffff	 1     1 	 64Kword
+	flash_block80		08320000    ffffffff	 1     1 	 64Kword
+	flash_block79		08330000    ffffffff	 1     1 	 64Kword
+	flash_block78		08340000    ffffffff	 1     1 	 64Kword
+	flash_block77		08350000    ffffffff	 1     1 	 64Kword
+	flash_block76		08360000    ffffffff	 1     1 	 64Kword
+	flash_block75		08370000    ffffffff	 1     1  	 64Kword
+*
+flash_bank8				08380000    ffffffff	 1     1     512Kword
+	flash_block74		08380000    ffffffff	 1     1 	 64Kword
+	flash_block73		08390000    ffffffff	 1     1 	 64Kword
+	flash_block72		083a0000    ffffffff	 1     1 	 64Kword
+	flash_block71		083b0000    ffffffff	 1     1 	 64Kword
+	flash_block70		083c0000    ffffffff	 1     1 	 64Kword
+	flash_block69		083d0000    ffffffff	 1     1 	 64Kword
+	flash_block68		083e0000    ffffffff	 1     1 	 64Kword
+	flash_block67		083f0000    ffffffff	 1     1  	 64Kword
+*
+flash_bank7				08400000    ffffffff	 1     1     512Kword
+	flash_block66		08400000    ffffffff	 1     1 	 64Kword
+	flash_block65		08410000    ffffffff	 1     1 	 64Kword
+	flash_block64		08420000    ffffffff	 1     1 	 64Kword
+	flash_block63		08430000    ffffffff	 1     1 	 64Kword
+	flash_block62		08440000    ffffffff	 1     1 	 64Kword
+	flash_block61		08450000    ffffffff	 1     1 	 64Kword
+	flash_block60		08460000    ffffffff	 1     1 	 64Kword
+	flash_block59		08470000    ffffffff	 1     1  	 64Kword
+*
+flash_bank6				08480000    ffffffff	 1     1     512Kword
+	flash_block58		08480000    ffffffff	 1     1 	 64Kword
+	flash_block57		08490000    ffffffff	 1     1 	 64Kword
+	flash_block56		084a0000    ffffffff	 1     1 	 64Kword
+	flash_block55		084b0000    ffffffff	 1     1 	 64Kword
+	flash_block54		084c0000    ffffffff	 1     1 	 64Kword
+	flash_block53		084d0000    ffffffff	 1     1 	 64Kword
+	flash_block52		084e0000    ffffffff	 1     1 	 64Kword
+	flash_block51		084f0000    ffffffff	 1     1  	 64Kword
+*
+flash_bank5				08500000    ffffffff	 1     1     512Kword
+	flash_block50		08500000    ffffffff	 1     1 	 64Kword
+	flash_block49		08510000    ffffffff	 1     1 	 64Kword
+	flash_block48		08520000    ffffffff	 1     1 	 64Kword
+	flash_block47		08530000    ffffffff	 1     1 	 64Kword
+	flash_block46		08540000    ffffffff	 1     1 	 64Kword
+	flash_block45		08550000    ffffffff	 1     1 	 64Kword
+	flash_block44		08560000    ffffffff	 1     1 	 64Kword
+	flash_block43		08570000    ffffffff	 1     1  	 64Kword
+*
+flash_bank4				08580000    ffffffff	 1     1     512Kword
+	flash_block42		08580000    ffffffff	 1     1 	 64Kword
+	flash_block41		08590000    ffffffff	 1     1 	 64Kword
+	flash_block40		085a0000    ffffffff	 1     1 	 64Kword
+	flash_block39		085b0000    ffffffff	 1     1 	 64Kword
+	flash_block38		085c0000    ffffffff	 1     1 	 64Kword
+	flash_block37		085d0000    ffffffff	 1     1 	 64Kword
+	flash_block36		085e0000    ffffffff	 1     1 	 64Kword
+	flash_block35		085f0000    ffffffff	 1     1  	 64Kword
+*
+flash_bank3				08600000    ffffffff	 1     1     512Kword
+	flash_block34		08600000    ffffffff	 1     1 	 64Kword
+	flash_block33		08610000    ffffffff	 1     1 	 64Kword
+	flash_block32		08620000    ffffffff	 1     1 	 64Kword
+	flash_block31		08630000    ffffffff	 1     1 	 64Kword
+	flash_block30		08640000    ffffffff	 1     1 	 64Kword
+	flash_block29		08650000    ffffffff	 1     1 	 64Kword
+	flash_block28		08660000    ffffffff	 1     1 	 64Kword
+	flash_block27		08670000    ffffffff	 1     1  	 64Kword
+*
+flash_bank2				08680000    ffffffff	 1     1     512Kword
+	flash_block26		08680000    ffffffff	 1     1 	 64Kword
+	flash_block25		08690000    ffffffff	 1     1 	 64Kword
+	flash_block24		086a0000    ffffffff	 1     1 	 64Kword
+	flash_block23		086b0000    ffffffff	 1     1 	 64Kword
+	flash_block22		086c0000    ffffffff	 1     1 	 64Kword
+	flash_block21		086d0000    ffffffff	 1     1 	 64Kword
+	flash_block20		086e0000    ffffffff	 1     1 	 64Kword
+	flash_block19		086f0000    ffffffff	 1     1  	 64Kword
+*
+flash_bank1				08700000    ffffffff	 1     1     512Kword
+	flash_block18		08700000    ffffffff	 1     1  	 64Kword
+	flash_block17		08710000    ffffffff	 1     1  	 64Kword
+	flash_block16		08720000    ffffffff	 1     1  	 64Kword
+	flash_block15		08730000    ffffffff	 1     1  	 64Kword
+	flash_block14		08740000    ffffffff	 1     1  	 64Kword
+	flash_block13		08750000    ffffffff	 1     1  	 64Kword
+	flash_block12		08760000    ffffffff	 1     1  	 64Kword
+	flash_block11		08770000    ffffffff	 1     1   	 64Kword
+*
+flash_param_bank		08780000    ffffffff	 1     1     512Kword
+	flash_block10		08780000    ffffffff	 1     1 	 64Kword
+	flash_block9 		08790000    ffffffff	 1     1 	 64Kword
+	flash_block8 		087a0000    ffffffff	 1     1 	 64Kword
+	flash_block7 		087b0000    ffffffff	 1     1 	 64Kword
+	flash_block6 		087c0000    ffffffff	 1     1 	 64Kword
+	flash_block5 		087d0000    ffffffff	 1     1 	 64Kword
+	flash_block4 		087e0000    ffffffff	 1     1 	 64Kword
+	flash_block3 		087f0000    ffffffff	 1     1 	 16Kword
+	flash_block2 		087f4000    ffffffff	 1     1 	 16Kword
+	flash_block1 		087f8000    ffffffff	 1     1 	 16Kword
+	flash_block0 		087fc000    ffffffff	 1     1 	 16Kword
+
+*------------------------------------------------------------------------------------------
+* user space
+*------------------------------------------------------------------------------------------
+* RegName           	RegAddr     RegMask      R     W     Description
+*------------------------------------------------------------------------------------------
+user_ipb_regs			40000000    ffffffff     1     1
+user_ipb_stat_regs		40000000    ffffffff     1     1     example_status_regs
+user_ipb_ctrl_regs		40000040    ffffffff     1     1	 example_control_regs
+*
+user_wb_regs			80000000    ffffffff     1     1

@@ -1,6 +1,8 @@
 #ifndef gem_hw_glib_GLIBManagerWeb_h
 #define gem_hw_glib_GLIBManagerWeb_h
 
+#include <memory>
+
 #include "gem/base/GEMWebApplication.h"
 
 namespace gem {
@@ -26,6 +28,10 @@ namespace gem {
 	  virtual void expertPage(xgi::Input *in, xgi::Output *out)
 	    throw (xgi::exception::Exception);
 
+	  void cardPage(xgi::Input *in, xgi::Output *out)
+	    throw (xgi::exception::Exception);
+
+	  /*
 	  //FSM web callbacks
 	  virtual void webInitialize(xgi::Input *in, xgi::Output *out )
 	    throw (xgi::exception::Exception);
@@ -48,9 +54,10 @@ namespace gem {
 	  
 	  virtual void webRedirect(  xgi::Input *in, xgi::Output *out )
 	    throw (xgi::exception::Exception);
-	  
+	  */
 	
 	private:
+	  size_t activeCard;
 	  
 	  //GLIBManagerWeb(GLIBManagerWeb const&);
 	  

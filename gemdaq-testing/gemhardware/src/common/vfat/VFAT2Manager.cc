@@ -59,7 +59,7 @@ void gem::hw::vfat::VFAT2Manager::actionPerformed(xdata::Event& event)
     }
   //Initialize the HW device, should have picked up the device string from the xml file by now
   LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2Manager::VFAT2Manager::4 device_ = " << device_.toString() << std::endl);
-  vfatDevice = new HwVFAT2(this->getApplicationLogger(), device_.toString());
+  vfatDevice = new HwVFAT2(device_.toString());
   vfatDevice->setDeviceIPAddress(ipAddr_.toString());
   vfatDevice->connectDevice();
   setLogLevelTo(uhal::Error());  // Maximise uHAL logging
@@ -74,11 +74,27 @@ void gem::hw::vfat::VFAT2Manager::actionPerformed(xdata::Event& event)
   vfatParams_ = vfatDevice->getVFAT2Params();
   LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2Manager::VFAT2Manager::6 device_ = " << device_.toString() << std::endl);
   
-  if (vfatDevice->isHwConnected())
-    LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2 device is connected, continuing to read registers");
-  else {
-    LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2 device is not connected");
+  try {
+    if (vfatDevice->isHwConnected())
+      LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2 device is connected, continuing to read registers");
+    else {
+      LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2 device is not connected");
+      return;
+    }
   }
+  catch (gem::hw::vfat::exception::TransactionError& e) {
+    LOG4CPLUS_DEBUG(this->getApplicationLogger(),e.what());
+    return;
+  }
+  catch (gem::hw::vfat::exception::InvalidTransaction& e) {
+    LOG4CPLUS_DEBUG(this->getApplicationLogger(),e.what());
+    return;
+  }
+  // if (vfatDevice->isHwConnected())
+  //   LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2 device is connected, continuing to read registers");
+  // else {
+  //   LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2 device is not connected");
+  // }
   
 }
 
@@ -96,6 +112,15 @@ void gem::hw::vfat::VFAT2Manager::readVFAT2Registers(gem::hw::vfat::VFAT2Control
       LOG4CPLUS_DEBUG(this->getApplicationLogger(),"VFAT2 device is not connected");
       return;
     }
+  } catch (gem::hw::vfat::exception::TransactionError& e) {
+    LOG4CPLUS_DEBUG(this->getApplicationLogger(),e.what());
+    return;
+  } catch (gem::hw::vfat::exception::InvalidTransaction& e) {
+    LOG4CPLUS_DEBUG(this->getApplicationLogger(),e.what());
+    return;
+  }
+  
+  try {
     uhal::HwInterface hw = vfatDevice->getVFAT2HwInterface();
     std::string deviceBaseNode = vfatDevice->getDeviceBaseNode();
     //this conflicts with setting the base node in the HwVFAT device, need to reset
@@ -347,10 +372,10 @@ void gem::hw::vfat::VFAT2Manager::ControlPanel(xgi::Input * in, xgi::Output * ou
     gem::hw::vfat::VFAT2Manager::VFAT2ControlPanelWeb::createCommandLayout(out, vfatParams_);
     
     *out << cgicc::section() << std::endl
-	 << "Bad headers:: " << (vfatDevice->ipBusErrs).badHeader_     << cgicc::br() << std::endl
-	 << "Read errors:: " << (vfatDevice->ipBusErrs).readError_     << cgicc::br() << std::endl
-	 << "Timeouts   :: " << (vfatDevice->ipBusErrs).timeouts_      << cgicc::br() << std::endl
-	 << "CH errors  :: " << (vfatDevice->ipBusErrs).controlHubErr_ << cgicc::br() << std::endl
+	 << "Bad headers:: " << (vfatDevice->ipBusErrs_).BadHeader     << cgicc::br() << std::endl
+	 << "Read errors:: " << (vfatDevice->ipBusErrs_).ReadError     << cgicc::br() << std::endl
+	 << "Timeouts   :: " << (vfatDevice->ipBusErrs_).Timeout       << cgicc::br() << std::endl
+	 << "CH errors  :: " << (vfatDevice->ipBusErrs_).ControlHubErr << cgicc::br() << std::endl
 	 << cgicc::section() << std::endl;
     
     *out << cgicc::form() << cgicc::br() << std::endl;
@@ -764,13 +789,13 @@ void gem::hw::vfat::VFAT2Manager::performAction(cgicc::Cgicc cgi, std::vector<st
     LOG4CPLUS_DEBUG(this->getApplicationLogger(),"Set channel 1 button pressed");
 
     if (cgi.queryCheckbox("Cal0") )
-      vfatDevice->sendCalPulseToChannel(0);
+      vfatDevice->enableCalPulseToChannel(0);
     else
-      vfatDevice->sendCalPulseToChannel(0,false);
+      vfatDevice->enableCalPulseToChannel(0,false);
     if (cgi.queryCheckbox("Cal1") )
-      vfatDevice->sendCalPulseToChannel(1);
+      vfatDevice->enableCalPulseToChannel(1);
     else
-      vfatDevice->sendCalPulseToChannel(1,false);
+      vfatDevice->enableCalPulseToChannel(1,false);
     if (cgi.queryCheckbox("Ch1Mask") )
       vfatDevice->maskChannel(1);
     else
@@ -810,9 +835,9 @@ void gem::hw::vfat::VFAT2Manager::performAction(cgicc::Cgicc cgi, std::vector<st
     //vfatDevice->getVFAT2Params().channels[chan-1].mask      = (cgi.queryCheckbox("ChMask") );
 
     if (cgi.queryCheckbox("ChCal") )
-      vfatDevice->sendCalPulseToChannel(chan);
+      vfatDevice->enableCalPulseToChannel(chan);
     else
-      vfatDevice->sendCalPulseToChannel(chan,false);
+      vfatDevice->enableCalPulseToChannel(chan,false);
     if (cgi.queryCheckbox("ChMask") )
       vfatDevice->maskChannel(chan);
     else
@@ -847,8 +872,8 @@ void gem::hw::vfat::VFAT2Manager::performAction(cgicc::Cgicc cgi, std::vector<st
       setCalPulse = true;
     for (int chan = min_chan; chan < 129; ++chan) {
       if (chan == 1)
-	vfatDevice->sendCalPulseToChannel(chan-1,setCalPulse);
-      vfatDevice->sendCalPulseToChannel(chan,setCalPulse); }
+	vfatDevice->enableCalPulseToChannel(chan-1,setCalPulse);
+      vfatDevice->enableCalPulseToChannel(chan,setCalPulse); }
     if (cgi.queryCheckbox("ChMask") )
       setMasked = true;
     for (int chan = min_chan; chan < 129; ++chan)

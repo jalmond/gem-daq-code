@@ -31,10 +31,12 @@ test
 rcms
 vfat-testing
 setup
+!setup/*.py
 data/createOptoHybridRegisters.py
 data/createVFATChanRegs.py
 data/vfat2_address_table.xml
 data/vfatchanregs_v2.xml
+data/glib_test.xml
 !gemrcms/gemLevelOneFM/src/rcms/fm/*
 *#*
 cachegrind.out.*
