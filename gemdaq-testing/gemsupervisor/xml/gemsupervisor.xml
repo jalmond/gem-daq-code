@@ -2,16 +2,26 @@
 <xc:Partition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
-  <xc:Context url="http://gem904daq01:5050">
+  <xc:Context url="http://gem904daq01:4444">
 
+    <xc:Application class="gem::hw::vfat::VFAT2Manager" id="31" instance="3" network="local">
+      <properties xmlns="urn:xdaq-application:gem::hw::vfat::VFAT2Manager"
+                  xsi:type="soapenc:Struct">
+        <device xsi:type="xsd:string">VFAT13</device>
+        <ipAddr xsi:type="xsd:string">192.168.0.170</ipAddr>
+        <settingsFile xsi:type="xsd:string">${BUILD_HOME}/gemdaq-testing/gemhardware/xml/vfat/vfat_settings.xml</settingsFile>
+      </properties>
+    </xc:Application>
+
+<!--
     <xc:Application class="gem::hw::glib::GLIBManager" id="30" instance="3" network="local">
       <properties xmlns="urn:xdaq-application:gem::hw::glib::GLIBManager"
 		  xsi:type="soapenc:Struct">
 	<AMCSlots       xsi:type="xsd:string">4,10</AMCSlots>
 	<ConnectionFile xsi:type="xsd:string">connections_ch.xml</ConnectionFile>
 	<AllGLIBsInfo xsi:type="soapenc:Array"  soapenc:arrayType="xsd:ur-type[12]">
-          <GLIBInfo   xsi:type="soapenc:Struct" soapenc:position="3"> <!-- position must be slot-1 -->
-            <!--GLIBInfo xsi:type="xsd:Struct" soapenc:arrayType="xsd:Bag" soapenc:position="2"-->
+          <GLIBInfo   xsi:type="soapenc:Struct" soapenc:position="3"> <!- - position must be slot-1 - ->
+            <!- -GLIBInfo xsi:type="xsd:Struct" soapenc:arrayType="xsd:Bag" soapenc:position="2"- ->
             <crateID xsi:type="xsd:integer">1</crateID>
             <slot    xsi:type="xsd:integer">4</slot>
             <present xsi:type="xsd:boolean">true</present>
@@ -26,8 +36,8 @@
             <triggerSource xsi:type="xsd:integer">2</triggerSource>
             <sbitSource    xsi:type="xsd:integer">5</sbitSource>
           </GLIBInfo>
-          <GLIBInfo   xsi:type="soapenc:Struct" soapenc:position="9"> <!-- position must be slot-1 -->
-            <!--GLIBInfo xsi:type="xsd:Struct" soapenc:arrayType="xsd:Bag" soapenc:position="2"-->
+          <GLIBInfo   xsi:type="soapenc:Struct" soapenc:position="9"> <!- - position must be slot-1 - ->
+            <!- -GLIBInfo xsi:type="xsd:Struct" soapenc:arrayType="xsd:Bag" soapenc:position="2"- ->
             <crateID xsi:type="xsd:integer">1</crateID>
             <slot    xsi:type="xsd:integer">10</slot>
             <present xsi:type="xsd:boolean">true</present>
@@ -51,8 +61,8 @@
         	  xsi:type="soapenc:Struct">
         <ConnectionFile xsi:type="xsd:string">connections_ch.xml</ConnectionFile>
         <AllOptoHybridsInfo xsi:type="soapenc:Array"  soapenc:arrayType="xsd:ur-type[48]">
-          <OptoHybridInfo   xsi:type="soapenc:Struct" soapenc:position="18"> <!-- position must be ((slot-1)*max oh cards per amc)+(link) -->
-            <!--OptoHybridInfo xsi:type="xsd:Struct" soapenc:arrayType="xsd:Bag" soapenc:position="2"-->
+          <OptoHybridInfo   xsi:type="soapenc:Struct" soapenc:position="18"> <!- - position must be ((slot-1)*max oh cards per amc)+(link) - ->
+            <!- -OptoHybridInfo xsi:type="xsd:Struct" soapenc:arrayType="xsd:Bag" soapenc:position="2"- ->
             <crateID xsi:type="xsd:integer">1</crateID>
             <slot    xsi:type="xsd:integer">10</slot>
             <link    xsi:type="xsd:integer">0</link>
@@ -68,8 +78,8 @@
             <VFATBroadcastList xsi:type="xsd:string">3,7,11,15,19,23</VFATBroadcastList>
             <VFATBroadcastMask xsi:type="xsd:unsignedInt">0</VFATBroadcastMask>
 
-            <!-- <VFATTrackingList xsi:type="xsd:string">3,7,11,15,19,23</VFATTrackingList> -->
-            <!-- <VFATTrackingMask xsi:type="xsd:unsignedInt">0</VFATTrackingMask> -->
+            <!- - <VFATTrackingList xsi:type="xsd:string">3,7,11,15,19,23</VFATTrackingList> - ->
+            <!- - <VFATTrackingMask xsi:type="xsd:unsignedInt">0</VFATTrackingMask> - ->
 
             <triggerSource xsi:type="xsd:integer">0</triggerSource>
             <sbitSource    xsi:type="xsd:integer">5</sbitSource>
@@ -82,12 +92,12 @@
     <xc:Application class="gem::hw::amc13::AMC13Manager" id="260" instance="0" network="local">
       <properties xmlns="urn:xdaq-application:gem::hw::amc13::AMC13Manager"
         	  xsi:type="soapenc:Struct">
-        <!--
+        <!- -
         <rcmsStateListener xsi:type="soapenc:Struct">
           <classname xsi:type="xsd:string">RCMSStateListener</classname>
           <instance xsi:type="xsd:unsignedInt">0</instance>
         </rcmsStateListener>
-        -->
+        - ->
         <amc13ConfigParams xsi:type="soapenc:Struct">
           <ConnectionFile     xsi:type="xsd:string">connections_ch.xml</ConnectionFile>
           <AMCInputEnableList xsi:type="xsd:string">4,10</AMCInputEnableList>
@@ -114,17 +124,17 @@
     <xc:Application class="gem::supervisor::GEMSupervisor" id="254" instance="0" network="local">
       <properties xmlns="urn:xdaq-application:GEMSupervisor"
 		  xsi:type="soapenc:Struct">
-	<!--
+	<!- -
 	   <rcmsStateListener xsi:type="soapenc:Struct">
              <classname xsi:type="xsd:string">RCMSStateListener</classname>
              <instance xsi:type="xsd:unsignedInt">0</instance>
            </rcmsStateListener>
-	   -->    
+	   - ->    
       </properties>
     </xc:Application>
 
     <xc:Module>${XDAQ_ROOT}/lib/libxdaq2rc.so</xc:Module>
-
+-->
     <xc:Module>${BUILD_HOME}/gemdaq-testing/gembase/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_base.so</xc:Module>
     <xc:Module>${BUILD_HOME}/gemdaq-testing/gemutils/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_utils.so</xc:Module>
     <xc:Module>${BUILD_HOME}/gemdaq-testing/gemsupervisor/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_supervisor.so</xc:Module>

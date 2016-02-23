@@ -3,10 +3,10 @@
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
 
-<xc:Context url="http://gem904daq02:5055">
+<xc:Context url="http://gem904daq02:4444">
     <xc:Application class="gem::supervisor::tbutils::ThresholdScan" id="254" instance="0" network="local">
       <properties xmlns="urn:xdaq-application:ThresholdScan" xsi:type="soapenc:Struct">
-	<ipAddr xsi:type="xsd:string">137.138.115.185</ipAddr>
+	<ipAddr xsi:type="xsd:string">192.168.0.170</ipAddr>
       </properties>
     </xc:Application>
 

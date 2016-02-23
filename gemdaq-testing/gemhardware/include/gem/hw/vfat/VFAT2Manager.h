@@ -1,145 +1,140 @@
 #ifndef gem_hw_vfat_VFAT2Manager_h
 #define gem_hw_vfat_VFAT2Manager_h
 
-#include <string>
+#include "gem/base/GEMFSMApplication.h"
 
-#include "xdaq/WebApplication.h"
+#include "gem/hw/vfat/exception/Exception.h"
 
-#include "xdata/String.h"
-#include "xdata/UnsignedLong.h"
-#include "xdata/UnsignedInteger32.h"
 
-//#include "uhal/uhal.hpp"
-
-#include "xgi/framework/Method.h"
-#include "cgicc/HTMLClasses.h"
-
-#include <boost/algorithm/string.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/format.hpp>
-
-#include "gem/hw/vfat/VFAT2Settings.h"
 
 //typedef uhal::exception::exception uhalException;
 
-namespace cgicc {
-  BOOLEAN_ELEMENT(section,"section");
-}
-
 namespace gem {
-  namespace base {
-    class GEMApplication;
-    class GEMFSM;
-    class GEMFSMApplication;
-    class GEMWebApplication;
-  }
-  
   namespace hw {
     namespace vfat {
+
       class HwVFAT2;
+      class VFAT2ManagerWeb;
+      class VFAT2Monitor;
+
       
       typedef std::shared_ptr<HwVFAT2>  vfat_shared_ptr;
+      typedef std::shared_ptr<gem::base::utils::GEMInfoSpaceToolBox> is_toolbox_ptr;
 
-      //class VFAT2Manager: public gem::base::GEMWebApplication, public gem::base::GEMFSMApplication
-      class VFAT2Manager: public xdaq::WebApplication, public xdata::ActionListener
+      class VFAT2Manager: public gem::base::GEMFSMApplication
         {
+	  
+	  friend class VFAT2ManagerWeb;
+	  //friend class VFAT2Monitor;
+
 	  
         public:
           XDAQ_INSTANTIATOR();
 	  
-          VFAT2Manager(xdaq::ApplicationStub * s)
-            throw (xdaq::exception::Exception);
+          VFAT2Manager(xdaq::ApplicationStub * s);
 
           ~VFAT2Manager();
-	  
-          void Default(xgi::Input *in, xgi::Output *out )
-            throw (xgi::exception::Exception);
-          void RegisterView(xgi::Input *in, xgi::Output *out )
-            throw (xgi::exception::Exception);
-          void ControlPanel(xgi::Input *in, xgi::Output *out )
-            throw (xgi::exception::Exception);
-          void ExpertView(xgi::Input *in, xgi::Output *out )
-            throw (xgi::exception::Exception);
-          void Peek(xgi::Input *in, xgi::Output *out )
-            throw (xgi::exception::Exception);
-          void controlVFAT2(xgi::Input * in, xgi::Output * out)
-            throw (xgi::exception::Exception);
-	  
-          void getCheckedRegisters(cgicc::Cgicc cgi, std::vector<std::pair<std::string,uint8_t> > &regValsToSet)
-            throw (xgi::exception::Exception);
-          void performAction(cgicc::Cgicc cgi, std::vector<std::pair<std::string,uint8_t> > regValsToSet)
-            throw (xgi::exception::Exception);
-	  
-          //void readCounters(  xgi::Input *in)
-          //  throw (xgi::exception::Exception);
-          //void readRegisters (xgi::Input *in)
-          //  throw (xgi::exception::Exception);
-          //void writeRegisters(xgi::Input *in)
-          //  throw (xgi::exception::Exception);
-	  
-          void actionPerformed(xdata::Event& event);
+	
 
-          vfat_shared_ptr vfatDevice;
-
-          void readVFAT2Registers(VFAT2ControlParams& params);
-          //void readVFAT2Registers();
-	  
-          std::map<std::string,uint32_t>    vfatFullRegs_;
-          std::map<std::string,uint8_t>     vfatRegs_;
-          VFAT2ControlParams m_vfatParams;
-
-        private:
-          std::vector<std::string>          nodes_;
-          ////counters
-          //uint16_t vfat_chipid_;
-          //uint8_t  vfat_upsetcounter_;
-          //uint32_t vfat_hitcounter_;
-
+	  	  
         protected:
-          /**
-           * Create a mapping between the VFAT2 chipID and the connection name specified in the
-           * address table.  Can be done at initialization of the system as this will not change
-           * while running.  Possibly able to do the system scan and compare to a hardware databse
-           * This mapping can be used to send commands to specific chips through the manager interface
-           * the string is the name in the connection file, while the uint16_t is the chipID, though
-           * it need only be a uint12_t
-           **/
-          std::map<std::string, uint16_t> systemMap;
+          virtual void init();
+
+          virtual void actionPerformed(xdata::Event& event);
+	  
+          //state transitions
+          virtual void initializeAction() throw (gem::hw::vfat::exception::Exception);
+          virtual void configureAction()  throw (gem::hw::vfat::exception::Exception);
+          virtual void startAction()      throw (gem::hw::vfat::exception::Exception);
+          virtual void pauseAction()      throw (gem::hw::vfat::exception::Exception);
+          virtual void resumeAction()     throw (gem::hw::vfat::exception::Exception);
+          virtual void stopAction()       throw (gem::hw::vfat::exception::Exception);
+          virtual void haltAction()       throw (gem::hw::vfat::exception::Exception);
+          virtual void resetAction()      throw (gem::hw::vfat::exception::Exception);
+          //virtual void noAction()         throw (gem::hw::vfat::exception::Exception); 
+	
+          virtual void failAction(toolbox::Event::Reference e)
+            throw (toolbox::fsm::exception::Exception); 
+	
+          virtual void resetAction(toolbox::Event::Reference e)
+            throw (toolbox::fsm::exception::Exception);
+	
+        private:
+	  uint16_t parseAMCEnableList(std::string const&);
+	  bool     isValidSlotNumber( std::string const&);
+          void     createVFTA2InfoSpaceItems(is_toolbox_ptr is_vfat, vfat_shared_ptr vfat);
+          uint16_t m_amcEnableMask;
+
+	  class VFATInfo {
+	    
+          public:
+            VFATInfo();
+            void registerFields(xdata::Bag<VFATManager::VFATInfo>* bag);
+
+	    /// Need to find out what variables need adding here
+            //monitoring information
+            xdata::Boolean present;
+            xdata::Integer crateID;
+            xdata::Integer slotID;
+
+            //configuration parameters
+            xdata::String controlHubAddress;
+            xdata::String deviceIPAddress;
+            xdata::String ipBusProtocol;
+            xdata::String addressTable;
+            
+            xdata::UnsignedInteger32 controlHubPort;
+            xdata::UnsignedInteger32 ipBusPort;
+            
+            //registers to set
+            xdata::Integer triggerSource;
+            xdata::Integer sbitSource;            
+            
+            inline std::string toString() {
+              // write obj to stream
+              std::stringstream os;
+              os << "present:" << present.toString() << std::endl
+                 << "crateID:" << crateID.toString() << std::endl
+                 << "slotID:"  << slotID.toString()  << std::endl
+                
+                 << "controlHubAddress:" << controlHubAddress.toString() << std::endl
+                 << "deviceIPAddress:"   << deviceIPAddress.toString()   << std::endl
+                 << "ipBusProtocol:"     << ipBusProtocol.toString()     << std::endl
+                 << "addressTable:"      << addressTable.toString()      << std::endl
+                 << "controlHubPort:"    << controlHubPort.value_        << std::endl
+                 << "ipBusPort:"         << ipBusPort.value_             << std::endl
+                 << "triggerSource:0x"   << std::hex << triggerSource.value_ << std::dec << std::endl
+                 << "sbitSource:0x"      << std::hex << sbitSource.value_    << std::dec << std::endl
+                 << std::endl;
+              return os.str();
+            };
+          };
+
+
+          std::vector<std::string>          nodes_;
+	  
+	  std::map<std::string, uint16_t> systemMap;
 	  
           //xdata::UnsignedLong myParameter_;
           xdata::String device_;
           xdata::String ipAddr_;
           xdata::String settingsFile_;
 	  
-          class VFAT2ControlPanelWeb {
-          public:
-            static void createHeader(xgi::Output *out );
-	      
-            static void createVFATInfoLayout(       xgi::Output *out,
-                                                    const VFAT2ControlParams params);
-            static void createControlRegisterLayout(xgi::Output *out,
-                                                    const VFAT2ControlParams params);
-            static void createSettingsLayout(       xgi::Output *out,
-                                                    const VFAT2ControlParams params);
-            static void createCounterLayout(        xgi::Output *out,
-                                                    const VFAT2ControlParams params);
-            static void createChannelRegisterLayout(xgi::Output *out,
-                                                    const VFAT2ControlParams params);
-            static void createCommandLayout(        xgi::Output *out,
-                                                    const VFAT2ControlParams params);
-	      
-            static void getCurrentParametersAsXML();
-            static void saveCurrentParametersAsXML();
-            static void setParametersByXML();
-	      
-	      
-          };//end class VFAT2ControlPanelWeb
-        }; //end class VFAT2Manager
-
+          /// Copied form GLIBManager.h check if needed
+	  mutable gem::utils::Lock m_deviceLock;//[MAX_AMCS_PER_CRATE];
+	  
+          vfat_shared_ptr              m_vfats[MAX_AMCS_PER_CRATE];
+          std::shared_ptr<VFAT2Monitor> m_vfatMonitors[MAX_AMCS_PER_CRATE];
+          //xdata::InfoSpace*            is_vfats[MAX_AMCS_PER_CRATE];
+          is_toolbox_ptr               is_vfats[MAX_AMCS_PER_CRATE];
+          xdata::Vector<xdata::Bag<VFATInfo> > m_vfatInfo;//[MAX_AMCS_PER_CRATE];
+          xdata::String        m_amcSlots;
+          xdata::String        m_connectionFile;
+        }; //end class VFATManager
+            
     }//end namespace gem::hw::vfat
-    
   }//end namespace gem::hw
-  
 }//end namespace gem
 
 #endif
+

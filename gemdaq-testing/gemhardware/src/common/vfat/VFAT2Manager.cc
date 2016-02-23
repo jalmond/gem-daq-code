@@ -1,25 +1,31 @@
-#include <iomanip>
-
+#include "gem/hw/vfat/VFAT2ManagerWeb.h"
 #include "gem/hw/vfat/VFAT2Manager.h"
+#include "gem/hw/vfat/VFAT2Monitor.h"
+
 #include "gem/hw/vfat/HwVFAT2.h"
 
-//#include "uhal/uhal.hpp"
+typedef gem::base::utils::GEMInfoSpaceToolBox::UpdateType GEMUpdateType;
 
-//#include <boost/lexical_cast.hpp>
-//#include <boost/format.hpp>
 
 XDAQ_INSTANTIATOR_IMPL(gem::hw::vfat::VFAT2Manager)
 
-gem::hw::vfat::VFAT2Manager::VFAT2Manager(xdaq::ApplicationStub * s)
-throw (xdaq::exception::Exception):
-xdaq::WebApplication(s)
+gem::hw::vfat::VFAT2Manager:VFATInfo::VFATInfo() {
+
+  device_= "";
+  ipAddr_="";
+  settingsFile_="";
+}
+
+void gem::hw::vfat::VFAT2Manager::VFATInfo::registerFields(xdata::Bag<gem::hw::vfat::VFAT2Manager::VFATInfo>* bag) {
+
+  bag->addField("device", &device_);
+  bag->addField("DeviceIPAddress", &ipAddr_);
+  bag->addField("SettingsFile", &settingsFile);
+}
+
+gem::hw::vfat::VFAT2Manager::VFAT2Manager(xdaq::ApplicationStub * s) :
+  gem::base::GEMFSMApplication(stub)
 {
-  xgi::framework::deferredbind(this, this, &VFAT2Manager::Default,       "Default"     );
-  xgi::framework::deferredbind(this, this, &VFAT2Manager::RegisterView,  "RegisterView");
-  xgi::framework::deferredbind(this, this, &VFAT2Manager::ControlPanel,  "ControlPanel");
-  xgi::framework::deferredbind(this, this, &VFAT2Manager::ExpertView,    "ExpertView"  );
-  xgi::framework::deferredbind(this, this, &VFAT2Manager::Peek,          "Peek"        ); 
-  xgi::framework::deferredbind(this, this, &VFAT2Manager::controlVFAT2,  "controlVFAT2");
 
   device_ = "VFAT13";
   ipAddr_ = "192.168.0.115";
