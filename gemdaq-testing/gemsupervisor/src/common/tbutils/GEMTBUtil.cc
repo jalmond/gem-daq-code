@@ -61,12 +61,18 @@ void gem::supervisor::tbutils::GEMTBUtil::ConfigParams::registerFields(xdata::Ba
 
   //  deviceIP      = "192.168.0.170";
 
+  for (int i = 0; i < 255; ++i) {
+    channelName.push_back(""); 
+    channelNum.push_back(-1);
+  }
+
   //stablish the number of VFATs and the entry is 
   for (int i = 0; i < 24; ++i) {
     deviceName.push_back("");
+    connectedVFATs.push_back(-999);
     deviceNum.push_back(-1);
   }
-
+  n_connectedVFATs=0;
   triggerSource = 0x9;
   deviceChipID  = 0x0;
 
@@ -83,7 +89,10 @@ void gem::supervisor::tbutils::GEMTBUtil::ConfigParams::registerFields(xdata::Ba
 
   bag->addField("outFileName",  &outFileName );
   bag->addField("settingsFile", &settingsFile);
-
+  
+  bag->addField("channelName", &channelName );
+  bag->addField("channelNum", &channelNum );
+  
   bag->addField("deviceName",   &deviceName );
   bag->addField("deviceIP",     &deviceIP    );
   bag->addField("ohGTXLink",    &ohGTXLink   );
@@ -989,6 +998,7 @@ void gem::supervisor::tbutils::GEMTBUtil::webInitialize(xgi::Input *in, xgi::Out
     std::vector<cgicc::FormEntry> vfat2FormEntries = cgi.getElements();
     INFO( "debugging form entries");
     std::vector<cgicc::FormEntry>::const_iterator myiter = vfat2FormEntries.begin();
+    
 
     //OH Devices
     cgicc::form_iterator oh = cgi.getElement("SetOH");
@@ -1001,22 +1011,60 @@ void gem::supervisor::tbutils::GEMTBUtil::webInitialize(xgi::Input *in, xgi::Out
       INFO("OH_1 has been selected " << m_confParams.bag.ohGTXLink);
     }//if OH_1
 
-    for(int i = 0; i < 24; ++i) {    
+    if(m_confParams.bag.ohGTXLink.value_ == 0){
+      
+
+    }
+
+    /// set option for all channels
+    /// current just 1 option. Not to specify channel
+    /// 
+
+    for(int i = 0; i < 2; ++i) {
+      std::stringstream channel;
+      if(i==0){
+	channel << "All";
+      }
+      else{
+	channel << "Channels_0_1_32";
+      }
+      
+      std::stringstream form;
+      form << "Channel"<< i;
+      
+      std::string tmpChannelName = m_confParams.bag.channelName[i].toString();
+      
+      cgicc::const_form_iterator name = cgi.getElement(form.str());
+      if (name != cgi.getElements().end()) {
+	INFO( "found form element::" << form.str());
+	INFO( "has value::" << name->getValue());
+	tmpChannelName = name->getValue();
+	m_confParams.bag.channelName[i] = tmpChannelName ;
+	INFO( "Web_channelName = " << m_confParams.bag.channelName[i].toString());
+      }
+    }
+    
+    for(int i = 0; i < 2; ++i) {
+      INFO( "Web_channelName = " << m_confParams.bag.channelName[i].toString());
+    }
+
+    for(int j = 0; j < m_confParams.bag.n_connectedVFATs; ++j) {    
+      int i = m_confParams.bag.connectedVFATs.at(j);
       std::stringstream currentChipID;
       currentChipID << "VFAT" << i;
-
+      
       std::stringstream form;
       form << "VFATDevice" << i;
       
-      std::string tmpDeviceName = m_confParams.bag.deviceName[i].toString();
+      std::string tmpDeviceName = m_confParams.bag.deviceName[j].toString();
       //      std::string tmpDeviceName = "";
       cgicc::const_form_iterator name = cgi.getElement(form.str());
       if (name != cgi.getElements().end()) {
         INFO( "found form element::" << form.str());
         INFO( "has value::" << name->getValue());
 	tmpDeviceName = name->getValue();
-	m_confParams.bag.deviceName[i] = tmpDeviceName;
-	INFO( "Web_deviceName::"             << m_confParams.bag.deviceName[i].toString());
+	m_confParams.bag.deviceName[j] = tmpDeviceName;
+	INFO( "Web_deviceName::"             << m_confParams.bag.deviceName[j].toString());
 	//	p_vfatDevice.push_back(m_confParams.bag.deviceName[i].toString());
       }
       
@@ -1028,10 +1076,10 @@ void gem::supervisor::tbutils::GEMTBUtil::webInitialize(xgi::Input *in, xgi::Out
 
     }//end for
     
-
+    
     //change the status to initializing and make sure the page displays this information
   }
-  catch (const xgi::exception::Exception & e) {
+    catch (const xgi::exception::Exception & e) {
     XCEPT_RAISE(xgi::exception::Exception, e.what());
   }
   catch (const std::exception & e) {
@@ -1302,7 +1350,9 @@ void gem::supervisor::tbutils::GEMTBUtil::initializeAction(toolbox::Event::Refer
     if (p_optohybridDevice->isHwConnected()) {
       INFO("OptoHybrid device connected");
 
-      for(int i=0;i<24;++i){
+      for(int j=0;j<m_confParams.bag.n_connectedVFATs;++j){
+	int i = m_confParams.bag.connectedVFATs.at(j);
+	
 	//  int i=0;
 	std::stringstream currentChipID;
 	currentChipID << "VFAT" << i;
@@ -1323,7 +1373,7 @@ void gem::supervisor::tbutils::GEMTBUtil::initializeAction(toolbox::Event::Refer
 	  tmpVFATDevice->setRunMode(0);
 	  VFATdeviceConnected.push_back(tmpVFATDevice);
 	  
-	  std::string VfatName = m_confParams.bag.deviceName[i].toString();
+	  std::string VfatName = m_confParams.bag.deviceName[j].toString();
 	  if (VfatName != "") {
 	    m_readout_mask = m_confParams.bag.ohGTXLink;
 	    
@@ -1490,8 +1540,14 @@ void gem::supervisor::tbutils::GEMTBUtil::resetAction(toolbox::Event::Reference 
   for (auto chip = p_vfatDevice.begin(); chip != p_vfatDevice.end(); ++chip)
     (*chip)->setRunMode(0x0);
   
-  for (int i = 0; i < 24; ++i)
+  for (int i = 0; i < 24; ++i){
     m_confParams.bag.deviceName[i] = ""; // ensure that the selected chips are reset
+    m_confParams.bag.connectedVFATs[i] = -999;
+  }
+  m_confParams.bag.n_connectedVFATs=0;
+  
+  for (int i = 0; i < 255; ++i)
+    m_confParams.bag.channelName[i] = "";  // ensure that the selected channels are reset
   
   m_confParams.bag.ohGTXLink = 0; // reset this to 0    
   
@@ -1525,6 +1581,85 @@ void gem::supervisor::tbutils::GEMTBUtil::noAction(toolbox::Event::Reference e)
   //hw_semaphore_.give();
 }
 
+
+
+
+void gem::supervisor::tbutils::GEMTBUtil::selectMultipleChannels(xgi::Output *out)
+  throw (xgi::exception::Exception)
+{
+  try {
+    bool isDisabled = false;
+    if (is_running_ || is_configured_ || is_initialized_)
+      isDisabled = true;
+
+    *out << cgicc::table();
+    *out << cgicc::tr() << std::endl;
+    *out << cgicc::td() << std::endl;
+    *out  << "Select Channels "  << std::endl;
+    *out << cgicc::td() << std::endl;
+    *out << cgicc::tr() << std::endl;
+
+    
+    *out << cgicc::tr();
+    
+    // Only one set
+    const int nChannels = 2;
+    
+    for(int i = 0; i < nChannels; ++i) {
+      
+      std::stringstream currentChannel;
+      if(i==0){
+	currentChannel << "All";
+      }
+      else{
+	currentChannel << "Channels_0_1_32";
+      }
+
+      std::stringstream form;
+      form << "Channel" << i;
+      
+      std::string label = "primary";
+      cgicc::input channeselection;
+      *out << cgicc::td() << std::endl;
+
+      *out << "<span class=\"label label-primary\">" << currentChannel.str()  << "</span>" << std::endl;
+
+      if(isDisabled){
+	channeselection.set("type","checkbox").set("name", form.str() ).set("disabled","disabled");
+      }else{
+	channeselection.set("type","checkbox").set("name", form.str() );
+      }
+      
+      *out << ((m_confParams.bag.channelName[0].toString().compare(currentChannel.str())) == 0 ?
+	       channeselection.set("checked","checked").set("multiple","multiple") :
+	       channeselection.set("value",currentChannel.str())) << std::endl;
+      
+      *out << cgicc::td() << std::endl;
+      
+    }
+    *out << cgicc::tr() << std::endl //close                                                                                                                                                                                                                                         
+	 << cgicc::tr() << std::endl;//open                                                                                                                                                                                                
+    *out << cgicc::tr()    << std::endl;
+    *out << cgicc::table() << std::endl;
+      
+    
+  }
+
+  catch (const xgi::exception::Exception& e) {
+    INFO("Something went wrong displaying VFATS(xgi): " << e.what());
+    XCEPT_RAISE(xgi::exception::Exception, e.what());
+  }
+  catch (const std::exception& e) {
+    INFO("Something went wrong displaying VFATS(std): " << e.what());
+    XCEPT_RAISE(xgi::exception::Exception, e.what());
+  }
+
+
+
+}
+
+
+
 void gem::supervisor::tbutils::GEMTBUtil::selectMultipleVFAT(xgi::Output *out)
   throw (xgi::exception::Exception)
 {
@@ -1533,12 +1668,34 @@ void gem::supervisor::tbutils::GEMTBUtil::selectMultipleVFAT(xgi::Output *out)
     if (is_running_ || is_configured_ || is_initialized_)
       isDisabled = true;
     
-    const int nChips = 24;
+    
+    else{
+      const int nChips = 24;
+      int iconnected=0;
+      for(int i = 0; i < nChips; ++i) {
+	std::stringstream currentChipID;
+	currentChipID << "VFAT" << i;
+	
+	/// Only list connected VFATs                                                                                                                                                                                                           
+	std::string vfat=currentChipID.str();
+	std::stringstream tmpURI;
+	tmpURI << "chtcp-2.0://localhost:10203?target=" << m_confParams.bag.deviceIP.toString() << ":50001";
+	vfat_shared_ptr tmpVFATDevice(new gem::hw::vfat::HwVFAT2(vfat, tmpURI.str(), "file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml"));
+	
+	if(!tmpVFATDevice->isHwConnected()) continue;
+	m_confParams.bag.connectedVFATs[iconnected]=i;
+	iconnected++;
+      }
+      m_confParams.bag.n_connectedVFATs=iconnected;
+    }
+
     *out << cgicc::table();
     *out << cgicc::tr();
     
+    int nChips=  m_confParams.bag.n_connectedVFATs;
     
-    for(int i = 0; i < nChips; ++i) {
+    for(int j = 0; j < nChips; ++j) {
+      int i = m_confParams.bag.connectedVFATs[j];
       std::stringstream currentChipID;
       currentChipID << "VFAT" << i;
 
@@ -1557,12 +1714,12 @@ void gem::supervisor::tbutils::GEMTBUtil::selectMultipleVFAT(xgi::Output *out)
       }else{
         vfatselection.set("type","checkbox").set("name",form.str());
       }
-      *out << ((m_confParams.bag.deviceName[i].toString().compare(currentChipID.str())) == 0 ?
+      *out << ((m_confParams.bag.deviceName[j].toString().compare(currentChipID.str())) == 0 ?
 	       vfatselection.set("checked","checked").set("multiple","multiple") :
 	       vfatselection.set("value",currentChipID.str())) << std::endl;
       
       *out << cgicc::td() << std::endl;
-      if( i == 7 || i == 15) {
+      if( j == 7 || j == 15) {
 	*out << cgicc::tr() << std::endl //close
 	     << cgicc::tr() << std::endl;//open
 	//  }// end if 

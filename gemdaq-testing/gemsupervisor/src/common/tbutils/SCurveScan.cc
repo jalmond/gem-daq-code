@@ -295,6 +295,8 @@ bool gem::supervisor::tbutils::SCurveScan::readFIFO(toolbox::task::WorkLoop* wl)
   return false;
 }
 
+
+
 void gem::supervisor::tbutils::SCurveScan::scanParameters(xgi::Output *out)
   throw (xgi::exception::Exception)
 {
@@ -423,6 +425,7 @@ void gem::supervisor::tbutils::SCurveScan::webDefault(xgi::Input *in, xgi::Outpu
 
       selectOptohybridDevice(out);
       selectMultipleVFAT(out);
+      selectMultipleChannels(out);
       scanParameters(out);
 
       *out << cgicc::input().set("type", "submit")
@@ -438,6 +441,7 @@ void gem::supervisor::tbutils::SCurveScan::webDefault(xgi::Input *in, xgi::Outpu
 
       selectOptohybridDevice(out);
       selectMultipleVFAT(out);
+      selectMultipleChannels(out);
       selectTrigSource(out);
       scanParameters(out);
 
@@ -459,6 +463,7 @@ void gem::supervisor::tbutils::SCurveScan::webDefault(xgi::Input *in, xgi::Outpu
 
       selectOptohybridDevice(out);
       selectMultipleVFAT(out);
+      selectMultipleChannels(out);
       selectTrigSource(out);
       scanParameters(out);
 
@@ -473,6 +478,7 @@ void gem::supervisor::tbutils::SCurveScan::webDefault(xgi::Input *in, xgi::Outpu
 
       selectOptohybridDevice(out);
       selectMultipleVFAT(out);
+      selectMultipleChannels(out);
       selectTrigSource(out);
       scanParameters(out);
 
@@ -772,12 +778,26 @@ void gem::supervisor::tbutils::SCurveScan::configureAction(toolbox::Event::Refer
 
 
     //// ADD functionality to run on all channels
+    
+    LOG4CPLUS_INFO(getApplicationLogger(), "channelName[0]= " << m_confParams.bag.channelName[0].toString());
+    LOG4CPLUS_INFO(getApplicationLogger(), "channelName[1]= " << m_confParams.bag.channelName[1].toString());
+    bool runall=true;
+    if(m_confParams.bag.channelName[0].toString().compare("All")!= 0) runall=false;
+    
+
     for (int chan = 0; chan < 129; ++chan)
-      if (chan == 0 || chan == 1 || chan == 32)
-        (*chip)->enableCalPulseToChannel(chan, true);
-      else
-        (*chip)->enableCalPulseToChannel(chan, false);
-      
+      if (runall){
+	LOG4CPLUS_INFO(getApplicationLogger(), "Enabling CalPule to all channel");
+	(*chip)->enableCalPulseToChannel(chan, true);
+      }
+      else{
+	LOG4CPLUS_INFO(getApplicationLogger(), "Enabling CalPule to  channels 0,1 and 32");
+	if (chan == 0 || chan == 1 || chan == 32)
+	  (*chip)->enableCalPulseToChannel(chan, true);
+	else
+	  (*chip)->enableCalPulseToChannel(chan, false);
+      }
+    
     (*chip)->setIPreampIn(  168);
     (*chip)->setIPreampFeed(150);
     (*chip)->setIPreampOut(  80);

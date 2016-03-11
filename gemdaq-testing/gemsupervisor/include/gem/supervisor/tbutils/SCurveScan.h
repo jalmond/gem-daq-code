@@ -77,7 +77,10 @@ namespace gem {
 	  throw (xgi::exception::Exception);
         void selectTrigSource(xgi::Output* out)
 	  throw (xgi::exception::Exception);
-	    
+	////void selectMultipleChannels(xgi::Output* out)
+	//throw (xgi::exception::Exception);
+
+
       class ConfigParams 
       {
       public:

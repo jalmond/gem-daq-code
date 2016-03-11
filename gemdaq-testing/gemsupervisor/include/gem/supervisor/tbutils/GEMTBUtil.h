@@ -164,6 +164,7 @@ namespace gem {
 	    throw (xgi::exception::Exception);
 	  //	  virtual void selectTrigSource(xgi::Output* out)
 	  //	    throw (xgi::exception::Exception);
+
 	  virtual void scanParameters(xgi::Output* out)
 	    throw (xgi::exception::Exception)=0;
 	  virtual void showCounterLayout(xgi::Output* out)
@@ -181,6 +182,11 @@ namespace gem {
 	  virtual void selectOptohybridDevice(xgi::Output* out)
 	    throw (xgi::exception::Exception);
 
+
+	  void selectMultipleChannels(xgi::Output* out)
+	    throw (xgi::exception::Exception);
+
+
 	  //link data parker and scan routines
 	  void dumpRoutinesData( uint8_t const& mask, uint8_t latency, uint8_t VT1, uint8_t VT2 , bool isLatencyScan=true);
 
@@ -193,6 +199,7 @@ namespace gem {
 	    virtual void registerFields(xdata::Bag<ConfigParams> *bag);
 
 	    xdata::Integer         ohGTXLink;
+	    xdata::Integer         n_connectedVFATs;
 	    
 	    xdata::UnsignedInteger readoutDelay;
 
@@ -204,7 +211,12 @@ namespace gem {
 	    xdata::String        settingsFile;
 
 	    xdata::Vector<xdata::String>  deviceName;
+	    xdata::Vector<xdata::Integer> connectedVFATs;
 	    xdata::Vector<xdata::Integer> deviceNum;
+	    
+	    xdata::Vector<xdata::String>  channelName;
+	    xdata::Vector<xdata::Integer> channelNum;
+
 
 	    xdata::String        deviceIP;
 	    xdata::UnsignedShort triggerSource;
