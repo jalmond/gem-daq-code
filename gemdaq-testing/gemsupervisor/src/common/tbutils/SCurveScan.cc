@@ -1,4 +1,4 @@
-#include "gem/supervisor/tbutils/LatencyScan.h"
+#include "gem/supervisor/tbutils/SCurveScan.h"
 
 #include "gem/readout/GEMDataAMCformat.h"
 #include "gem/readout/GEMDataParker.h"
@@ -38,37 +38,37 @@
 #include "xoap/Method.h"
 #include "xoap/AttachmentPart.h"
 
-XDAQ_INSTANTIATOR_IMPL(gem::supervisor::tbutils::LatencyScan)
+XDAQ_INSTANTIATOR_IMPL(gem::supervisor::tbutils::SCurveScan)
 
 typedef gem::readout::GEMDataAMCformat::GEMData  AMCGEMData;
 typedef gem::readout::GEMDataAMCformat::GEBData  AMCGEBData;
 typedef gem::readout::GEMDataAMCformat::VFATData AMCVFATData;
 
 //
-void gem::supervisor::tbutils::LatencyScan::ConfigParams::registerFields(xdata::Bag<ConfigParams> *bag)
+void gem::supervisor::tbutils::SCurveScan::ConfigParams::registerFields(xdata::Bag<ConfigParams> *bag)
 {
 
-  minLatency    = 13U;
-  maxLatency    = 17U;
-  stepSize      = 1U;
-  nTriggers     = 10;
-  deviceVT1     = 25;
-  deviceVT2     = 0;
-  MSPulseLength = 3;
-  VCal          = 100;
+  minVCal         = 0U;
+  maxVCal         = 255U;
+  stepSize        = 1U;
+  nTriggers       = 10;
+  deviceVT1       = 25;
+  deviceVT2       = 0;
+  MSPulseLength   = 3;
+  Latency         = 14U;
     
-  bag->addField("minLatency",    &minLatency   );
-  bag->addField("maxLatency",    &maxLatency   );
+  bag->addField("minVCal",    &minVCal   );
+  bag->addField("maxVCal",    &maxVCal   );
   bag->addField("stepSize",      &stepSize     );
   bag->addField("VT2",           &deviceVT1    );
   bag->addField("VT1",           &deviceVT2    );
-  bag->addField("VCal",          &VCal         );
+  bag->addField("Latency",          &Latency         );
   bag->addField("MSPulseLength", &MSPulseLength);
   bag->addField("nTriggers",     &nTriggers    );
 
 }
 
-gem::supervisor::tbutils::LatencyScan::LatencyScan(xdaq::ApplicationStub * s)  throw (xdaq::exception::Exception) :
+gem::supervisor::tbutils::SCurveScan::SCurveScan(xdaq::ApplicationStub * s)  throw (xdaq::exception::Exception) :
 
   gem::supervisor::tbutils::GEMTBUtil(s)
 {
@@ -77,31 +77,31 @@ gem::supervisor::tbutils::LatencyScan::LatencyScan(xdaq::ApplicationStub * s)  t
   getApplicationInfoSpace()->fireItemValueRetrieve("scanParams", &m_scanParams);
 
   // HyperDAQ bindings
-  xgi::framework::deferredbind(this, this, &gem::supervisor::tbutils::LatencyScan::webDefault,      "Default"    );
-  xgi::framework::deferredbind(this, this, &gem::supervisor::tbutils::LatencyScan::webConfigure,    "Configure"  );
-  xgi::framework::deferredbind(this, this, &gem::supervisor::tbutils::LatencyScan::webStart,        "Start"      );
-  runSig_   = toolbox::task::bind(this, &LatencyScan::run,        "run"       );
-  readSig_  = toolbox::task::bind(this, &LatencyScan::readFIFO,   "readFIFO"  );
+  xgi::framework::deferredbind(this, this, &gem::supervisor::tbutils::SCurveScan::webDefault,      "Default"    );
+  xgi::framework::deferredbind(this, this, &gem::supervisor::tbutils::SCurveScan::webConfigure,    "Configure"  );
+  xgi::framework::deferredbind(this, this, &gem::supervisor::tbutils::SCurveScan::webStart,        "Start"      );
+  runSig_   = toolbox::task::bind(this, &SCurveScan::run,        "run"       );
+  readSig_  = toolbox::task::bind(this, &SCurveScan::readFIFO,   "readFIFO"  );
 
   // Initiate and activate main workloop
-  wl_ = toolbox::task::getWorkLoopFactory()->getWorkLoop("urn:xdaq-workloop:GEMTestBeamSupervisor:LatencyScan","waiting");
+  wl_ = toolbox::task::getWorkLoopFactory()->getWorkLoop("urn:xdaq-workloop:GEMTestBeamSupervisor:SCurveScan","waiting");
   wl_->activate();
 
-  m_currentLatency = 0;
+  m_currentVCal = 0;
   m_vfat = 0;
   m_event = 0;
   m_eventsSeen = 0;
   m_channelSeen=0;
 }
 
-gem::supervisor::tbutils::LatencyScan::~LatencyScan()
+gem::supervisor::tbutils::SCurveScan::~SCurveScan()
 {
-  wl_ = toolbox::task::getWorkLoopFactory()->getWorkLoop("urn:xdaq-workloop:GEMTestBeamSupervisor:LatencyScan","waiting");
+  wl_ = toolbox::task::getWorkLoopFactory()->getWorkLoop("urn:xdaq-workloop:GEMTestBeamSupervisor:SCurveScan","waiting");
   //should we check to see if it's running and try to stop?
   wl_->cancel();
   wl_ = 0;
 }
-bool gem::supervisor::tbutils::LatencyScan::run(toolbox::task::WorkLoop* wl)
+bool gem::supervisor::tbutils::SCurveScan::run(toolbox::task::WorkLoop* wl)
 {
   wl_semaphore_.take(); // take workloop
   if (!is_running_) {
@@ -210,22 +210,22 @@ bool gem::supervisor::tbutils::LatencyScan::run(toolbox::task::WorkLoop* wl)
 
     INFO(" Scan point TiggersSeen " << m_confParams.bag.triggersSeen );
   
-    //if max Latency - current Latency >= stepsize
-    if (m_scanParams.bag.maxLatency - m_currentLatency >= m_scanParams.bag.stepSize) {
+    //if max VCal - current VCal >= stepsize
+    if (m_scanParams.bag.maxVCal - m_currentVCal >= m_scanParams.bag.stepSize) {
 
-      hw_semaphore_.take();// vfat set latency
+      hw_semaphore_.take();// vfat set vcal
 
-      if ((m_currentLatency + m_scanParams.bag.stepSize) < 0xFF) {
+      if ((m_currentVCal + m_scanParams.bag.stepSize) < 0xFF) {
         
         // do this with an OH broadcast write
-        p_optohybridDevice->broadcastWrite("Latency", 0x0, m_currentLatency + m_scanParams.bag.stepSize);
+        p_optohybridDevice->broadcastWrite("VCal", 0x0, m_currentVCal + m_scanParams.bag.stepSize);
       } else  { 
 
-        p_optohybridDevice->broadcastWrite("Latency", 0x0, 0xFF);
+        p_optohybridDevice->broadcastWrite("VCal", 0x0, 0xFF);
       }//end else
     
       for (auto chip = p_vfatDevice.begin(); chip != p_vfatDevice.end(); ++chip) {
-	m_currentLatency = (*chip)->getLatency();
+	m_currentVCal = (*chip)->getVCal();
 	m_scanParams.bag.deviceVT1 = (*chip)->getVThreshold1();
 	m_scanParams.bag.deviceVT2 = (*chip)->getVThreshold2();
 	(*chip)->setRunMode(1);      
@@ -248,11 +248,11 @@ bool gem::supervisor::tbutils::LatencyScan::run(toolbox::task::WorkLoop* wl)
       m_eventsSeen   = 0;  
       m_channelSeen = 0;
  
-      hw_semaphore_.give(); // give hw vfat set latency
+      hw_semaphore_.give(); // give hw vfat set vcal
       wl_semaphore_.give(); // end of workloop	
 
       return true;	
-    } // end if maxLat - curreLat >= step
+    } // end if maxVCal - currentVCal >= step
     else {
 
       wl_semaphore_.give();  // end of workloop	
@@ -268,70 +268,63 @@ bool gem::supervisor::tbutils::LatencyScan::run(toolbox::task::WorkLoop* wl)
 
 
 
-bool gem::supervisor::tbutils::LatencyScan::readFIFO(toolbox::task::WorkLoop* wl)    
+bool gem::supervisor::tbutils::SCurveScan::readFIFO(toolbox::task::WorkLoop* wl)    
 {
 
   wl_semaphore_.take();
   hw_semaphore_.take();//glib getFIFO
 
-  LOG4CPLUS_INFO(getApplicationLogger(), " CurLaten " << (int)m_currentLatency 
+  LOG4CPLUS_INFO(getApplicationLogger(), " CurentVCal " << (int)m_currentVCal
 		 << " TrigSeen " << m_confParams.bag.triggersSeen 
 		 << " CalPulses " << m_CalPulseCount[0] 
 		 << " eventsSeen " << m_eventsSeen
 		 << "channelSeen " << m_channelSeen 
 		 ); 
 
-  uint8_t latency = m_currentLatency;
+  uint8_t vcal = m_currentVCal;
   uint8_t vt1 = m_scanParams.bag.deviceVT1;
   uint8_t vt2 = m_scanParams.bag.deviceVT2;
   
-  dumpRoutinesData(m_readout_mask, latency, vt1, vt2 );
+  /// bool tells code we are running SCurve Scan and not Latency Scan
+  dumpRoutinesData(m_readout_mask, vcal, vt1, vt2, false);
 
 
-  //  dumpRoutinesData(m_readout_mask, (uint8_t)m_currentLatency, (uint8_t)m_scanParams.bag.deviceVT1, (uint8_t)m_scanParams.bag.deviceVT2 );
-
- 
-  //  uint64_t Runtipe =  dumpRoutinesData(m_readout_mask, (uint8_t)m_currentLatency, (uint8_t)m_scanParams.bag.deviceVT1, (uint8_t)m_scanParams.bag.deviceVT2 ).RunType;
-
-
-  // uint64_t gem::supervisor::tbutils::GEMTBUtil::dumpRoutinesData(m_readout_mask, (uint8_t)m_currentLatency, (uint8_t)m_scanParams.bag.deviceVT1, (uint8_t)m_scanParams.bag.deviceVT2).RunType;
-  
   hw_semaphore_.give();
   wl_semaphore_.give();
 
   return false;
 }
 
-void gem::supervisor::tbutils::LatencyScan::scanParameters(xgi::Output *out)
+void gem::supervisor::tbutils::SCurveScan::scanParameters(xgi::Output *out)
   throw (xgi::exception::Exception)
 {
   try {
     *out << cgicc::span()   << std::endl //open span
 
-	 << cgicc::label("MinLatency").set("for","MinLatency") << std::endl
-	 << cgicc::input().set("id","MinLatency").set("name","MinLatency")
+	 << cgicc::label("MinVCan").set("for","MinVCal") << std::endl
+	 << cgicc::input().set("id","MinVCal").set("name","MinVCal")
       .set("type","number").set("min","0").set("max","255")
-      .set("value",boost::str(boost::format("%d")%(m_scanParams.bag.minLatency)))
+      .set("value",boost::str(boost::format("%d")%(m_scanParams.bag.minVCal)))
 	 << std::endl
 
-	 << cgicc::label("MaxLatency").set("for","MaxLatency") << std::endl
-	 << cgicc::input().set("id","MaxLatency").set("name","MaxLatency")
+	 << cgicc::label("MaxVCal").set("for","MaxVCal") << std::endl
+	 << cgicc::input().set("id","MaxVCal").set("name","MaxVCal")
       .set("type","number").set("min","0").set("max","255")
-      .set("value",boost::str(boost::format("%d")%(m_scanParams.bag.maxLatency)))
+      .set("value",boost::str(boost::format("%d")%(m_scanParams.bag.maxVCal)))
 	 << std::endl
 
-	 << cgicc::label("Latency Step").set("for","LatencyStep") << std::endl
-	 << cgicc::input().set("id","LatencyStep").set("name","LatencyStep")
+	 << cgicc::label("VCal Step").set("for","VCalStep") << std::endl
+	 << cgicc::input().set("id","VCalStep").set("name","VCalStep")
       .set("type","number").set("min","1").set("max","255")
       .set("value",boost::str(boost::format("%d")%(m_scanParams.bag.stepSize)))
 	 << std::endl
 
 	 << cgicc::br() << std::endl
 
-	 << cgicc::label("Current Latency").set("for","CurrentLatency") << std::endl
-	 << cgicc::input().set("id","CurrentLatency").set("name","CurrentLatency")
+	 << cgicc::label("Current VCal").set("for","CurrentVCal") << std::endl
+	 << cgicc::input().set("id","CurrentVCal").set("name","CurrentVCal")
       .set("type","text").set("readonly")
-      .set("value",boost::str(boost::format("%d")%((unsigned)m_currentLatency)))
+      .set("value",boost::str(boost::format("%d")%((unsigned)m_currentVCal)))
 	 << std::endl
 
 	 << cgicc::br() << std::endl
@@ -365,10 +358,10 @@ void gem::supervisor::tbutils::LatencyScan::scanParameters(xgi::Output *out)
       
 	 << cgicc::br()  // << std::endl
 
-	 << cgicc::label("VCal").set("for","VCal") << std::endl
-	 << cgicc::input().set("id","VCal").set("name","VCal")
-      .set("type","number").set("min","0").set("max","200")
-      .set("value",boost::str(boost::format("%d")%(m_scanParams.bag.VCal)))
+	 << cgicc::label("Latency").set("for","Latency") << std::endl
+	 << cgicc::input().set("id","Latency").set("name","Latency")
+      .set("type","number").set("min","0").set("max","255")
+      .set("value",boost::str(boost::format("%d")%(m_scanParams.bag.Latency)))
 	 << std::endl
 
       	 << cgicc::label("MSPulseLength").set("for","MSPulseLength") << std::endl
@@ -390,7 +383,7 @@ void gem::supervisor::tbutils::LatencyScan::scanParameters(xgi::Output *out)
 }
 
 //
-void gem::supervisor::tbutils::LatencyScan::webDefault(xgi::Input *in, xgi::Output *out)
+void gem::supervisor::tbutils::SCurveScan::webDefault(xgi::Input *in, xgi::Output *out)
   throw (xgi::exception::Exception)
 {
 
@@ -619,17 +612,17 @@ void gem::supervisor::tbutils::LatencyScan::webDefault(xgi::Input *in, xgi::Outp
 
   }//end try
   catch (const xgi::exception::Exception& e) {
-    LOG4CPLUS_INFO(this->getApplicationLogger(),"Something went wrong displaying LatencyScan control panel(xgi): " << e.what());
+    LOG4CPLUS_INFO(this->getApplicationLogger(),"Something went wrong displaying SCurveScan control panel(xgi): " << e.what());
     XCEPT_RAISE(xgi::exception::Exception, e.what());
   }
   catch (const std::exception& e) {
-    LOG4CPLUS_INFO(this->getApplicationLogger(),"Something went wrong displaying LatencyScan control panel(std): " << e.what());
+    LOG4CPLUS_INFO(this->getApplicationLogger(),"Something went wrong displaying SCurveScan control panel(std): " << e.what());
     XCEPT_RAISE(xgi::exception::Exception, e.what());
   }
 }
 
 //
-void gem::supervisor::tbutils::LatencyScan::webConfigure(xgi::Input *in, xgi::Output *out)
+void gem::supervisor::tbutils::SCurveScan::webConfigure(xgi::Input *in, xgi::Output *out)
   throw (xgi::exception::Exception) {
 
   try {
@@ -641,15 +634,15 @@ void gem::supervisor::tbutils::LatencyScan::webConfigure(xgi::Input *in, xgi::Ou
     //aysen's xml parser
     m_confParams.bag.settingsFile = cgi.getElement("xmlFilename")->getValue();
 
-    cgicc::const_form_iterator element  = cgi.getElement("MinLatency");
+    cgicc::const_form_iterator element  = cgi.getElement("MinVCal");
     if (element != cgi.getElements().end())
-      m_scanParams.bag.minLatency = element->getIntegerValue();
+      m_scanParams.bag.minVCal = element->getIntegerValue();
 
-    element = cgi.getElement("MaxLatency");
+    element = cgi.getElement("MaxVCal");
     if (element != cgi.getElements().end())
-      m_scanParams.bag.maxLatency = element->getIntegerValue();
+      m_scanParams.bag.maxVCal = element->getIntegerValue();
 
-    element = cgi.getElement("LatencyStep");
+    element = cgi.getElement("VCalStep");
     if (element != cgi.getElements().end())
       m_scanParams.bag.stepSize  = element->getIntegerValue();
 
@@ -657,9 +650,9 @@ void gem::supervisor::tbutils::LatencyScan::webConfigure(xgi::Input *in, xgi::Ou
     if (element != cgi.getElements().end())
       m_confParams.bag.nTriggers  = element->getIntegerValue();
 
-    element = cgi.getElement("VCal");
+    element = cgi.getElement("Latency");
     if (element != cgi.getElements().end())
-      m_scanParams.bag.VCal  = element->getIntegerValue();
+      m_scanParams.bag.Latency  = element->getIntegerValue();
 
     element = cgi.getElement("MSPulseLength");
     if (element != cgi.getElements().end())
@@ -672,7 +665,7 @@ void gem::supervisor::tbutils::LatencyScan::webConfigure(xgi::Input *in, xgi::Ou
     if (strcmp((**new_triggersource).c_str(),"Calpulse+L1A") == 0) {
       m_confParams.bag.triggerSource = 0x1;
       p_optohybridDevice->setTrigSource(0x1);//from T1   
-      INFO("Fake Latency Scan sending Calpulses+L1As. TrigSource : " << m_confParams.bag.triggerSource);    
+      INFO("Fake SCurve Scan sending Calpulses+L1As. TrigSource : " << m_confParams.bag.triggerSource);    
     }
     if (strcmp((**new_triggersource).c_str(),"Internal loopback of s-bits") == 0) {
       m_confParams.bag.triggerSource = 0x3;
@@ -706,7 +699,7 @@ void gem::supervisor::tbutils::LatencyScan::webConfigure(xgi::Input *in, xgi::Ou
 }
 
 //
-void gem::supervisor::tbutils::LatencyScan::webStart(xgi::Input *in, xgi::Output *out)
+void gem::supervisor::tbutils::SCurveScan::webStart(xgi::Input *in, xgi::Output *out)
   throw (xgi::exception::Exception) {
   // Initiate start workloop
   wl_->submit(startSig_);
@@ -714,13 +707,13 @@ void gem::supervisor::tbutils::LatencyScan::webStart(xgi::Input *in, xgi::Output
   redirect(in,out);
 }
 
-void gem::supervisor::tbutils::LatencyScan::configureAction(toolbox::Event::Reference e)
+void gem::supervisor::tbutils::SCurveScan::configureAction(toolbox::Event::Reference e)
   throw (toolbox::fsm::exception::Exception) {
 
   is_working_ = true;
   m_stepSize   = m_scanParams.bag.stepSize;
-  m_minLatency = m_scanParams.bag.minLatency;
-  m_maxLatency = m_scanParams.bag.maxLatency;
+  m_minVCal = m_scanParams.bag.minVCal;
+  m_maxVCal = m_scanParams.bag.maxVCal;
 
   m_vfat = 0;
   m_event = 0;
@@ -741,7 +734,7 @@ void gem::supervisor::tbutils::LatencyScan::configureAction(toolbox::Event::Refe
     INFO("Real signals and the trigger comes from the AMC13. TrigSource : " << m_confParams.bag.triggerSource );   
   }else if(m_confParams.bag.triggerSource.value_ == 0x1){
     p_optohybridDevice->setTrigSource(0x1);//from T1   
-    INFO("Fake Latency Scan sending Calpulses+L1As. TrigSource : " << m_confParams.bag.triggerSource);
+    INFO("Fake SCurve Scan sending Calpulses+L1As. TrigSource : " << m_confParams.bag.triggerSource);
   }else if(m_confParams.bag.triggerSource.value_ == 0x3){
     p_optohybridDevice->setTrigSource(0x3);//from sbits   
     INFO("Sending Calpulses and the s-bits come back from the OH. TrigSource : " << m_confParams.bag.triggerSource );
@@ -775,7 +768,10 @@ void gem::supervisor::tbutils::LatencyScan::configureAction(toolbox::Event::Refe
     (*chip)->setBandgapPad(   0x0);
     (*chip)->sendTestPattern( 0x0);
 
-    (*chip)->setVCal(m_scanParams.bag.VCal);
+    (*chip)->setLatency(m_scanParams.bag.Latency);
+
+
+    //// ADD functionality to run on all channels
     for (int chan = 0; chan < 129; ++chan)
       if (chan == 0 || chan == 1 || chan == 32)
         (*chip)->enableCalPulseToChannel(chan, true);
@@ -799,15 +795,15 @@ void gem::supervisor::tbutils::LatencyScan::configureAction(toolbox::Event::Refe
     LOG4CPLUS_INFO(getApplicationLogger(), "setting DAC mode to normal");
     (*chip)->setDACMode(gem::hw::vfat::StringToDACMode.at("OFF"));
 
-    LOG4CPLUS_INFO(getApplicationLogger(), "setting starting latency value");
-    (*chip)->setLatency(    m_scanParams.bag.minLatency);
+    LOG4CPLUS_INFO(getApplicationLogger(), "setting starting vcal value");
+    (*chip)->setVCal(    m_scanParams.bag.minVCal);
 
-    LOG4CPLUS_INFO(getApplicationLogger(), "reading back current latency value");
-    m_currentLatency = (*chip)->getLatency();
+    LOG4CPLUS_INFO(getApplicationLogger(), "reading back curren vcal value");
+    m_currentVCal = (*chip)->getVCal();
 
     LOG4CPLUS_INFO(getApplicationLogger(), "Threshold " << m_scanParams.bag.deviceVT1);
 
-    LOG4CPLUS_INFO(getApplicationLogger(), "VCal " << m_scanParams.bag.VCal);
+    LOG4CPLUS_INFO(getApplicationLogger(), "Latency " << m_scanParams.bag.Latency);
 
     LOG4CPLUS_INFO(getApplicationLogger(), "device configured");
     is_configured_ = true;
@@ -843,7 +839,7 @@ void gem::supervisor::tbutils::LatencyScan::configureAction(toolbox::Event::Refe
 }		 
 
 //
-void gem::supervisor::tbutils::LatencyScan::startAction(toolbox::Event::Reference e)
+void gem::supervisor::tbutils::SCurveScan::startAction(toolbox::Event::Reference e)
   throw (toolbox::fsm::exception::Exception) {
 
   wl_semaphore_.take();
@@ -852,18 +848,18 @@ void gem::supervisor::tbutils::LatencyScan::startAction(toolbox::Event::Referenc
   //AppHeader ah;
 
   m_threshold  = m_scanParams.bag.deviceVT2 -m_scanParams.bag.deviceVT1;
-  m_vCal       = m_scanParams.bag.VCal;
+  m_Latency    = m_scanParams.bag.Latency;
   m_mspl       = m_scanParams.bag.MSPulseLength;
   m_nTriggers  = m_confParams.bag.nTriggers;
   m_stepSize   = m_scanParams.bag.stepSize;
-  m_minLatency = m_scanParams.bag.minLatency;
-  m_maxLatency = m_scanParams.bag.maxLatency;
+  m_minVCal    = m_scanParams.bag.minVCal;
+  m_maxVCal    = m_scanParams.bag.maxVCal;
 
   time_t now = time(0);
   tm *gmtm = gmtime(&now);
   char* utcTime = asctime(gmtm);
 
-  std::string tmpFileName = "LatencyScan_", tmpType = "", outputType   = "Hex";
+  std::string tmpFileName = "SCurveScan_", tmpType = "", outputType   = "Hex";
   tmpFileName.append(utcTime);
   tmpFileName.erase(std::remove(tmpFileName.begin(), tmpFileName.end(), '\n'), tmpFileName.end());
   tmpFileName.append(".dat");
@@ -912,12 +908,12 @@ void gem::supervisor::tbutils::LatencyScan::startAction(toolbox::Event::Referenc
     scanSetup << "\n The Time & Date : " << utcTime << std::endl;
     scanSetup << " ChipID        0x" << std::hex    << m_confParams.bag.deviceChipID << std::dec << std::endl;
     scanSetup << " Threshold     " << m_threshold   << std::endl;
-    scanSetup << " VCal          " << m_vCal        << std::endl;
+    scanSetup << " Latency       " << m_Latency     << std::endl;
     scanSetup << " MSPulseLength " << m_mspl        << std::endl;
     scanSetup << " nTriggers     " << m_nTriggers   << std::endl;
     scanSetup << " stepSize      " << m_stepSize    << std::endl;
-    scanSetup << " minLatency    " << m_minLatency  << std::endl;
-    scanSetup << " maxLatency    " << m_maxLatency  << std::endl;
+    scanSetup << " minVCal       " << m_minVCal     << std::endl;
+    scanSetup << " maxVCal       " << m_maxVCal     << std::endl;
   }
   scanSetup.close();
   
@@ -988,7 +984,7 @@ void gem::supervisor::tbutils::LatencyScan::startAction(toolbox::Event::Referenc
 
 }							      
 //
-void gem::supervisor::tbutils::LatencyScan::resetAction(toolbox::Event::Reference e)
+void gem::supervisor::tbutils::SCurveScan::resetAction(toolbox::Event::Reference e)
   throw (toolbox::fsm::exception::Exception) {
 
   is_working_ = true;
@@ -996,12 +992,12 @@ void gem::supervisor::tbutils::LatencyScan::resetAction(toolbox::Event::Referenc
   {
 
     m_confParams.bag.nTriggers     = 10U;
-    m_scanParams.bag.minLatency    = 0U;
-    m_scanParams.bag.maxLatency    = 25U;
+    m_scanParams.bag.minVCal       = 0U;
+    m_scanParams.bag.maxVCal       = 255U;
     m_scanParams.bag.stepSize      = 1U;
     m_scanParams.bag.deviceVT1     = 25U;
     m_scanParams.bag.deviceVT2     = 0U;
-    m_scanParams.bag.VCal          = 100;
+    m_scanParams.bag.Latency       = 15;
     m_scanParams.bag.MSPulseLength = 3;
     m_confParams.bag.triggerSource = 8;
     // m_confParams.bag.deviceName   = "";
@@ -1012,7 +1008,7 @@ void gem::supervisor::tbutils::LatencyScan::resetAction(toolbox::Event::Referenc
 }
 
 
-void gem::supervisor::tbutils::LatencyScan::selectTrigSource(xgi::Output *out)
+void gem::supervisor::tbutils::SCurveScan::selectTrigSource(xgi::Output *out)
   throw (xgi::exception::Exception)
 {
   try {
@@ -1075,7 +1071,7 @@ void gem::supervisor::tbutils::LatencyScan::selectTrigSource(xgi::Output *out)
 
 
 // Send SOAP message                      
-void gem::supervisor::tbutils::LatencyScan::sendMessage(xgi::Input *in, xgi::Output *out)
+void gem::supervisor::tbutils::SCurveScan::sendMessage(xgi::Input *in, xgi::Output *out)
   throw (xgi::exception::Exception) {
   //  is_working_ = true;
   INFO("------------------The message has been sent Begging--------------------");

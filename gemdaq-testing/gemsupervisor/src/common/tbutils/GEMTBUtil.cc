@@ -1637,11 +1637,13 @@ catch (const xgi::exception::Exception& e) {
 
 }// end void selectoptohybrid
 
-void gem::supervisor::tbutils::GEMTBUtil::dumpRoutinesData(uint8_t const& m_readout_mask, uint8_t latency, uint8_t VT1, uint8_t VT2)
+void gem::supervisor::tbutils::GEMTBUtil::dumpRoutinesData(uint8_t const& m_readout_mask, uint8_t value, uint8_t VT1, uint8_t VT2, bool isLatencyScan)
 {
 
   INFO(" GEMTBUtitls INSIDE DUMPROUTINES ");
   //    int latency_m, VT1_m, VT2_m;
+  // or   int vcal_m, VT1_m, VT2_m;
+  
 
   for(int j = 0; j < 5; j++) {
     INFO(" before GEMTBUtils counter " << j <<  " "<< m_counter[j] );
@@ -1679,10 +1681,12 @@ void gem::supervisor::tbutils::GEMTBUtil::dumpRoutinesData(uint8_t const& m_read
   */
   if(finish){
     INFO("DUMP DATA");
-    p_gemDataParker->ScanRoutines(latency, VT1, VT2);
+    if(isLatencyScan)  p_gemDataParker->ScanRoutines(value, VT1, VT2, true);
+    else  p_gemDataParker->ScanRoutines(value, VT1, VT2, false);
     uint32_t* pDupm = p_gemDataParker->dumpData(m_readout_mask);
     if(pDupm) {
-      INFO( " Latency = " << (int)latency << " VT1 = " << (int)VT1 << " VT2 = " << (int)VT2);
+      if(isLatencyScan)   INFO( " Latency = " << (int)value << " VT1 = " << (int)VT1 << " VT2 = " << (int)VT2);
+      else  INFO( " VCal = " << (int)value << " VT1 = " << (int)VT1 << " VT2 = " << (int)VT2);
     }
   }else{
     INFO("------NOT DUMP DATA---------");

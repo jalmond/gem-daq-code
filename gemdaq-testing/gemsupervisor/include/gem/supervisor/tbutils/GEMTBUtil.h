@@ -182,7 +182,7 @@ namespace gem {
 	    throw (xgi::exception::Exception);
 
 	  //link data parker and scan routines
-	  void dumpRoutinesData( uint8_t const& mask, uint8_t latency, uint8_t VT1, uint8_t VT2 );
+	  void dumpRoutinesData( uint8_t const& mask, uint8_t latency, uint8_t VT1, uint8_t VT2 , bool isLatencyScan=true);
 
 	  void ScanRoutines(uint8_t latency, uint8_t VT1, uint8_t VT2);
 
@@ -293,7 +293,7 @@ namespace gem {
 	  //xdata::Bag<ConfigParams> m_scanParams;
 	  uint64_t m_eventsSeen, m_channelSeen;
 	  uint64_t m_triggerSource;
-	  uint8_t  m_currentLatency, m_deviceVT1, m_deviceVT2;
+	  uint8_t  m_currentLatency, m_deviceVT1, m_deviceVT2,m_currentVCal;
 	  uint32_t m_counter[5]; 
 
 	protected:

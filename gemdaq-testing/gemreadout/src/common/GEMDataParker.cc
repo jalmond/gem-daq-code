@@ -56,6 +56,7 @@ gem::readout::GEMDataParker::GEMDataParker(gem::hw::glib::HwGLIB& glibDevice,
                                            std::string const& slotFileName="slot_table_904_2.csv") :
   m_ESexp(-1),
   m_isFirst(true),
+  m_isLatencyScan(true),
   m_contvfats(0),
   m_gemLogger(log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("gem:readout:GEMDataParker"))),
   m_queueLock(toolbox::BSem::FULL, true)
@@ -638,15 +639,23 @@ void gem::readout::GEMDataParker::readVFATblock(std::queue<uint32_t>& dataque)
 
 
 
-void gem::readout::GEMDataParker::ScanRoutines(uint8_t latency, uint8_t VT1, uint8_t VT2)
+void gem::readout::GEMDataParker::ScanRoutines(uint8_t value, uint8_t VT1, uint8_t VT2, bool islatency)
 {
-
-  m_latency = latency;
+  
+  if(islatency){
+    m_isLatencyScan=true;
+    m_latency = value;
+  }
+  else {
+    m_isLatencyScan=false;
+    m_vcal = value;
+  }
   m_VT1 = VT1;
   m_VT2 = VT2;
-
-  INFO( " Dataparker scan routines Latency = " << (int)m_latency  << " VT1 = " << (int)m_VT1 << " VT2 = " << (int)m_VT2);
-
+  
+  
+  if(islatency) INFO( " Dataparker scan routines Latency = " << (int)m_latency  << " VT1 = " << (int)m_VT1 << " VT2 = " << (int)m_VT2);
+  else  INFO( " Dataparker scan routines VCal = " << (int)m_vcal  << " VT1 = " << (int)m_VT1 << " VT2 = " << (int)m_VT2);
 }
 
      

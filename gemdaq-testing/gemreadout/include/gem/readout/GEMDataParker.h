@@ -79,11 +79,12 @@ namespace gem {
       int queueDepth       () {return m_dataque.size();}
       
 
-      void ScanRoutines(uint8_t latency, uint8_t VT1, uint8_t VT2);
+      void ScanRoutines(uint8_t value, uint8_t VT1, uint8_t VT2, bool islatency=true);
 
       uint64_t Runtype() {
 	uint64_t RunType = BOOST_BINARY( 1 ); // :4
-	return (RunType << 24)|(m_latency << 16)|(m_VT1 << 8)|(m_VT2);
+	if(m_isLatencyScan)return (RunType << 24)|(m_latency << 16)|(m_VT1 << 8)|(m_VT2);
+	return (RunType << 24)|(m_vcal << 16)|(m_VT1 << 8)|(m_VT2);
       }
 
       // SOAP interface, updates the header used for calibration runs
@@ -106,8 +107,9 @@ namespace gem {
       uint16_t b1010, b1100, b1110;
       uint8_t  flags;
 
-      uint8_t m_latency, m_VT1, m_VT2;
-
+      uint8_t m_latency, m_VT1, m_VT2, m_vcal;
+      bool m_isLatencyScan;
+      
       static const int MaxVFATS = 24; // was 32 ???
       static const int MaxERRS  = 4095; // should this also be 24? Or we can accomodate full GLIB FIFO of bad blocks belonging to the same event?
       
