@@ -63,7 +63,7 @@ glib.set("oh_trigger_source", 1)
 if (glib.get("oh_trigger_source") == 1): print Passed
 else:
     print Failed
-    sys.exit()
+    #sys.exit()
 
 testB = True
 

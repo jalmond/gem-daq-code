@@ -3,8 +3,11 @@
  *
  * N. Amapane, G. Cerminara, M. Dalchenko
  */
+#define DEBUG 1
 
 #include <sstream>
+#include <iostream>
+#include <fstream>
 #include <iomanip>
 
 #if !defined(__CINT__) || defined(__MAKECINT__)
@@ -32,7 +35,7 @@
 #include <TFile.h>
 #include "TPaveStats.h"
 #include <math.h>
-
+#include "TBufferJSON.h"
 #include <iostream>
 
 using namespace std;
@@ -327,6 +330,7 @@ void setTitles(TH1 *h, TString xtitle, TString ytitle)
 {
     h->GetXaxis()->SetTitle(xtitle);
     h->GetYaxis()->SetTitle(ytitle);
+    h->GetYaxis()->SetTitleOffset(1.5);
 }
 
 void setTitles(TH1 *h, TString xtitle, TString ytitle, TString ztitle)
@@ -338,22 +342,30 @@ void setTitles(TH1 *h, TString xtitle, TString ytitle, TString ztitle)
 
 // Print all histograms in separate files
 // Type = "png", "eps", etc.
-void printHistograms(TDirectory* dir, TString type, TString prefix="")
+void printHistograms(TDirectory* dir, TString type, TString prefix="", bool createJSON=false)
 {
   dir->cd();
   TIter next(gDirectory->GetListOfKeys());
   TKey *key;
   while ((key = (TKey*)next())) 
   {
-      TClass *cl = gROOT->GetClass(key->GetClassName());
-      if (!cl->InheritsFrom("TH1")) continue;
-      TH1 *h = (TH1*)key->ReadObj();
-      TCanvas *c = newCanvas();
-      h->Draw("colz");
-      TString name =  h->GetTitle();
-      if (prefix!="") gROOT->ProcessLine(".!mkdir -p ./"+prefix);
-      c->Print(prefix+name+"."+type,type);
-      delete c;
+    TClass *cl = gROOT->GetClass(key->GetClassName());
+    if (!cl->InheritsFrom("TH1")) continue;
+    TH1 *h = (TH1*)key->ReadObj();
+    TCanvas *c = newCanvas();
+    h->Draw("colz");
+    TString name =  h->GetTitle();
+    //if (prefix!="") gROOT->ProcessLine(".!mkdir -p "+prefix); // don't print images for the moment
+    c->Print(prefix+name+"."+type,type);
+    delete c;
+    if (createJSON) {
+      ofstream jsonfile;
+      //jsonfile.open("/tmp/"+name+".json");
+      jsonfile.open(prefix+name+".json");
+      TString json = TBufferJSON::ConvertToJSON(h);
+      jsonfile << json;
+      jsonfile.close();
+    }
   }
 }
 void retrieveHistograms(TDirectory* dir, vector<TH1*>& v)
@@ -631,4 +643,99 @@ void layerAll(vector<vector<TH1*>> hs, vector<TString> inames)
 	layc->Divide(c_side,c_side);
     layc->SetName("AllHistogramsLayered");
     layerSpecific(hs, names, inames, layc);
+}
+
+
+void gtprint(TH1 *h, TString name, TString opath)
+{
+  
+  TCanvas *cv = newCanvas(name);			
+  cv->cd(1);
+  int max=h->GetBinContent(h->GetMaximumBin());
+  h->SetMaximum(max);
+  h->SetMinimum(0);
+
+  //Focus on Valid ChipIDs
+  if (strcmp(h->GetName(),"ChipID")==0)
+    h->GetXaxis()->SetRangeUser(3700,3800);
+
+  //Set color/style
+  h->SetMarkerColor(kBlue+3);
+  h->SetMarkerStyle(1);
+  h->SetFillStyle(1001);
+  h->SetFillColor(kBlue+3);
+  h->SetLineColor(kBlue+3);
+
+  gStyle->SetOptStat(111111);
+
+  h->Draw();
+
+  //Add Legend
+  TLegend* leg = new TLegend(0.78,0.4,0.98,0.45);
+  leg->AddEntry(h,name,"l");
+  leg->Draw();
+
+  gROOT->ProcessLine(".!mkdir -p "+opath+"/");
+
+  cv->Print(opath+name+".jpg","jpg");
+  cv->Print(opath+name+".png","png");
+  //cv->Print(opath+name+".pdf","pdf");
+
+  //Create JSON file
+  ofstream jsonfile;
+  jsonfile.open(opath+name+".json");
+  TString json = TBufferJSON::ConvertToJSON(h);
+  jsonfile << json;
+  jsonfile.close();
+
+}
+
+void gemTreePrint(TDirectory *source, TString outPath, bool first)
+{
+
+  //Create equivalent output directory via newPath (ignore initial .root directory)
+  TString newPath;
+  if(!first){
+    newPath = outPath + source->GetName() + "/";      
+    if(DEBUG) std::cout<<"[gemTreePrint]"<< "newPath: " << newPath << std::endl;
+    gROOT->ProcessLine(".!mkdir -p "+newPath);
+  }
+  else  newPath = outPath;
+
+  //Retrieve histograms from current directory
+  vector<TH1*> hs;
+  retrieveHistograms(source, hs);
+  int numH = hs.size();
+  if(DEBUG) std::cout<<"[gemTreePrint]"<< "In directory: " << source->GetName() << std::endl;
+  if(DEBUG) std::cout<<"[gemTreePrint]"<< "Number of histrograms retrieved: " << numH << std::endl;
+
+  //Check for directories, print histograms
+  TList* keylist = new TList;
+  keylist = source->GetListOfKeys();
+  TIter nextkey(keylist);
+  TKey *key = new TKey;
+  int key_c = 1; //counter
+  while (key = (TKey*)nextkey())
+    {
+      if(DEBUG) std::cout<< std::endl;
+      if(DEBUG) std::cout<<"[gemTreePrint]"<< "Key: " << key_c << std::endl;
+      if(DEBUG) std::cout<<"[gemTreePrint]"<< "Key Name: " << key->GetName() << std::endl;
+      if(DEBUG) std::cout<<"[gemTreePrint]"<< "Key Class: " << key->GetClassName() << std::endl;
+      key_c++;
+      TClass *cl = gROOT->GetClass(key->GetClassName());
+      
+      //Recursively loop through directories
+      if (cl->InheritsFrom(TDirectory::Class())) {
+         source->cd(key->GetName());
+         TDirectory *subdir = gDirectory;
+	 gemTreePrint(subdir, newPath, false);
+      }
+      //Print if key is a histogram
+      if (cl->InheritsFrom("TH1")) {
+	if(DEBUG) std::cout<<"[gemTreePrint]"<< "Printing... " << std::endl;
+	TH1 *h = (TH1*)key->ReadObj();
+	gtprint(h,key->GetName(),newPath);
+      }
+    }
+  return;
 }

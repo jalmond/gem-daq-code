@@ -97,47 +97,11 @@ Event::~Event()
 }
 
 //______________________________________________________________________________
-void Event::Build(const uint8_t &AmcNo_, 
-    const uint8_t &b0000_,
-    const uint32_t &LV1ID_, 
-    const uint32_t &BXID_, 
-    const uint32_t &DataLgth_, 
-    const uint16_t &OrN_, 
-    const uint16_t &BoardID_, 
-    const uint32_t &DAVList_, 
-    const uint32_t &BufStat_, 
-    const uint8_t &DAVCount_, 
-    const uint8_t &FormatVer_, 
-    const uint8_t &MP7BordStat_, 
-    const uint32_t &EventStat_, 
-    const uint32_t &GEBerrFlag_, 
-    const uint32_t &crc_, 
-    const uint8_t &LV1IDT_, 
-    const uint8_t &b0000T_, 
-    const uint32_t &DataLgthT_,
-    bool isEventGood_)
+void Event::Build(bool isEventGood_)
 {
     //Save current Object count
     Int_t ObjectNumber = TProcessID::GetObjectCount();
     Clear();
-    fAmcNo = AmcNo_;
-    fb0000 = b0000_;
-    fLV1ID = LV1ID_;
-    fBXID = BXID_;
-    fDataLgth = DataLgth_;
-    fOrN = OrN_;
-    fBoardID = BoardID_;
-    fDAVList = DAVList_;
-    fBufStat = BufStat_;
-    fDAVCount = DAVCount_;
-    fFormatVer = FormatVer_;
-    fMP7BordStat = MP7BordStat_;
-    fEventStat = EventStat_;
-    fGEBerrFlag = GEBerrFlag_;
-    fcrc = crc_;
-    fLV1IDT = LV1IDT_;
-    fb0000T = b0000T_;
-    fDataLgthT = DataLgthT_;
     fisEventGood = isEventGood_;
 
     //Restore Object count 
@@ -156,24 +120,6 @@ void Event::SetHeader(Int_t i, Int_t run, Int_t date)
 //______________________________________________________________________________
 void Event::Clear()
 {
-    fAmcNo = 0;
-    fb0000 = 0;
-    fLV1ID = 0;
-    fBXID = 0;
-    fDataLgth = 0;
-    fOrN = 0;
-    fBoardID = 0;
-    fDAVList = 0;
-    fBufStat = 0;
-    fDAVCount = 0;
-    fFormatVer = 0;
-    fMP7BordStat = 0;
-    fgebs.clear();
-    fEventStat = 0;
-    fGEBerrFlag = 0;
-    fcrc = 0;
-    fLV1IDT = 0;
-    fb0000T = 0;
-    fDataLgthT = 0;
+    famc13s.clear();
     fisEventGood = false;
 }

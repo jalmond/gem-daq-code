@@ -53,7 +53,7 @@ gem::readout::GEMDataParker::GEMDataParker(gem::hw::glib::HwGLIB& glibDevice,
                                            std::string const& outFileName,
                                            std::string const& errFileName,
                                            std::string const& outputType,
-                                           std::string const& slotFileName="slot_table_904_2.csv") :
+                                           std::string const& slotFileName="slot_table.csv") :
   m_ESexp(-1),
   m_isFirst(true),
   m_isLatencyScan(true),
@@ -345,7 +345,7 @@ void gem::readout::GEMDataParker::GEMevSelector(const  uint32_t& ES)
       if ( gem::readout::GEMDataParker::VFATfillData( islot, geb) ) {
         if ( vfats.size() == nChip ) {
  
-          gem::readout::GEMDataParker::GEMfillHeaders(m_event, nChip, gem, geb);
+          gem::readout::GEMDataParker::GEMfillHeaders(m_event, 1, gem, geb);
           gem::readout::GEMDataParker::GEMfillTrailers(gem, geb);
           // GEM Event Writing
           DEBUG(" ::GEMEventMaker writing...  geb.vfats.size " << int(geb.vfats.size()) );
@@ -416,9 +416,9 @@ bool gem::readout::GEMDataParker::VFATfillData(int const& islot, AMCGEBData&  ge
 {
   // Chamber Header, Zero Suppression flags, Chamber ID
   uint64_t ZSFlag  = 0x0;                    // :24
-  uint64_t ChamID  = 0xdea;                  // :12
-  uint64_t sumVFAT = int(geb.vfats.size());  // :28
-  geb.header  = (ZSFlag << 40)|(ChamID << 28)|(sumVFAT);
+  uint64_t ChamID  = 0xffffffffffffffff & (0b00011111);                  // :5
+  uint64_t sumVFAT = int(3*int(geb.vfats.size()));  // :11
+  geb.header  = (ZSFlag << 40)|(ChamID << 35)|(sumVFAT << 23);
   ZSFlag =  (0xffffff0000000000 & geb.header) >> 40; 
   ChamID =  (0x000000fff0000000 & geb.header) >> 28; 
   sumVFAT=  (0x000000000fffffff & geb.header);    
@@ -458,7 +458,7 @@ void gem::readout::GEMDataParker::writeGEMevent(std::string  outFile, bool const
     GEMDataAMCformat::writeGEBrunhed (outFile, m_event, geb);
   } else {
     GEMDataAMCformat::writeGEBheaderBinary (outFile, m_event, geb);
-    GEMDataAMCformat::writeGEBrunhedBinary (outFile, m_event, geb);
+    //GEMDataAMCformat::writeGEBrunhedBinary (outFile, m_event, geb);
   } // GEMDataAMCformat::printGEBheader (m_event, geb);
   //  GEB PayLoad Data
   int nChip=0;
@@ -487,7 +487,7 @@ void gem::readout::GEMDataParker::writeGEMevent(std::string  outFile, bool const
   } 
 }
 
-void gem::readout::GEMDataParker::GEMfillHeaders(uint32_t const& event, uint32_t const& BX,
+void gem::readout::GEMDataParker::GEMfillHeaders(uint32_t const& event, uint32_t const& DAVCount_,
                                                  AMCGEMData& gem, AMCGEBData& geb)
 {
 
@@ -513,8 +513,12 @@ void gem::readout::GEMDataParker::GEMfillHeaders(uint32_t const& event, uint32_t
   uint64_t User        = BOOST_BINARY( 1 );    // :32
   uint64_t OrN         = BOOST_BINARY( 1 );    // :16
   uint64_t BoardID     = BOOST_BINARY( 1 );    // :16
+  uint64_t FormatVersion = 0x0;
+  uint64_t runType = 0x1;
+  uint64_t temp = 0x00000000000000ff;
 
-  gem.header2 = (User << 32)|(OrN << 16)|(BoardID);
+  //gem.header2 = (User << 32)|(OrN << 16)|(BoardID);
+  gem.header2 = (FormatVersion << 60) | (runType << 56) | ((temp & m_latency) << 48) | ((temp & m_VT1) << 40) | ((temp & m_VT2) << 32) |(OrN << 16)|(BoardID);
 
   User     =  (0xffffffff00000000 & gem.header2) >> 32; 
   OrN      =  (0x00000000ffff0000 & gem.header2) >> 16;
@@ -523,17 +527,22 @@ void gem::readout::GEMDataParker::GEMfillHeaders(uint32_t const& event, uint32_t
   // GEM Event Headers [3]
   uint64_t DAVList     = BOOST_BINARY( 1 );    // :24
   uint64_t BufStat     = BOOST_BINARY( 1 );    // :24
-  uint64_t DAVCount    = BOOST_BINARY( 1 );    // :5
+  //uint64_t DAVCount    = BOOST_BINARY( 1 );    // :5
+  uint64_t DAVCount    = 0x00000000ffffffff & DAVCount_;
   uint64_t FormatVer   = BOOST_BINARY( 1 );    // :3
   uint64_t MP7BordStat = BOOST_BINARY( 1 );    // :8
 
-  gem.header3 = (BufStat << 40)|(DAVCount << 16)|(DAVCount << 11)|(FormatVer << 8)|(MP7BordStat);
+  gem.header3 = (BufStat << 40)|(DAVList << 16)|(DAVCount << 11)|(FormatVer << 8)|(MP7BordStat);
+  DEBUG("GEM HEADER 3 " << std::hex << gem.header3 << "\n");
 
   DAVList     = (0xffffff0000000000 & gem.header3) >> 40; 
   BufStat     = (0x000000ffffff0000 & gem.header3) >> 16;
-  DAVCount    = (0x000000000000ff00 & gem.header3) >> 11;
+  uint16_t DAVCount_check;
+  DAVCount_check= 0b0000000000011111 & (gem.header3 >> 11);
   FormatVer   = (0x0000000000000f00 & gem.header3) >> 8;
   MP7BordStat = (0x00000000000000ff & gem.header3);
+
+  DEBUG("DAVCount " << std::hex << DAVCount_check << "\n");
 
   // last geb header:
  geb.runhed  = Runtype();

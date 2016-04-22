@@ -7,7 +7,7 @@
     <xc:Application class="gem::hw::glib::GLIBManager" id="30" instance="3" network="local">
       <properties xmlns="urn:xdaq-application:gem::hw::glib::GLIBManager"
 		  xsi:type="soapenc:Struct">
-	<AMCSlots       xsi:type="xsd:string">1,10</AMCSlots>
+	<AMCSlots       xsi:type="xsd:string">10</AMCSlots>
 	<ConnectionFile xsi:type="xsd:string">connections_ch.xml</ConnectionFile>
 	<AllGLIBsInfo xsi:type="soapenc:Array"  soapenc:arrayType="xsd:ur-type[12]">
           <GLIBInfo   xsi:type="soapenc:Struct" soapenc:position="0"> <!-- position must be slot-1 -->
@@ -90,14 +90,19 @@
         -->
         <amc13ConfigParams xsi:type="soapenc:Struct">
           <ConnectionFile     xsi:type="xsd:string">connections_ch.xml</ConnectionFile>
-          <AMCInputEnableList xsi:type="xsd:string">4,10</AMCInputEnableList>
-          <AMCIgnoreTTSList   xsi:type="xsd:string">1-3,5-9,11,12 </AMCIgnoreTTSList>
+          <AMCInputEnableList xsi:type="xsd:string">10</AMCInputEnableList>
+          <AMCIgnoreTTSList   xsi:type="xsd:string">1,3,5-9 </AMCIgnoreTTSList>
           
           <EnableDAQLink       xsi:type="xsd:boolean">true</EnableDAQLink>
-          <EnableFakeData      xsi:type="xsd:boolean">false</EnableFakeData>
+          <EnableFakeData      xsi:type="xsd:boolean">true</EnableFakeData>
           <MonitorBackPressure xsi:type="xsd:boolean">false</MonitorBackPressure>
-          <EnableLocalTTC      xsi:type="xsd:boolean">false</EnableLocalTTC>
-          <EnableLocalL1A      xsi:type="xsd:boolean">false</EnableLocalL1A>
+          <EnableLocalTTC      xsi:type="xsd:boolean">true</EnableLocalTTC>
+          <EnableLocalL1A      xsi:type="xsd:boolean">true</EnableLocalL1A>
+          
+          <InternalPeriodicPeriod      xsi:type="xsd:unsignedInt">10</InternalPeriodicPeriod>
+          <L1Aburst            xsi:type="xsd:unsignedInt">1</L1Aburst>
+          <L1Amode             xsi:type="xsd:integer">0</L1Amode>
+          <L1Arules            xsi:type="xsd:integer">0</L1Arules>
           
           <PrescaleFactor xsi:type="xsd:integer">1</PrescaleFactor>
           <BCOffset       xsi:type="xsd:integer">1</BCOffset>
@@ -105,7 +110,7 @@
           <FEDID    xsi:type="xsd:unsignedInt">1</FEDID>
           <SFPMask  xsi:type="xsd:unsignedInt">1</SFPMask>
           <SlotMask xsi:type="xsd:unsignedInt">1</SlotMask>
-          
+
           <LocalL1AMask xsi:type="xsd:unsignedLong">1</LocalL1AMask>
         </amc13ConfigParams>
       </properties>

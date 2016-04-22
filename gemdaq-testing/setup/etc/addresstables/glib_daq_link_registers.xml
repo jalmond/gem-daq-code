@@ -27,21 +27,30 @@
     <node id="EVENT_FIFO_IS_EMPTY"    mask="0x80000000"/>
   </node>
 
+  <node id="DAV_TIMEOUT" permission="rw" address="0x3">
+  </node>
+
+  <node id="DAV_STATS" permission="r">
+  <node id="MAX_DAV_TIMER" address="0x7"/>
+      <node id="LAST_DAV_TIMER" address="0x8"/>
+  </node>
+
   <node id="COUNTERS"  permission="r">
     <node id="CORRUPT_VFAT_BLK_CNT"  address="0x1"/>
     <node id="EVN"                   address="0x2"/>
   </node>
 
+  <!--
   <node id="LASTBLOCK"  address="0x9" permission="r"  mode="incremental"  size="7"
+  -->
+  <node id="LASTBLOCK"  address="0x9" permission="r"  
         description="contains the last 192+32 bits received from the VFAT and OH, probably better to implement as a block">
-    <!--
-    <node id=""  address="0x0"/>
-    <node id=""  address="0x1"/>
-    <node id=""  address="0x2"/>
-    <node id=""  address="0x3"/>
-    <node id=""  address="0x4"/>
-    <node id=""  address="0x5"/>
-    <node id=""  address="0x6"/>
-    -->
+    <node id="0"  address="0x0"/>
+    <node id="1"  address="0x1"/>
+    <node id="2"  address="0x2"/>
+    <node id="3"  address="0x3"/>
+    <node id="4"  address="0x4"/>
+    <node id="5"  address="0x5"/>
+    <node id="6"  address="0x6"/>
   </node>
 </node>

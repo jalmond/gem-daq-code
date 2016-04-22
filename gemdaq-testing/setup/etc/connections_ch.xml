@@ -16,6 +16,12 @@
   <connection id="gem.shelf01.amc13.T2" uri="chtcp-2.0://localhost:10203?target=192.168.2.171:50001"
 	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T2.xml" />
 
+  <connection id="gem.tamu.amc13.T1" uri="chtcp-2.0://localhost:10203?target=192.168.1.88:50001"
+	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T1.xml" />
+  <connection id="gem.tamu.amc13.T2" uri="chtcp-2.0://localhost:10203?target=192.168.1.89:50001"
+	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T2.xml" />
+
+
   <connection id="gem.shelf01.glib01" uri="chtcp-2.0://localhost:10203?target=192.168.0.161:50001"
 	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
   <connection id="gem.shelf01.glib02" uri="chtcp-2.0://localhost:10203?target=192.168.0.162:50001"

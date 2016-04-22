@@ -2,21 +2,27 @@
 
 <connections>
   <!-- AMC13 connections -->
-  <connection id="gem.amc13-sn7.T1" uri="chtcp-2.0://localhost:10203?target=192.168.1.240:50001"
-	      address_table="file://AMC13XG_T1.xml" />
-  <connection id="gem.amc13-sn7.T2" uri="chtcp-2.0://localhost:10203?target=192.168.1.241:50001"
-	      address_table="file://AMC13XG_T2.xml" />
-
-  <connection id="gem.amc13-sn170.T1" uri="chtcp-2.0://localhost:10203?target=192.168.2.170:50001"
-	      address_table="file://AMC13XG_T1.xml" />
-  <connection id="gem.amc13-sn170.T2" uri="chtcp-2.0://localhost:10203?target=192.168.2.171:50001"
-	      address_table="file://AMC13XG_T2.xml" />
-
-  <connection id="gem.shelf01.amc13.T1" uri="chtcp-2.0://localhost:10203?target=192.168.2.170:50001"
-	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T1.xml" />
-
-  <connection id="gem.shelf01.amc13.T2" uri="chtcp-2.0://localhost:10203?target=192.168.2.171:50001"
-	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T2.xml" />
+    <!-- Without any MMC changes, T1 IP address should be one higher in the last octet than the T2
+       This scheme acts as the "backup" plan, using the jumper connections on T2 to assign IP addresses to both tongues
+       The address is 192.168.z.x
+       Final Byte for Spartan Chip (T2) = 254 - 2*SN[6:0]
+       Final Byte for Virtex/Kintex Chip (T1) = 255 - 2*SN[6:0].
+       z is 1 for SN 0-127 and 2 for SN 128-255 and 3 for SN 256-383.
+    -->
+  <connection id="gem.amc13-sn7.T1" uri="chtcp-2.0://localhost:10203?target=192.168.1.241:50001"
+              address_table="file://AMC13XG_T1.xml" />
+  <connection id="gem.amc13-sn7.T2" uri="chtcp-2.0://localhost:10203?target=192.168.1.240:50001"
+              address_table="file://AMC13XG_T2.xml" />
+  
+  <connection id="gem.amc13-sn170.T1" uri="chtcp-2.0://localhost:10203?target=192.168.2.171:50001"
+              address_table="file://AMC13XG_T1.xml" />
+  <connection id="gem.amc13-sn170.T2" uri="chtcp-2.0://localhost:10203?target=192.168.2.170:50001"
+              address_table="file://AMC13XG_T2.xml" />
+  
+  <connection id="gem.shelf01.amc13.T1" uri="chtcp-2.0://localhost:10203?target=192.168.2.171:50001"
+              address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T1.xml" />
+  <connection id="gem.shelf01.amc13.T2" uri="chtcp-2.0://localhost:10203?target=192.168.2.170:50001"
+              address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T2.xml" />
 
   <connection id="gem.shelf01.glib01" uri="chtcp-2.0://localhost:10203?target=192.168.0.161:50001"
 	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
@@ -49,8 +55,8 @@
 	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
   <connection id="gem.shelf01.glib04.optohybrid01" uri="chtcp-2.0://localhost:10203?target=192.168.0.164:50001"
 	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
-
-  <connection id="gem.shelf01.glib05" uri="chtcp-2.0://localhost:10205?target=192.168.0.165:50001"
+  <!-- next line-->
+  <connection id="gem.shelf01.glib05" uri="chtcp-2.0://localhost:10203?target=192.168.0.165:50001"
 	      address_table="file://${GEM_ADDRESS_TABLE_PATH}/glib_address_table.xml" />
   <!-- now address tables have to be aware of  which optohybrid is where, link related, so should be programmable-->
   <connection id="gem.shelf01.glib05.optohybrid00" uri="chtcp-2.0://localhost:10203?target=192.168.0.165:50001"

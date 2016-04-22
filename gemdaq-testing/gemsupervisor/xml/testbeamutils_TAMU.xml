@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<xc:Partition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
+
+<xc:Context url="http://cms-elli.physics.tamu.edu:4004">
+    <xc:Application class="gem::supervisor::tbutils::ThresholdScan" id="254" instance="0" network="local">
+      <properties xmlns="urn:xdaq-application:ThresholdScan" xsi:type="soapenc:Struct">
+	<ipAddr xsi:type="xsd:string">192.168.0.170</ipAddr>
+      </properties>
+    </xc:Application>
+
+<!--
+    <xc:Application class="gem::supervisor::tbutils::ADCScan" id="255" instance="0" network="local">
+      <properties xmlns="urn:xdaq-application:ADCScan" xsi:type="soapenc:Struct">
+	<ipAddr xsi:type="xsd:string">137.138.115.185</ipAddr>
+      </properties>
+    </xc:Application>
+-->
+
+    <xc:Application class="gem::supervisor::tbutils::LatencyScan" id="256" instance="0" network="local">
+      <properties xmlns="urn:xdaq-application:LatencyScan" xsi:type="soapenc:Struct">
+	<ipAddr xsi:type="xsd:string">192.168.0.170</ipAddr>
+	  <confParams xsi:type="soapenc:Struct">
+	    <slotFileName xsi:type="xsd:string">slot_table.csv</slotFileName>
+	  </confParams>
+      </properties>
+    </xc:Application>
+
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gembase/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_base.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemutils/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_utils.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemhardware/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_hw.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemreadout/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_readout.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemsupervisor/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_supervisor.so</xc:Module>
+
+  </xc:Context>
+</xc:Partition>
