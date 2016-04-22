@@ -1017,17 +1017,12 @@ void gem::supervisor::tbutils::GEMTBUtil::webInitialize(xgi::Input *in, xgi::Out
     }
 
     /// set option for all channels
-    /// current just 1 option. Not to specify channel
     /// 
-
+    
     for(int i = 0; i < 2; ++i) {
       std::stringstream channel;
-      if(i==0){
-	channel << "All";
-      }
-      else{
-	channel << "Channels_0_1_32";
-      }
+      if(i==0)channel << "All";
+      else channel << "Channels_0_1_32";
       
       std::stringstream form;
       form << "Channel"<< i;
@@ -1044,10 +1039,7 @@ void gem::supervisor::tbutils::GEMTBUtil::webInitialize(xgi::Input *in, xgi::Out
       }
     }
     
-    for(int i = 0; i < 2; ++i) {
-      INFO( "Web_channelName = " << m_confParams.bag.channelName[i].toString());
-    }
-
+    //// Loop over connected VFATs
     for(int j = 0; j < m_confParams.bag.n_connectedVFATs; ++j) {    
       int i = m_confParams.bag.connectedVFATs.at(j);
       std::stringstream currentChipID;
@@ -1625,12 +1617,12 @@ void gem::supervisor::tbutils::GEMTBUtil::selectMultipleChannels(xgi::Output *ou
       *out << "<span class=\"label label-primary\">" << currentChannel.str()  << "</span>" << std::endl;
 
       if(isDisabled){
-	channeselection.set("type","checkbox").set("name", form.str() ).set("disabled","disabled");
+	channeselection.set("type","checkbox").set("name",form.str()).set("disabled","disabled");
       }else{
-	channeselection.set("type","checkbox").set("name", form.str() );
+	channeselection.set("type","checkbox").set("name",form.str());
       }
       
-      *out << ((m_confParams.bag.channelName[0].toString().compare(currentChannel.str())) == 0 ?
+      *out << ((m_confParams.bag.channelName[i].toString().compare(currentChannel.str())) == 0 ?
 	       channeselection.set("checked","checked").set("multiple","multiple") :
 	       channeselection.set("value",currentChannel.str())) << std::endl;
       
@@ -1690,7 +1682,16 @@ void gem::supervisor::tbutils::GEMTBUtil::selectMultipleVFAT(xgi::Output *out)
     }
 
     *out << cgicc::table();
+    *out << cgicc::tr() << std::endl;
+    *out << cgicc::td() << std::endl;
+    *out  << "Connected VFATs "  << std::endl;
+    *out << cgicc::td() << std::endl;
+    *out << cgicc::tr() << std::endl;
+
+    
     *out << cgicc::tr();
+
+
     
     int nChips=  m_confParams.bag.n_connectedVFATs;
     

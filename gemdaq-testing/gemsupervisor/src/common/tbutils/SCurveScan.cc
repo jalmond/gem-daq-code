@@ -51,7 +51,7 @@ void gem::supervisor::tbutils::SCurveScan::ConfigParams::registerFields(xdata::B
   minVCal         = 0U;
   maxVCal         = 255U;
   stepSize        = 1U;
-  nTriggers       = 10;
+  nTriggers       = 10U;
   deviceVT1       = 25;
   deviceVT2       = 0;
   MSPulseLength   = 3;

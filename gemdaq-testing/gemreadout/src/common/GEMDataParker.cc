@@ -159,7 +159,7 @@ uint32_t* gem::readout::GEMDataParker::getGLIBData(uint8_t const& gtx, uint32_t 
 
   timer.Start();
   Float_t whileStart = (Float_t)timer.RealTime();
-  DEBUG(" ::getGLIBData Starting while loop readout " << whileStart
+  INFO(" ::getGLIBData Starting while loop readout " << whileStart
        << std::endl << "FIFO VFAT block depth 0x" << std::hex
        << p_glibDevice->getFIFOVFATBlockOccupancy(gtx)
        << std::endl << "FIFO depth 0x" << std::hex
@@ -180,12 +180,13 @@ uint32_t* gem::readout::GEMDataParker::getGLIBData(uint8_t const& gtx, uint32_t 
          << std::endl << "FIFO depth 0x" << std::hex
          << p_glibDevice->getFIFOOccupancy(gtx)
          );
-
+    
     uint32_t contqueue = 0;
+
     for (auto iword = data.begin(); iword != data.end(); ++iword) {
       contqueue++;
       //gem::utils::LockGuard<gem::utils::Lock> guardedLock(m_queueLock);
-      DEBUG(" ::getGLIBData pushing into queue 0x"
+      INFO(" ::getGLIBData pushing into queue 0x"
            << std::setfill('0') << std::setw(8) << std::hex << *iword << std::dec );
       m_dataque.push(*iword);
       if (contqueue%kUPDATE7 == 0 &&  contqueue != 0) {
@@ -251,7 +252,7 @@ uint32_t* gem::readout::GEMDataParker::GEMEventMaker(uint32_t counter[5])
   uint64_t data4  = dat40 | dat41;
 
   m_vfat++;
-
+  
   islot = slotInfo->GEBslotIndex( (uint32_t)chipid);
 
   // GEM Event selector
@@ -291,6 +292,8 @@ uint32_t* gem::readout::GEMDataParker::GEMEventMaker(uint32_t counter[5])
   }
   DEBUG(" ::GEMEventMaker ES 0x" << std::hex << ES << std::dec << " bool " << m_isFirst );
   if (islot < 0 || islot > 23) {
+    INFO("SLOT ERROR " << islot );
+    INFO("CHIPID " <<  (uint32_t)chipid);
     if ( int(erros.size()) <MaxERRS ) erros.push_back(vfat);
     DEBUG(" ::GEMEventMaker warning !!! islot is undefined " << islot << " erros.size " << int(erros.size()) );
   } else {
