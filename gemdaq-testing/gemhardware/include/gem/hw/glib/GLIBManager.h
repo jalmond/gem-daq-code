@@ -34,6 +34,17 @@ namespace gem {
 
           virtual ~GLIBManager();
 	  
+	  //SOAP MESSAGE
+	  virtual xoap::MessageReference callbackinitialize(xoap::MessageReference mns)
+	    throw (xoap::exception::Exception);
+	  virtual xoap::MessageReference callbackconfigure(xoap::MessageReference mns)
+	    throw (xoap::exception::Exception);
+	  virtual xoap::MessageReference callbackstart(xoap::MessageReference mns)
+	    throw (xoap::exception::Exception);
+	  virtual xoap::MessageReference callbackstop(xoap::MessageReference mns)
+	    throw (xoap::exception::Exception);
+	  
+
         protected:
           virtual void init();
 
@@ -55,7 +66,8 @@ namespace gem {
 	
           virtual void resetAction(toolbox::Event::Reference e)
             throw (toolbox::fsm::exception::Exception);
-	
+
+	  bool is_initialized_, is_configured_, is_running_, is_paused_, is_resumed_;	  	
         private:
 	  uint16_t parseAMCEnableList(std::string const&);
 	  bool     isValidSlotNumber( std::string const&);

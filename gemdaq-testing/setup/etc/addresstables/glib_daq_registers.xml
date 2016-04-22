@@ -3,6 +3,7 @@
   <node id="CONTROL"  address="0x0"  permission="rw"
         description="DAQ Control">
     <node id="DAQ_ENABLE"       mask="0x00000001"/>
+    <node id="DAQ_LINK_RESET"   mask="0x00000004"/>
     <node id="RESET"            mask="0x00000008"/>
     <node id="TTS_OVERRIDE"     mask="0x000000f0"/>
     <node id="INPUT_KILL_MASK"  mask="0xffffff00"/>
@@ -35,6 +36,13 @@
     <node id="RUN_PARAM2"     address="0x1"  mask="0x0000ff00"/>
     <node id="RUN_PARAM3"     address="0x1"  mask="0x000000ff"/>
   </node>
+
+  <node id="GTX0_CLUSTER_01"  address="0x9"  mask="0xffffffff"/>
+  <node id="GTX0_CLUSTER_23"  address="0xa"  mask="0xffffffff"/>
+  <node id="GTX1_CLUSTER_01"  address="0xb"  mask="0xffffffff"/>
+  <node id="GTX1_CLUSTER_23"  address="0xc"  mask="0xffffffff"/>
+
+  <node id="SBIT_RATE"  address="0xd"  mask="0xffffffff"/>
 
   <node id="GTX0"  address="0x10"
         module="file://${GEM_ADDRESS_TABLE_PATH}/glib_daq_link_registers.xml"

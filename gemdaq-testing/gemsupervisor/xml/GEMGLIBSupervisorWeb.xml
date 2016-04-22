@@ -3,24 +3,26 @@
 	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
 
-  <xc:Context url="http://gem904daq01:4444">
+  <xc:Context url="http://cms-elli.physics.tamu.edu:4004">
     <xc:Application class="gem::supervisor::GEMGLIBSupervisorWeb" id="254" instance="0" network="local">
       <properties xmlns="urn:xdaq-application:GEMGLIBSupervisorWeb" xsi:type="soapenc:Struct">
 	<confParams xsi:type="soapenc:Struct">
-	  <deviceIP xsi:type="xsd:string">192.168.0.161</deviceIP>
+	  <slotFileName xsi:type="xsd:string">slot_table_TAMUv2.csv</slotFileName>
+	  <deviceIP xsi:type="xsd:string">192.168.0.170</deviceIP>
+	  <ohGTXLink xsi:type="xsd:integer">0</ohGTXLink>
 	  <deviceName xsi:type="soapenc:Array" soapenc:arrayType="xsd:ur-type[24]">
 <!--
 	    <item xsi:type="xsd:string" soapenc:position="[1]">VFAT1</item>
 	    <item xsi:type="xsd:string" soapenc:position="[1]">VFAT1</item>
 	    <item xsi:type="xsd:string" soapenc:position="[2]">VFAT2</item>
--->
 	    <item xsi:type="xsd:string" soapenc:position="[3]">VFAT3</item>
-<!--
 	    <item xsi:type="xsd:string" soapenc:position="[4]">VFAT4</item>
 	    <item xsi:type="xsd:string" soapenc:position="[5]">VFAT5</item>
+-->
 	    <item xsi:type="xsd:string" soapenc:position="[6]">VFAT6</item>
+<!--
 	    <item xsi:type="xsd:string" soapenc:position="[7]">VFAT7</item>
-            <item xsi:type="xsd:string" soapenc:position="[8]">VFAT8</item>
+      <item xsi:type="xsd:string" soapenc:position="[8]">VFAT8</item>
 	    <item xsi:type="xsd:string" soapenc:position="[9]">VFAT9</item>
 	    <item xsi:type="xsd:string" soapenc:position="[10]">VFAT10</item>
 	    <item xsi:type="xsd:string" soapenc:position="[11]">VFAT11</item>

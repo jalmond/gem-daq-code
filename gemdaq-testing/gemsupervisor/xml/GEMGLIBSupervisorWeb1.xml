@@ -1,0 +1,54 @@
+<?xml version='1.0'?>
+<xc:Partition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	      xmlns:xc="http://xdaq.web.cern.ch/xdaq/xsd/2004/XMLConfiguration-30">
+
+  <xc:Context url="http://cms-elli.physics.tamu.edu:4004">
+    <xc:Application class="gem::supervisor::GEMGLIBSupervisorWeb" id="254" instance="0" network="local">
+      <properties xmlns="urn:xdaq-application:GEMGLIBSupervisorWeb" xsi:type="soapenc:Struct">
+	<confParams xsi:type="soapenc:Struct">
+	  <deviceIP xsi:type="xsd:string">192.168.0.175</deviceIP>
+	  <deviceName xsi:type="soapenc:Array" soapenc:arrayType="xsd:ur-type[24]">
+<!--
+	    <item xsi:type="xsd:string" soapenc:position="[1]">VFAT1</item>
+	    <item xsi:type="xsd:string" soapenc:position="[1]">VFAT1</item>
+	    <item xsi:type="xsd:string" soapenc:position="[2]">VFAT2</item>
+	    <item xsi:type="xsd:string" soapenc:position="[3]">VFAT3</item>
+	    <item xsi:type="xsd:string" soapenc:position="[4]">VFAT4</item>
+	    <item xsi:type="xsd:string" soapenc:position="[5]">VFAT5</item>
+	    <item xsi:type="xsd:string" soapenc:position="[6]">VFAT6</item>
+	    <item xsi:type="xsd:string" soapenc:position="[7]">VFAT7</item>
+            <item xsi:type="xsd:string" soapenc:position="[8]">VFAT8</item>
+	    <item xsi:type="xsd:string" soapenc:position="[9]">VFAT9</item>
+	    <item xsi:type="xsd:string" soapenc:position="[10]">VFAT10</item>
+	    <item xsi:type="xsd:string" soapenc:position="[11]">VFAT11</item>
+	    <item xsi:type="xsd:string" soapenc:position="[12]">VFAT12</item>
+	    <item xsi:type="xsd:string" soapenc:position="[13]">VFAT13</item>
+	    <item xsi:type="xsd:string" soapenc:position="[14]">VFAT14</item>
+	    <item xsi:type="xsd:string" soapenc:position="[15]">VFAT15</item>
+	    <item xsi:type="xsd:string" soapenc:position="[16]">VFAT16</item>
+	    <item xsi:type="xsd:string" soapenc:position="[17]">VFAT17</item>
+	    <item xsi:type="xsd:string" soapenc:position="[18]">VFAT18</item>
+	    <item xsi:type="xsd:string" soapenc:position="[19]">VFAT19</item>
+	    <item xsi:type="xsd:string" soapenc:position="[20]">VFAT20</item>
+	    <item xsi:type="xsd:string" soapenc:position="[21]">VFAT21</item>
+	    <item xsi:type="xsd:string" soapenc:position="[22]">VFAT22</item>
+-->
+	    <item xsi:type="xsd:string" soapenc:position="[22]">VFAT22</item>
+	  </deviceName>
+	  <!--deviceNum xsi:type="xsd:string">192.168.0.162</deviceNum-->
+	  <latency xsi:type="xsd:unsignedShort">25</latency>
+	  <triggerSource xsi:type="xsd:unsignedShort">0</triggerSource>
+	  <deviceChipID xsi:type="xsd:unsignedShort">1</deviceChipID>
+	  <deviceVT1 xsi:type="xsd:unsignedShort">50</deviceVT1>
+	  <deviceVT2 xsi:type="xsd:unsignedShort">0</deviceVT2>
+	</confParams>
+      </properties>
+    </xc:Application>
+
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemhardware/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_hw.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemreadout/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_readout.so</xc:Module>
+    <xc:Module>${BUILD_HOME}/gemdaq-testing/gemsupervisor/lib/${XDAQ_OS}/${XDAQ_PLATFORM}/libgem_supervisor.so</xc:Module>
+
+  </xc:Context>
+</xc:Partition>

@@ -4,6 +4,7 @@
 !*/
 # Don't ignore source files, etc
 !*.cc
+!*.cxx
 !*.h
 !*.gitignore
 !*.py

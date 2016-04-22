@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<connections>
+  <connection id="gem.tamu.amc13.T1" uri="chtcp-2.0://localhost:10203?target=192.168.1.88:50001"
+	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T1.xml" />
+  <connection id="gem.tamu.amc13.T2" uri="chtcp-2.0://localhost:10203?target=192.168.1.89:50001"
+	      address_table="file://${AMC13_ADDRESS_TABLE_PATH}/AMC13XG_T2.xml" />
+</connections>

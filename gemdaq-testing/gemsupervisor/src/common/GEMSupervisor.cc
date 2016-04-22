@@ -63,7 +63,7 @@ bool gem::supervisor::GEMSupervisor::isGEMApplication(const std::string& classna
   if (classname.find("gem") != std::string::npos)
     return true; // handle all HCAL applications
   /*
-  if (m_otherClassesToSupport.count(classname) != 0)
+    if (m_otherClassesToSupport.count(classname) != 0)
     return true; // include from list
   */
   return false;
@@ -74,7 +74,7 @@ bool gem::supervisor::GEMSupervisor::manageApplication(const std::string& classn
   if (classname == "GEMSupervisor")
     return false; // ignore ourself
   /*
-  if (m_otherClassesToSupport.count(classname) != 0)
+    if (m_otherClassesToSupport.count(classname) != 0)
     return true; // include from list
   */
   if (classname.find("gem") != std::string::npos)
@@ -82,11 +82,11 @@ bool gem::supervisor::GEMSupervisor::manageApplication(const std::string& classn
   if (classname.find("PeerTransport") != std::string::npos)
     return false; // ignore all peer transports
   /*
-  if ((classname == "TTCciControl" || classname == "ttc::TTCciControl") && m_handleTTCci.value_)
+    if ((classname == "TTCciControl" || classname == "ttc::TTCciControl") && m_handleTTCci.value_)
     return true;
-  if ((classname == "LTCControl" || classname == "ttc::LTCControl") && m_handleTTCci.value_)
+    if ((classname == "LTCControl" || classname == "ttc::LTCControl") && m_handleTTCci.value_)
     return true;
-  if (classname.find("tcds") != std::string::npos && m_handleTCDS.value_)
+    if (classname.find("tcds") != std::string::npos && m_handleTCDS.value_)
     return true;
   */
   return false; // assume not ok.
@@ -203,7 +203,7 @@ void gem::supervisor::GEMSupervisor::stopAction()
 void gem::supervisor::GEMSupervisor::haltAction()
   throw (gem::supervisor::exception::Exception)
 {
-   for (auto i = v_supervisedApps.begin(); i != v_supervisedApps.end(); ++i) {
+  for (auto i = v_supervisedApps.begin(); i != v_supervisedApps.end(); ++i) {
     INFO(std::string("Halting ")+(*i)->getClassName());
     gem::utils::soap::GEMSOAPToolBox::sendCommand("Halt",p_appContext,p_appDescriptor,*i);
   }
@@ -233,5 +233,3 @@ void gem::supervisor::GEMSupervisor::failAction(toolbox::Event::Reference e)
 void gem::supervisor::GEMSupervisor::resetAction(toolbox::Event::Reference e)
   throw (toolbox::fsm::exception::Exception) {
 }
-
-//  LocalWords:  oid

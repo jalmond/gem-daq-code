@@ -8,5 +8,7 @@
 #pragma link C++ class Event+;
 #pragma link C++ class VFATdata+;
 #pragma link C++ class GEBdata+;
+#pragma link C++ class AMCdata+;
+#pragma link C++ class AMC13Event+;
 
 #endif

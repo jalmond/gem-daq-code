@@ -72,7 +72,7 @@ int main(int argc, char** argv)
     TSubString subname = name(loc,len);
     iname = subname;
     
-    //Create date path to hold runs based on time
+    //Create date path to hold prints based on time printer was run
     time_t t = time(NULL);
     tm* timePtr = localtime(&t);
     char oPath [64];
@@ -100,7 +100,7 @@ int main(int argc, char** argv)
     }
   
     int numH = hs.size();
-
+    std::cout << "Number of Histograms located: " << numH << std::endl;
     //Which types will be stored
     vector<TString> types;
     types.push_back("pdf");

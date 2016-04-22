@@ -330,8 +330,13 @@ int main(int argc, char** argv)
           if(!gem::readout::GEMDataAMCformat::readGEMtr1Binary(inpf, gem)) break;
         }
         
-        ev->Build(0,0,0,BX,0,0,0,0,0,0,0,0,0,0,0,0,0,0, eventStatus);
-        ev->addGEBdata(*GEBdata_);
+        AMCdata *AMCdata_ = new AMCdata(0,0,0,BX,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+        AMCdata_->addGEBdata(*GEBdata_);
+        delete GEBdata_;
+
+        ev->Build(eventStatus);
+        ev->addAMCdata(*AMCdata_);
+        delete AMCdata_;
         GEMtree.Fill();
         ev->Clear();
 

@@ -1,0 +1,13 @@
+!.gitignore
+*.pyc
+*.png
+*.json
+*.pdf
+*.jpg
+*.py~
+*.swp~
+*.swp
+*.py.swp
+.*.py.swp
+*.html~
+*.swo

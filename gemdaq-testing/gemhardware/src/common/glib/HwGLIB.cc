@@ -712,7 +712,7 @@ void gem::hw::glib::HwGLIB::flushFIFO(uint8_t const& gtx)
 
 void gem::hw::glib::HwGLIB::enableDAQLink()
 {
-  writeReg(getDeviceBaseNode(),"DAQ.CONTROL.INPUT_KILL_MASK", 0x3);
+  writeReg(getDeviceBaseNode(),"DAQ.CONTROL.INPUT_KILL_MASK", 0x1);/*HACK to be fixed*/
   writeReg(getDeviceBaseNode(),"DAQ.CONTROL.DAQ_ENABLE", 0x1);
 }
 
@@ -720,6 +720,7 @@ void gem::hw::glib::HwGLIB::resetDAQLink()
 {
   writeReg(getDeviceBaseNode(),"DAQ.CONTROL.RESET", 0x1);
   writeReg(getDeviceBaseNode(),"DAQ.CONTROL.RESET", 0x0);
+  writeReg(getDeviceBaseNode(),"DAQ.CONTROL.TTS_OVERRIDE", 0x8);/*HACK to be fixed*/
   writeReg(getDeviceBaseNode(),"DAQ.CONTROL.DAV_TIMEOUT", 0x3d090);
 }
 
