@@ -52,7 +52,7 @@
 	  <BGOChannel xsi:type="xsd:integer">1</BGOChannel>
 	  <BGOcmd    xsi:type="xsd:unsignedInt">0x14</BGOcmd>
 	  <BGObx    xsi:type="xsd:unsignedInt">0x1</BGObx>
-	  <BGOprescale    xsi:type="xsd:unsignedInt">0x1</BGOprescale>
+	  <BGOprescale    xsi:type="xsd:unsignedInt">0x0</BGOprescale>
 	  <BGOrepeat xsi:type="xsd:boolean">true</BGOrepeat>
           
           <PrescaleFactor xsi:type="xsd:integer">1</PrescaleFactor>
